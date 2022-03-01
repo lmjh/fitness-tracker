@@ -20,7 +20,7 @@ mongo = PyMongo(app)
 @app.route("/")
 def home():
     test_user = mongo.db.users.find_one({"username": "tester"})
-    return "Hello, " + test_user["username"]
+    return render_template("base.html", page_title=test_user["username"])
 
 
 if __name__ == "__main__":
