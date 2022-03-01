@@ -19,8 +19,10 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def home():
-    test_user = mongo.db.users.find_one({"username": "tester"})
-    return render_template("base.html", page_title=test_user["username"])
+    """
+    Returns the home page for users who aren't logged in.
+    """
+    return render_template("home.html", page_title="Home")
 
 
 if __name__ == "__main__":
