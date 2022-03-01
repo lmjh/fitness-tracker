@@ -16,7 +16,7 @@
 
 <body>
     <nav>
-        <div class="nav-wrapper">
+        <div class="nav-wrapper z-depth-2">
             <a href="#!" class="brand-logo">Fitness Tracker</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fa-solid fa-bars"></i></a>
             <ul class="right hide-on-med-and-down">
@@ -28,6 +28,16 @@
     <ul class="sidenav" id="mobile-demo">
         {% include 'includes/nav.html' %}
     </ul>
+
+    <section>
+        {% with flash_messages = get_flashed_messages() %}
+            {% for message in flash_messages %}
+                <div class="row flash-messages z-depth-2 red lighten-4">
+                    <div class="center-align">{{ message }}</div>
+                </div>
+            {% endfor %}
+        {% endwith %}
+    </section>
 
     <main class="container">
         {% block content %}

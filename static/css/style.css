@@ -7,3 +7,10 @@
 .margin-top-5 {
     margin-top: 5rem;
 }
+
+/* FLASH MESSAGES */
+
+.flash-messages {
+    line-height: 3;
+    font-weight: bold;
+}
