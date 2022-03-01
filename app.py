@@ -25,6 +25,14 @@ def home():
     return render_template("home.html", page_title="Home")
 
 
+@app.route("/login")
+def login():
+    """
+    Returns the login page.
+    """
+    return render_template("login.html", page_title="Home")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
