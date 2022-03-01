@@ -30,7 +30,15 @@ def login():
     """
     Returns the login page.
     """
-    return render_template("login.html", page_title="Home")
+    return render_template("login.html", page_title="Login")
+
+
+@app.route("/register")
+def register():
+    """
+    Returns the registration page.
+    """
+    return render_template("register.html", page_title="Register")
 
 
 if __name__ == "__main__":
