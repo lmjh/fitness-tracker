@@ -21,16 +21,37 @@ mongo = PyMongo(app)
 @app.route("/")
 def home():
     """
-    Returns the home page for users who aren't logged in.
+    Returns the home page.
     """
     return render_template("home.html", page_title="Home")
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    Returns the login page.
+    GET: Returns the login page.
+    POST: Collects submitted user credentials.
+    If username and passsword are correct, user is logged in and 
+    redirected to the home page.
+    If username and password are incorrect, user is redirected to
+    the login page.
     """
+    if request.method == "POST":
+        username = request.form.get("username").lower()
+        valid_username = mongo.db.users.find_one({"username": username})
+
+        if valid_username:
+            if check_password_hash(valid_username["password"], request.form.get("password")):
+                session["user"] = username
+                flash(f"Welcome, {username}")
+                return redirect(url_for('home'))
+            else:
+                flash(f"Username or password incorrect. Please try again.")
+                return redirect(url_for('login'))
+        else:
+            flash(f"Username or password incorrect. Please try again.")
+            return redirect(url_for('login'))
+
     return render_template("login.html", page_title="Login")
 
 
