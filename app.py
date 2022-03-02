@@ -37,10 +37,15 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    Returns the registration page.
+    GET: Returns the registration page.
+    POST: Collects submitted user data and checks if requested username is 
+    available.
+    If username is taken, user is returned to the registration page.
+    If username is available, a new user record is added to the users database
+    and the user is logged in and redirected to the home page.
     """
     if request.method == "POST":
-        # Assign the submitted username to a variable and check if it exists in the database
+        # Assign submitted username to a variable and check if it exists in the database
         username = request.form.get("username").lower()
         duplicate_user = mongo.db.users.find_one({"username": username})
 
@@ -61,6 +66,17 @@ def register():
         flash(f"Welcome, {session['user']}! Your account has been created.")
         return redirect(url_for('home'))
     return render_template("register.html", page_title="Register")
+
+
+@app.route('/logout')
+def logout():
+    """
+    Removes the user from the session cookie.
+    Returns a redirect to the home page.
+    """
+    session.pop("user")
+    flash("You have been logged out.")
+    return redirect(url_for('home'))
 
 
 if __name__ == "__main__":
