@@ -79,6 +79,41 @@ def register():
             "username": username,
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password")),
+            "routines": [
+                {
+                    "_id": ObjectId(),
+                    "routine_name": "Beginner",
+                    "exercise_one": "Chin-up",
+                    "exercise_one_reps": 1,
+                    "exercise_two": "Push-up",
+                    "exercise_two_reps": 2,
+                    "exercise_three": "Squat",
+                    "exercise_three_reps": 3,
+                    "preset": True
+                },
+                {
+                    "_id": ObjectId(),
+                    "routine_name": "Intermediate 1",
+                    "exercise_one": "Chin-up",
+                    "exercise_one_reps": 2,
+                    "exercise_two": "Push-up",
+                    "exercise_two_reps": 4,
+                    "exercise_three": "Squat",
+                    "exercise_three_reps": 6,
+                    "preset": True
+                },
+                {
+                    "_id": ObjectId(),
+                    "routine_name": "Intermediate 2",
+                    "exercise_one": "Pull-up",
+                    "exercise_one_reps": 2,
+                    "exercise_two": "Close Grip Push-up",
+                    "exercise_two_reps": 4,
+                    "exercise_three": "Lunge",
+                    "exercise_three_reps": 6,
+                    "preset": True
+                }
+            ]
         }
 
         mongo.db.users.insert_one(new_user)
