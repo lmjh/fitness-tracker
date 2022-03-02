@@ -135,6 +135,28 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/workout_log')
+def workout_log():
+    """
+    Finds all workouts logged by the user and returns the workout log page. 
+    """
+    # find all workouts logged by the current user
+    # lookup corresponding routine details using routine_id
+    logs = list(mongo.db.workout_logs.aggregate([
+        {
+            "$match": {"username": session['user']}
+        },
+        {
+            "$lookup": {
+                "from": "routines",
+                "localField": "routine_id",
+                "foreignField": "_id",
+                "as": "routine"
+            }
+        }]))
+    return render_template('workout_log.html', page_title="Workout Log", logs=logs)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
