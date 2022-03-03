@@ -41,16 +41,17 @@ def login():
         valid_username = mongo.db.users.find_one({"username": username})
 
         if valid_username:
-            if check_password_hash(valid_username["password"], request.form.get("password")):
+            if check_password_hash(
+                    valid_username["password"], request.form.get("password")):
                 session["user"] = username
                 flash(f"Welcome, {username}")
                 return redirect(url_for('home'))
-            else:
-                flash(f"Username or password incorrect. Please try again.")
-                return redirect(url_for('login'))
-        else:
-            flash(f"Username or password incorrect. Please try again.")
+
+            flash("Username or password incorrect. Please try again.")
             return redirect(url_for('login'))
+
+        flash("Username or password incorrect. Please try again.")
+        return redirect(url_for('login'))
 
     return render_template("login.html", page_title="Login")
 
@@ -66,11 +67,12 @@ def register():
     and the user is logged in and redirected to the home page.
     """
     if request.method == "POST":
-        # Assign submitted username to a variable and check if it exists in the database
+        # Assign submitted username to a variable and check if it exists in 
+        # the database
         username = request.form.get("username").lower()
         duplicate_user = mongo.db.users.find_one({"username": username})
 
-        # If username already exists, return user to registration page 
+        # If username already exists, return user to registration page
         if duplicate_user:
             flash(f"Username \"{username}\" is unavailable.")
             return redirect(url_for("register"))
@@ -78,42 +80,7 @@ def register():
         new_user = {
             "username": username,
             "email": request.form.get("email"),
-            "password": generate_password_hash(request.form.get("password")),
-            "routines": [
-                {
-                    "_id": ObjectId(),
-                    "routine_name": "Beginner",
-                    "exercise_one": "Chin-up",
-                    "exercise_one_reps": 1,
-                    "exercise_two": "Push-up",
-                    "exercise_two_reps": 2,
-                    "exercise_three": "Squat",
-                    "exercise_three_reps": 3,
-                    "preset": True
-                },
-                {
-                    "_id": ObjectId(),
-                    "routine_name": "Intermediate 1",
-                    "exercise_one": "Chin-up",
-                    "exercise_one_reps": 2,
-                    "exercise_two": "Push-up",
-                    "exercise_two_reps": 4,
-                    "exercise_three": "Squat",
-                    "exercise_three_reps": 6,
-                    "preset": True
-                },
-                {
-                    "_id": ObjectId(),
-                    "routine_name": "Intermediate 2",
-                    "exercise_one": "Pull-up",
-                    "exercise_one_reps": 2,
-                    "exercise_two": "Close Grip Push-up",
-                    "exercise_two_reps": 4,
-                    "exercise_three": "Lunge",
-                    "exercise_three_reps": 6,
-                    "preset": True
-                }
-            ]
+            "password": generate_password_hash(request.form.get("password"))
         }
 
         mongo.db.users.insert_one(new_user)
