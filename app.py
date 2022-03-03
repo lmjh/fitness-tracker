@@ -123,7 +123,13 @@ def workout_log():
                 "foreignField": "_id",
                 "as": "routine"
             }
-        }]))
+        },
+        {
+            "$sort": {
+                "date": -1
+            }
+        }
+        ]))
     return render_template('workout_log.html', page_title="Workout Log", logs=logs)
 
 
