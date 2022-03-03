@@ -8,9 +8,20 @@
     margin-top: 5rem;
 }
 
+.bolder {
+    font-weight: bolder;
+}
+
 /* FLASH MESSAGES */
 
 .flash-messages {
     line-height: 3;
     font-weight: bold;
+}
+
+/* WORKOUT LOG STYLES */
+
+.log-number {
+    font-size: 3em;
+    font-weight: bolder;
 }
