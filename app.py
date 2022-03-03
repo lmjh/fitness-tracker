@@ -111,7 +111,9 @@ def workout_log():
     # lookup corresponding routine details using routine_id
     logs = list(mongo.db.workout_logs.aggregate([
         {
-            "$match": {"username": session['user']}
+            "$match": {
+                "username": session['user']
+            }
         },
         {
             "$lookup": {
@@ -122,6 +124,18 @@ def workout_log():
             }
         }]))
     return render_template('workout_log.html', page_title="Workout Log", logs=logs)
+
+
+@app.route("/add_workout")
+def add_workout():
+    """
+    x
+    """
+    default_routines = list(mongo.db.routines.find({"username": "admin"}))
+    user_routines = list(mongo.db.routines.find({"username": session['user']}))
+    routines = default_routines + user_routines
+    return render_template(
+        "add_workout.html", page_title="Add Workout", routines=routines)
 
 
 if __name__ == "__main__":
