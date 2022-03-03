@@ -5,6 +5,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+import datetime
 if os.path.exists("env.py"):
     import env
 
@@ -126,11 +127,32 @@ def workout_log():
     return render_template('workout_log.html', page_title="Workout Log", logs=logs)
 
 
-@app.route("/add_workout")
+@app.route("/add_workout", methods=["GET", "POST"])
 def add_workout():
     """
-    x
+    GET: returns the Add Workout page
+    POST: collects user input, inserts to workout_logs database and
+    redirects user to Workout Log page
     """
+    if request.method == "POST":
+        # concatenate date picker value and time picker value
+        date = request.form.get("workout_date") + request.form.get("workout_time")
+        # convert concatenated date into ISODate 
+        iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
+        # build dictionary containing workout details
+        entry = {
+            "routine_id": ObjectId(request.form.get("routine_name")),
+            "date": iso_date,
+            "notes": request.form.get("notes"),
+            "sets": int(request.form.get("sets")),
+            "username": session['user']
+        }
+        # insert dictionary into database
+        mongo.db.workout_logs.insert_one(entry)
+        
+        flash("Workout record added!")
+        return redirect(url_for("workout_log"))
+
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
     routines = default_routines + user_routines

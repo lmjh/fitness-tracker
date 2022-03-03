@@ -11,7 +11,7 @@
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled selected>Select Routine</option>
                             {% for routine in routines %}
-                                <option value="{{ routine.routine_name }}">{{ routine.routine_name }}</option>
+                                <option value="{{ routine._id }}">{{ routine.routine_name }}</option>
                             {% endfor %}
                         </select>
                         <label for="routine_name">Routine</label>
