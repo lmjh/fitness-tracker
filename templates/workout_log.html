@@ -6,28 +6,27 @@
     </div>
 </div>
 <div class="row">
-    <a href="{{ url_for('add_workout') }}" 
-    class="waves-effect waves-light btn-large col s6 offset-s3 m4 offset-m4">
-    <i class="fa-solid fa-circle-plus right"></i>Add Record</a>
+    <a href="{{ url_for('add_workout') }}" class="waves-effect waves-light btn-large col s6 offset-s3 m4 offset-m4">
+        <i class="fa-solid fa-circle-plus right"></i>Add Record</a>
 </div>
 <div class="row">
     <div class="col s12 l8 offset-l2">
         <ul class="collapsible">
             <!-- iterate over workout logs and add a collapsible accordion section for each -->
             {% for log in logs %}
-                <li>
-                    <!-- collapsible header -->
-                    <div class="collapsible-header red white-text">
-                        <div class="col s10">
-                            {{ log.date.strftime("%d/%m/%Y, %I:%M %p") }} - {{ log.routine[0].routine_name }}
-                        </div>
-                        <div class="col s2">
-                            <i class="fa-solid fa-circle-chevron-down right"></i>
-                        </div>
+            <li>
+                <!-- collapsible header -->
+                <div class="collapsible-header red white-text">
+                    <div class="col s10">
+                        {{ log.date.strftime("%d/%m/%Y, %I:%M %p") }} - {{ log.routine[0].routine_name }}
                     </div>
-                    <!-- collapsible body -->
-                    <div class="collapsible-body"><span>
-                    <p><strong class="bolder">{{ log.sets }}</strong> sets completed of the 
+                    <div class="col s2">
+                        <i class="fa-solid fa-circle-chevron-down right"></i>
+                    </div>
+                </div>
+                <!-- collapsible body -->
+                <div class="collapsible-body">
+                    <p><strong class="bolder">{{ log.sets }}</strong> sets completed of the
                         <strong class="bolder">{{ log.routine[0].routine_name }}</strong> routine.</p>
                     <p><strong class="bolder">Totals:</strong></p>
                     <div class="row center-align">
@@ -44,11 +43,20 @@
                             <div>{{ log.routine[0].exercise_three }}s</div>
                         </div>
                     </div>
-                    <p>Notes: {{ log.notes }}</p>
-                    </span></div>
-                </li>
+                    {% if log.notes %}
+                    <p><strong class="bolder">Notes:</strong><br>
+                        {{ log.notes }}</p>
+                    {% endif %}
+                    <div class="row">
+                        <a href="{{ url_for('edit_workout', log_id=log._id) }}" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
+                            <i class="fa-solid fa-pen right"></i>Edit</a>
+                        <a href="{{ url_for('register') }}" class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2 red">
+                            <i class="fa-solid fa-trash right"></i>Delete</a>
+                    </div>
+                </div>
+            </li>
             {% endfor %}
-        </div>
+    </div>
     </ul>
 </div>
 {% endblock %}

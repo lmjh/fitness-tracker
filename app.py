@@ -153,11 +153,59 @@ def add_workout():
         flash("Workout record added!")
         return redirect(url_for("workout_log"))
 
+    # find default routines (created by admin)
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
+    # find user's custom routines
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
+    # concatenate default and custom routines
     routines = default_routines + user_routines
     return render_template(
         "add_workout.html", page_title="Add Workout", routines=routines)
+
+
+@app.route("/edit_workout/<log_id>", methods=["GET", "POST"])
+def edit_workout(log_id):
+    """
+    GET: Returns edit_workout page with data from requested log id
+    POST: If current user created the log entry, updates the entry.
+    Otherwise, returns user to workout log page.
+    """
+    if request.method == "POST":
+        # find log entry to edit from database
+        log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+        # check current user is the user who created the entry
+        if log["username"] == session["user"]:
+            # concatenate date picker value and time picker value
+            date = request.form.get("workout_date") + request.form.get("workout_time")
+            # convert concatenated date into ISODate
+            iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
+            # build dictionary containing workout details
+            entry = {
+                "routine_id": ObjectId(request.form.get("routine_name")),
+                "date": iso_date,
+                "notes": request.form.get("notes"),
+                "sets": int(request.form.get("sets")),
+                "username": session['user']
+            }
+            flash("Record updated.")
+            # update the database entry with the entered details
+            mongo.db.workout_logs.update_one(log, {"$set": entry})
+            return redirect(url_for("workout_log"))
+
+        # redirect unauthorised users to workout log page
+        flash("You don't have permission to edit this log.")
+        return redirect(url_for("workout_log"))
+
+    # find log entry to edit from database
+    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+    # find default routines (created by admin)
+    default_routines = list(mongo.db.routines.find({"username": "admin"}))
+    # find user's custom routines
+    user_routines = list(mongo.db.routines.find({"username": session['user']}))
+    # concatenate default and custom routines
+    routines = default_routines + user_routines
+    return render_template(
+        "edit_workout.html", page_title="Edit Workout", log=log, routines=routines)
 
 
 if __name__ == "__main__":
