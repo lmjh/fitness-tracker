@@ -193,7 +193,7 @@ def edit_workout(log_id):
                 "sets": int(request.form.get("sets")),
                 "username": session['user']
             }
-            flash("Record updated.")
+            flash("Workout record updated.")
             # update the database entry with the entered details
             mongo.db.workout_logs.update_one(log, {"$set": entry})
             return redirect(url_for("workout_log"))
@@ -211,7 +211,27 @@ def edit_workout(log_id):
     # concatenate default and custom routines
     routines = default_routines + user_routines
     return render_template(
-        "edit_workout.html", page_title="Edit Workout", log=log, routines=routines)
+        "edit_workout.html", page_title="Edit Workout",
+        log=log, routines=routines)
+
+
+@app.route("/delete_workout/<log_id>")
+def delete_workout(log_id):
+    """
+    Checks if current user created the log entry to be deleted
+    and deletes it if so.
+    Otherwise, returns user to workout log page.
+    """
+    # find log entry to edit from database
+    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+    # check current user is the user who created the entry
+    if log["username"] == session["user"]:
+        mongo.db.workout_logs.delete_one(log)
+        flash("Workout record deleted.")
+        return redirect(url_for("workout_log"))
+    # redirect unauthorised users to workout log page
+    flash("You don't have permission to delete this log.")
+    return redirect(url_for("workout_log"))
 
 
 if __name__ == "__main__":

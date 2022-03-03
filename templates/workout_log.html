@@ -50,7 +50,7 @@
                     <div class="row">
                         <a href="{{ url_for('edit_workout', log_id=log._id) }}" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
                             <i class="fa-solid fa-pen right"></i>Edit</a>
-                        <a href="{{ url_for('register') }}" class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2 red">
+                        <a href="{{ url_for('delete_workout', log_id=log._id) }}" class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2 red">
                             <i class="fa-solid fa-trash right"></i>Delete</a>
                     </div>
                 </div>
