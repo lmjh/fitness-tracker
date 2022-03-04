@@ -265,9 +265,43 @@ def my_routines():
     return render_template("my_routines.html", page_title="My Routines", default_routines=default_routines, custom_routines=custom_routines)
 
 
-@app.route("/add_routine")
+@app.route("/add_routine", methods=["GET", "POST"])
 @login_required
 def add_routine():
+    """
+    GET: Render add routing page template
+    POST:
+    """
+    if request.method == "POST":
+        # Assign submitted routine name to a variable and check if the current
+        # user already has a routine of this name
+        routine_name = request.form.get("routine_name")
+        duplicate_routine = mongo.db.routines.find_one({
+            "username": session["user"], 
+            "routine_name": routine_name
+            })
+        # if a record is found matching user and routine name, redirect
+        # to add_routine page
+        if duplicate_routine:
+            flash("Duplicate routine name. Please enter a unique routine name.")
+            return redirect(url_for("add_routine"))
+
+        # build dictionary from user's entered data
+        new_routine = {
+            "routine_name": routine_name,
+            "exercise_one": request.form.get("exercise_one"),
+            "exercise_one_reps": request.form.get("exercise_one_reps"),
+            "exercise_two": request.form.get("exercise_two"),
+            "exercise_two_reps": request.form.get("exercise_two_reps"),
+            "exercise_three": request.form.get("exercise_three"),
+            "exercise_three_reps": request.form.get("exercise_three_reps"),
+            "username": session["user"]
+        }
+        # insert new routine dictionary to database
+        mongo.db.routines.insert_one(new_routine)
+        flash("New routine successfully added.")
+        return redirect(url_for("my_routines"))
+
     return render_template("add_routine.html", page_title="Add Routine")
 
 
