@@ -1,11 +1,13 @@
 import os
+import datetime
 from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-import datetime
+from functools import wraps
+
 if os.path.exists("env.py"):
     import env
 
@@ -17,6 +19,22 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
+
+def login_required(f):
+    """
+    Decorator to check if a user is currently logged in and redirect to the login
+    page if not.
+    Based on this function from the Flask documetation:
+    https://flask.palletsprojects.com/en/2.0.x/patterns/viewdecorators/#login-required-decorator
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user") is None:
+            flash("You must login to access this page.")
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 @app.route("/")
@@ -32,7 +50,7 @@ def login():
     """
     GET: Returns the login page.
     POST: Collects submitted user credentials.
-    If username and passsword are correct, user is logged in and 
+    If username and passsword are correct, user is logged in and
     redirected to the home page.
     If username and password are incorrect, user is redirected to
     the login page.
@@ -93,6 +111,7 @@ def register():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     """
     Removes the user from the session cookie.
@@ -104,6 +123,7 @@ def logout():
 
 
 @app.route('/workout_log')
+@login_required
 def workout_log():
     """
     Finds all workouts logged by the user and returns the workout log page. 
@@ -134,6 +154,7 @@ def workout_log():
 
 
 @app.route("/add_workout", methods=["GET", "POST"])
+@login_required
 def add_workout():
     """
     GET: returns the Add Workout page
@@ -170,6 +191,7 @@ def add_workout():
 
 
 @app.route("/edit_workout/<log_id>", methods=["GET", "POST"])
+@login_required
 def edit_workout(log_id):
     """
     GET: Returns edit_workout page with data from requested log id
@@ -216,6 +238,7 @@ def edit_workout(log_id):
 
 
 @app.route("/delete_workout/<log_id>")
+@login_required
 def delete_workout(log_id):
     """
     Checks if current user created the log entry to be deleted
