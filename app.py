@@ -305,6 +305,40 @@ def add_routine():
     return render_template("add_routine.html", page_title="Add Routine")
 
 
+@app.route("/edit_routine/<routine_id>", methods=["GET", "POST"])
+@login_required
+def edit_routine(routine_id):
+    if request.method == "POST":
+        # find routine to edit from database
+        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+        # check current user is the user who created the routine
+        if routine["username"] == session["user"]:
+            # build dictionary containing routine details
+            entry = {
+            "routine_name": request.form.get("routine_name"),
+            "exercise_one": request.form.get("exercise_one"),
+            "exercise_one_reps": request.form.get("exercise_one_reps"),
+            "exercise_two": request.form.get("exercise_two"),
+            "exercise_two_reps": request.form.get("exercise_two_reps"),
+            "exercise_three": request.form.get("exercise_three"),
+            "exercise_three_reps": request.form.get("exercise_three_reps"),
+            "username": session["user"]
+            }
+            flash("Routine updated.")
+            # update the database entry with the entered details
+            mongo.db.routines.update_one(routine, {"$set": entry})
+            return redirect(url_for("my_routines"))
+
+        # redirect unauthorised users to workout log page
+        flash("You don't have permission to edit this routine.")
+        return redirect(url_for("my_routines"))
+
+    # find routine to edit from database
+    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    return render_template(
+        "edit_routine.html", page_title="Edit Routine", routine=routine)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

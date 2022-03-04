@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="row">
-                <a href="" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
+                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
                     <i class="fa-solid fa-pen right"></i>Edit</a>
                 <!-- Delete button triggers confirmation modal -->
                 <a href="#{{ routine._id }}_modal"
@@ -55,7 +55,7 @@
     <div class="col s12 m6">
         <div class="card-panel">
             <div class="row ">
-                <a class="btn-floating btn-large waves-effect waves-light margin-top-5"><i class="fa-solid fa-plus"></i></a>
+                <a href="{{ url_for('add_routine') }}" class="btn-floating btn-large waves-effect waves-light margin-top-5"><i class="fa-solid fa-plus"></i></a>
                 <p>Add New Routine</p>
             </div>
         </div>
