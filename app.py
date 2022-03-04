@@ -265,6 +265,12 @@ def my_routines():
     return render_template("my_routines.html", page_title="My Routines", default_routines=default_routines, custom_routines=custom_routines)
 
 
+@app.route("/add_routine")
+@login_required
+def add_routine():
+    return render_template("add_routine.html", page_title="Add Routine")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

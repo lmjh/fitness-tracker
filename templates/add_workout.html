@@ -28,16 +28,22 @@
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
+                <!-- enter number of sets completed -->
+                <div class="row">
                     <div class="input-field col s12">
                         <input id="sets" name="sets" class="validate" type="number" required>
                         <label for="sets">Sets completed</label>
                     </div>
+                </div>
+                <!-- add notes (optional field) -->
+                <div class="row">
                     <div class="input-field col s12">
                         <textarea id="notes" name="notes" maxlength="200" 
                             class="materialize-textarea validate"></textarea>
                         <label for="notes">Notes (optional)</label>
                     </div>
-
+                </div>
+                <!-- submit button -->
                 <div class="row">
                     <button type="submit" class="waves-effect waves-light btn-large col s8 offset-s2 margin-top-2">
                         <i class="fa-solid fa-circle-plus right"></i>Add Record </button>

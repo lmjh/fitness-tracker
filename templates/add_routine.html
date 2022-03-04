@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12 l8 offset-l2 margin-top-5 center-align">
+        <div class="card-panel">
+            <h1>Add Routine</h1>
+            <form method="POST" action="{{ url_for('add_routine') }}">
+                <!-- routine name -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="routine_name" name="routine_name" minlength="5" 
+                        maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <label for="routine_name">Routine Name</label>
+                    </div>
+                </div>
+                <!-- exercise one name and reps -->
+                <div class="row">
+                    <div class="input-field col s9">
+                        <input id="exercise_one" name="exercise_one" maxlength="20" 
+                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <label for="exercise_one">Exercise 1</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="exercise_one_reps" name="exercise_one_reps" min="0" 
+                        class="validate" type="number" required>
+                        <label for="exercise_one_reps">Reps</label>
+                    </div>
+                </div>
+                <!-- exercise two name and reps -->
+                <div class="row">
+                    <div class="input-field col s9">
+                        <input id="exercise_two" name="exercise_two" maxlength="20" 
+                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <label for="exercise_two">Exercise 2</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="exercise_two_reps" name="exercise_two_reps" min="0" 
+                        class="validate" type="number" required>
+                        <label for="exercise_two_reps">Reps</label>
+                    </div>
+                </div>
+                <!-- exercise three name and reps -->
+                <div class="row">
+                    <div class="input-field col s9">
+                        <input id="exercise_three" name="exercise_three" maxlength="20" 
+                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <label for="exercise_three">Exercise 3</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="exercise_three_reps" name="exercise_three_reps" min="0" 
+                        class="validate" type="number" required>
+                        <label for="exercise_three_reps">Reps</label>
+                    </div>
+                </div>
+                <!-- submit button -->
+                <div class="row">
+                    <button type="submit" class="waves-effect waves-light btn-large col s8 offset-s2 margin-top-2">
+                        <i class="fa-solid fa-circle-plus right"></i>Add Routine </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
