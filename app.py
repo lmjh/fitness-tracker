@@ -274,11 +274,20 @@ def add_routine():
     """
     if request.method == "POST":
         # Assign submitted routine name to a variable and check if the current
-        # user already has a routine of this name
+        # user or admin already has a routine of this name
         routine_name = request.form.get("routine_name")
-        duplicate_routine = mongo.db.routines.find_one({
-            "username": session["user"], 
-            "routine_name": routine_name
+        duplicate_routine = mongo.db.routines.find_one(
+            {
+                "$or": [
+                    {
+                        "username": session["user"],
+                        "routine_name": routine_name
+                    },
+                    {
+                        "username": "admin",
+                        "routine_name": routine_name
+                    }
+                ]
             })
         # if a record is found matching user and routine name, redirect
         # to add_routine page
