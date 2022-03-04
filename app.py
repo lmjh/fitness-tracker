@@ -257,6 +257,14 @@ def delete_workout(log_id):
     return redirect(url_for("workout_log"))
 
 
+@app.route("/my_routines")
+@login_required
+def my_routines():
+    default_routines = list(mongo.db.routines.find({"username": "admin"}))
+    custom_routines = list(mongo.db.routines.find({"username": session["user"]}))
+    return render_template("my_routines.html", page_title="My Routines", default_routines=default_routines, custom_routines=custom_routines)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

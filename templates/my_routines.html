@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12 center-align">
+        <h1>My Routines</h1>
+    </div>
+</div>
+<div class="row center-align">
+    {% for routine in custom_routines %}
+    <div class="col s12 m6">
+        <div class="card-panel">
+            <div class="row">
+                <h4>
+                    {{ routine.routine_name }}
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                    <div>{{ routine.exercise_one }}s</div>
+                </div>
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                    <div>{{ routine.exercise_two }}s</div>
+                </div>
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                    <div>{{ routine.exercise_three }}s</div>
+                </div>
+            </div>
+            <div class="row">
+                <a href="" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
+                    <i class="fa-solid fa-pen right"></i>Edit</a>
+                <!-- Delete button triggers confirmation modal -->
+                <a href="#{{ routine._id }}_modal"
+                    class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2 red modal-trigger">
+                    <i class="fa-solid fa-trash right"></i>Delete</a>
+                <!-- Delete confimation modal -->
+                <div id="{{ routine._id }}_modal" class="modal">
+                    <div class="modal-content">
+                        <h4>Do you really want to delete this routine?</h4>
+                        <p>Deleted routines can't be recovered.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+                        <a href="" class="modal-close waves-effect waves-light btn red">Confirm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col s12 m6">
+        <div class="card-panel">
+            <div class="row ">
+                <a class="btn-floating btn-large waves-effect waves-light margin-top-5"><i class="fa-solid fa-plus"></i></a>
+                <p>Add New Routine</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row center-align">
+    <h2>Default Routines</h2>
+    {% for routine in default_routines %}
+    <div class="col s12 m6">
+        <div class="card-panel">
+            <div class="row">
+                <h4>
+                    {{ routine.routine_name }}
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                    <div>{{ routine.exercise_one }}s</div>
+                </div>
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                    <div>{{ routine.exercise_two }}s</div>
+                </div>
+                <div class="col s4">
+                    <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                    <div>{{ routine.exercise_three }}s</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

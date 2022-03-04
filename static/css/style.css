@@ -12,6 +12,11 @@
     font-weight: bolder;
 }
 
+.feature-number {
+    font-size: 3em;
+    font-weight: bolder;
+}
+
 /* FLASH MESSAGES */
 
 .flash-messages {
@@ -21,7 +26,3 @@
 
 /* WORKOUT LOG STYLES */
 
-.log-number {
-    font-size: 3em;
-    font-weight: bolder;
-}
