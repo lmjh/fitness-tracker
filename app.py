@@ -317,21 +317,52 @@ def add_routine():
 @app.route("/edit_routine/<routine_id>", methods=["GET", "POST"])
 @login_required
 def edit_routine(routine_id):
+    """
+    GET: Returns edit_routine page with data from requested routine id
+    POST: 
+    """
     if request.method == "POST":
         # find routine to edit from database
         routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
         # check current user is the user who created the routine
         if routine["username"] == session["user"]:
+            # assign the submitted routine name to a variable
+            routine_name = request.form.get("routine_name")
+            # check if the submitted routine name has changed
+            if routine_name != routine["routine_name"]:
+                # check if the current user or admin already has a routine with
+                # the requested name
+                duplicate_routine = mongo.db.routines.find_one(
+                    {
+                        "$or": [
+                            {
+                                "username": session["user"],
+                                "routine_name": routine_name
+                            },
+                            {
+                                "username": "admin",
+                                "routine_name": routine_name
+                            }
+                        ]
+                    })
+                # if a matching routine is found, redirect back to edit
+                # routine page
+                if duplicate_routine:
+                    flash(
+                        "Duplicate routine name. Please enter a unique routine"
+                        " name.")
+                    return redirect(url_for(
+                        "edit_routine", routine_id=routine_id))
             # build dictionary containing routine details
             entry = {
-            "routine_name": request.form.get("routine_name"),
-            "exercise_one": request.form.get("exercise_one"),
-            "exercise_one_reps": request.form.get("exercise_one_reps"),
-            "exercise_two": request.form.get("exercise_two"),
-            "exercise_two_reps": request.form.get("exercise_two_reps"),
-            "exercise_three": request.form.get("exercise_three"),
-            "exercise_three_reps": request.form.get("exercise_three_reps"),
-            "username": session["user"]
+                "routine_name": routine_name,
+                "exercise_one": request.form.get("exercise_one"),
+                "exercise_one_reps": request.form.get("exercise_one_reps"),
+                "exercise_two": request.form.get("exercise_two"),
+                "exercise_two_reps": request.form.get("exercise_two_reps"),
+                "exercise_three": request.form.get("exercise_three"),
+                "exercise_three_reps": request.form.get("exercise_three_reps"),
+                "username": session["user"]
             }
             flash("Routine updated.")
             # update the database entry with the entered details
