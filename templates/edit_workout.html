@@ -30,12 +30,13 @@
                     </div>
                     <div class="col s12 m6">
                         <input id="workout_time" name="workout_time" type="text" class="timepicker validate" 
-                        value="{{ log.date.strftime('%I:%M %p') }}"required>
+                        value="{{ log.date.strftime('%I:%M %p') }}" required>
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
                     <div class="input-field col s12">
-                        <input id="sets" name="sets" class="validate" type="number" value="{{ log.sets }}" required>
+                        <input id="sets" name="sets" class="validate" type="number" min="1" value="{{ log.sets }}" 
+                        required>
                         <label for="sets">Sets completed</label>
                     </div>
                     <div class="input-field col s12">
