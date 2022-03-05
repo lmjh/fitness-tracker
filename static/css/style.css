@@ -1,3 +1,23 @@
+/* CUSTOM COLOURS */
+:root {
+    --dark-1: #202020;
+    --dark-2: #303030;
+    --dark-3: #404040;
+    --dark-border: #505050;
+    --light-text: #D0D0D0;
+    --dark-text: #202020;
+}
+
+body {
+    background-color: var(--dark-1);
+    color: var(--light-text);
+}
+
+nav {
+    background-color: var(--dark-2);
+    border-bottom: 2px solid var(--dark-border);
+}
+
 /* UTILITY CLASSES */
 
 .margin-top-2 {
@@ -27,8 +47,26 @@
 /* WORKOUT LOG STYLES */
 
 
-/* MY ROUTINES STYLES  */
+/* CUSTOM CARD STYLES  */
 
-.exercise-name {
-    height: 3em;
+.card-panel-top {
+    background-color: var(--dark-3);
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 10px 0 10px;
+}
+
+.card-panel-bottom {
+    background-color: var(--dark-2);
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+}
+
+.card-panel-button {
+    border-radius: 10px;
+    color: var(--dark-text);
+}
+
+.btn-floating i {
+    color: var(--dark-text);
 }

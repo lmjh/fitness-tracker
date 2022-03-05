@@ -8,32 +8,35 @@
 <div class="row center-align">
     {% for routine in custom_routines %}
     <div class="col s12 m6">
-        <div class="card-panel">
-            <div class="row">
-                <h4>
-                    {{ routine.routine_name }}
-                </h4>
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <div class="card-panel-top z-depth-2">
+                <div class="row">
+                    <h4>
+                        {{ routine.routine_name }}
+                    </h4>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_one }}s</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_two }}s</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_three }}s</div>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_one_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_one }}s</div>
-                </div>
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_two_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_two }}s</div>
-                </div>
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_three_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_three }}s</div>
-                </div>
-            </div>
-            <div class="row">
-                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
+            <div class="row margin-top-2">
+                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
+                    class="waves-effect btn-large col s12 l5 light-green lighten-3 card-panel-button z-depth-4">
                     <i class="fa-solid fa-pen right"></i>Edit</a>
                 <!-- Delete button triggers confirmation modal -->
                 <a href="#{{ routine._id }}_modal"
-                    class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2 red modal-trigger">
+                    class="waves-effect btn-large col s12 l5 offset-l2 red lighten-3 card-panel-button modal-trigger z-depth-4">
                     <i class="fa-solid fa-trash right"></i>Delete</a>
                 <!-- Delete confimation modal -->
                 <div id="{{ routine._id }}_modal" class="modal">
@@ -43,7 +46,8 @@
                     </div>
                     <div class="modal-footer">
                         <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
-                        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close waves-effect waves-light btn red">Confirm</a>
+                        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}"
+                            class="modal-close waves-effect waves-light btn red">Confirm</a>
                     </div>
                 </div>
             </div>
@@ -51,9 +55,10 @@
     </div>
     {% endfor %}
     <div class="col s12 m6">
-        <div class="card-panel">
-            <div class="row ">
-                <a href="{{ url_for('add_routine') }}" class="btn-floating btn-large waves-effect waves-light margin-top-5"><i class="fa-solid fa-plus"></i></a>
+        <div class="card-panel card-panel-bottom">
+            <div class="row">
+                <a href="{{ url_for('add_routine') }}" class="btn-floating btn-large waves-effect light-green lighten-3 
+                margin-top-5 z-depth-4 dark-text"><i class="fa-solid fa-plus"></i></a>
                 <p>Add New Routine</p>
             </div>
         </div>
@@ -65,24 +70,26 @@
     <h2>Default Routines</h2>
     {% for routine in default_routines %}
     <div class="col s12 m6">
-        <div class="card-panel">
-            <div class="row">
-                <h4>
-                    {{ routine.routine_name }}
-                </h4>
-            </div>
-            <div class="row">
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_one_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_one }}s</div>
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <div class="card-panel-top z-depth-2">
+                <div class="row">
+                    <h4>
+                        {{ routine.routine_name }}
+                    </h4>
                 </div>
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_two_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_two }}s</div>
-                </div>
-                <div class="col s4">
-                    <div class="feature-number">{{ routine.exercise_three_reps }}</div>
-                    <div class="exercise-name">{{ routine.exercise_three }}s</div>
+                <div class="row">
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_one }}s</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_two }}s</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_three }}s</div>
+                    </div>
                 </div>
             </div>
         </div>
