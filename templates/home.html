@@ -2,14 +2,16 @@
 {% block content %}
 <div class="row">
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
-        <div class="card-panel">
+        <div class="card-panel card-panel-bottom">
             <h1>Welcome!</h1>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod ipsam earum asperiores optio esse? Ducimus, nam. 
                 Quos recusandae, reprehenderit ea provident, delectus amet quas inventore aperiam atque laudantium beatae ipsa?</p>
-            <div class="row">
-                <a href="{{ url_for('login') }}" class="waves-effect waves-light btn-large col s12 l5 margin-top-2">
+            <div class="row margin-top-2">
+                <a href="{{ url_for('login') }}" class="waves-effect btn-large col s12 l5 light-green lighten-3 
+                card-panel-button z-depth-4">
                     <i class="fa-solid fa-arrow-right-to-bracket right"></i> Log In</a>
-                <a href="{{ url_for('register') }}" class="waves-effect waves-light btn-large col s12 l5 offset-l2 margin-top-2">
+                <a href="{{ url_for('register') }}" class="waves-effect btn-large col s12 l5 offset-l2 light-green 
+                lighten-3 card-panel-button z-depth-4">
                     <i class="fa-solid fa-user-plus right"></i>Sign Up</a>
             </div>
         </div>

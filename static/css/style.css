@@ -6,16 +6,25 @@
     --dark-border: #505050;
     --light-text: #D0D0D0;
     --dark-text: #202020;
+    --link-color: #5ac9ff;
 }
 
-body {
+body, input {
     background-color: var(--dark-1);
     color: var(--light-text);
+}
+
+a {
+    color: var(--link-color)
 }
 
 nav {
     background-color: var(--dark-2);
     border-bottom: 2px solid var(--dark-border);
+}
+
+.dark-text {
+    color: var(--dark-text)
 }
 
 /* UTILITY CLASSES */
