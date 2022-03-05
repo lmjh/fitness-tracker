@@ -379,6 +379,25 @@ def edit_routine(routine_id):
         "edit_routine.html", page_title="Edit Routine", routine=routine)
 
 
+@app.route("/delete_routine/<routine_id>")
+@login_required
+def delete_routine(routine_id):
+    """
+    Deletes the requested routine and all logs using that routine from the
+    database, then redirects the user to the my_routines page
+    """
+    # find the requested routine in the database and assign it to a variable
+    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    # check current user is the user who created the routine
+    if routine["username"] == session["user"]:
+        # find all workout logs matching the given routine _id and delete
+        mongo.db.workout_logs.delete_many({"routine_id": ObjectId(routine_id)})
+        # delete the routine
+        mongo.db.routines.delete_one(routine)
+        flash("Routine and workout logs deleted.")
+        return redirect(url_for("my_routines"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
