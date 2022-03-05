@@ -9,7 +9,9 @@
     --link-color: #5ac9ff;
 }
 
-body, input {
+body,
+input,
+textarea {
     background-color: var(--dark-1);
     color: var(--light-text);
 }
@@ -53,8 +55,168 @@ nav {
     font-weight: bold;
 }
 
+/* FORM STYLES */
+
+input:not([type]):focus:not([readonly])+label,
+input[type="text"]:not(.browser-default):focus:not([readonly])+label,
+input[type="password"]:not(.browser-default):focus:not([readonly])+label,
+input[type="email"]:not(.browser-default):focus:not([readonly])+label,
+input[type="url"]:not(.browser-default):focus:not([readonly])+label,
+input[type="time"]:not(.browser-default):focus:not([readonly])+label,
+input[type="date"]:not(.browser-default):focus:not([readonly])+label,
+input[type="datetime"]:not(.browser-default):focus:not([readonly])+label,
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly])+label,
+input[type="tel"]:not(.browser-default):focus:not([readonly])+label,
+input[type="number"]:not(.browser-default):focus:not([readonly])+label,
+input[type="search"]:not(.browser-default):focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label {
+    color: var(--link-color);
+}
+
+input:not([type]):focus:not([readonly]),
+input[type="text"]:not(.browser-default):focus:not([readonly]),
+input[type="password"]:not(.browser-default):focus:not([readonly]),
+input[type="email"]:not(.browser-default):focus:not([readonly]),
+input[type="url"]:not(.browser-default):focus:not([readonly]),
+input[type="time"]:not(.browser-default):focus:not([readonly]),
+input[type="date"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime"]:not(.browser-default):focus:not([readonly]),
+input[type="datetime-local"]:not(.browser-default):focus:not([readonly]),
+input[type="tel"]:not(.browser-default):focus:not([readonly]),
+input[type="number"]:not(.browser-default):focus:not([readonly]),
+input[type="search"]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid var(--link-color);
+    -webkit-box-shadow: 0 1px 0 0 #26a69a;
+    box-shadow: 0 1px 0 0 var(--link-color);
+}
+
+button:focus {
+    background-color: var(--link-color);
+}
+
+/* Hide Chrome, Safari, Edge and Opera number scroll arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide Firefox number scroll arrows */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* MATERIALIZE SELECT ELEMENT STYLES */
+
+.select-dropdown li.disabled,
+.select-dropdown li.disabled>span,
+.select-dropdown li.optgroup {
+    background-color: var(--dark-3);
+    color: var(--light-text)
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span {
+    background-color: var(--dark-3);
+    color: var(--link-color);
+    border-width: 1px 0 1px;
+    border-color: var(--dark-2);
+    border-style: solid;
+}
+
+.select-wrapper .caret {
+    fill: var(--light-text)
+}
+
+/* MATERIALIZE DATE AND TIME PICKER STYLES */
+
+.datepicker-modal,
+.timepicker-modal {
+    background-color: var(--dark-2);
+    border-radius: 20px;
+}
+
+.datepicker-date-display,
+.timepicker-digital-display {
+    background-color: var(--dark-1);
+}
+
+.is-selected>.datepicker-day-button {
+    background-color: var(--link-color);
+    color: var(--dark-text);
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done,
+.datepicker-table td.is-today,
+.timepicker-close {
+    color: var(--link-color)
+}
+
+.month-next>svg,
+.month-prev>svg {
+    fill: var(--light-text);
+}
+
+.timepicker-canvas-bg,
+.timepicker-canvas-bearing {
+    fill: var(--link-color)
+}
+
+.timepicker-canvas line {
+    stroke: var(--link-color);
+}
+
+.timepicker-plate {
+    background-color: var(--light-text);
+}
+
+.timepicker-tick.active,
+.timepicker-tick:hover {
+    background-color: rgba(90, 200, 255, 0.25);
+}
+
 /* WORKOUT LOG STYLES */
 
+.log-collapsible {
+    border: none;
+}
+
+.log-container {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: var(--dark-3);
+    border: 2px solid var(--dark-border);
+}
+
+.log-header {
+    background-color: var(--dark-3) !important;
+    border-radius: 20px;
+    border: none;
+}
+
+.log-body {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: var(--dark-2);
+    border: none;
+}
+
+.log-panel-top {
+    background-color: var(--dark-3);
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+    padding: 10px 0 10px;
+}
+
+.log-button {
+    border-radius: 10px;
+    color: var(--dark-text);
+    margin: 8px 0 8px;
+}
 
 /* CUSTOM CARD STYLES  */
 
@@ -74,6 +236,7 @@ nav {
 .card-panel-button {
     border-radius: 10px;
     color: var(--dark-text);
+    margin: 8px 0 8px;
 }
 
 .btn-floating i {

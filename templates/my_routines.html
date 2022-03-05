@@ -31,13 +31,15 @@
                 </div>
             </div>
             <div class="row margin-top-2">
-                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
-                    class="waves-effect btn-large col s12 l5 light-green lighten-3 card-panel-button z-depth-4">
-                    <i class="fa-solid fa-pen right"></i>Edit</a>
                 <!-- Delete button triggers confirmation modal -->
                 <a href="#{{ routine._id }}_modal"
-                    class="waves-effect btn-large col s12 l5 offset-l2 red lighten-3 card-panel-button modal-trigger z-depth-4">
-                    <i class="fa-solid fa-trash right"></i>Delete</a>
+                class="waves-effect btn-large col s12 l5 red lighten-3 card-panel-button modal-trigger z-depth-4">
+                <i class="fa-solid fa-trash right"></i>Delete</a>
+                <!-- Edit routine button -->
+                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
+                    class="waves-effect btn-large col s12 l5 light-green offset-l2 lighten-3 card-panel-button z-depth-4">
+                    <i class="fa-solid fa-pen right"></i>Edit</a>
+
                 <!-- Delete confimation modal -->
                 <div id="{{ routine._id }}_modal" class="modal">
                     <div class="modal-content">
