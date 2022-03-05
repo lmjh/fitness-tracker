@@ -299,11 +299,11 @@ def add_routine():
         new_routine = {
             "routine_name": routine_name,
             "exercise_one": request.form.get("exercise_one"),
-            "exercise_one_reps": request.form.get("exercise_one_reps"),
+            "exercise_one_reps": int(request.form.get("exercise_one_reps")),
             "exercise_two": request.form.get("exercise_two"),
-            "exercise_two_reps": request.form.get("exercise_two_reps"),
+            "exercise_two_reps": int(request.form.get("exercise_two_reps")),
             "exercise_three": request.form.get("exercise_three"),
-            "exercise_three_reps": request.form.get("exercise_three_reps"),
+            "exercise_three_reps": int(request.form.get("exercise_three_reps")),
             "username": session["user"]
         }
         # insert new routine dictionary to database
@@ -357,11 +357,11 @@ def edit_routine(routine_id):
             entry = {
                 "routine_name": routine_name,
                 "exercise_one": request.form.get("exercise_one"),
-                "exercise_one_reps": request.form.get("exercise_one_reps"),
+                "exercise_one_reps": int(request.form.get("exercise_one_reps")),
                 "exercise_two": request.form.get("exercise_two"),
-                "exercise_two_reps": request.form.get("exercise_two_reps"),
+                "exercise_two_reps": int(request.form.get("exercise_two_reps")),
                 "exercise_three": request.form.get("exercise_three"),
-                "exercise_three_reps": request.form.get("exercise_three_reps"),
+                "exercise_three_reps": int(request.form.get("exercise_three_reps")),
                 "username": session["user"]
             }
             flash("Routine updated.")
