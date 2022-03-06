@@ -399,7 +399,8 @@ def delete_routine(routine_id):
 
 
 @app.route("/track_progress/<username>/<routine_id>")
-def test_route(username, routine_id):
+@login_required
+def track_progress(username, routine_id):
     dbdata = mongo.db.workout_logs.find(
         {"$and": [{"username": username},
         {"routine_id": ObjectId(routine_id)}]}
