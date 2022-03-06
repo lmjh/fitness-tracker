@@ -55,6 +55,16 @@ nav {
     font-weight: bold;
 }
 
+/* MOBILE NAV SYLES */
+
+.sidenav {
+    background-color: var(--dark-2);
+}
+
+.sidenav li > a {
+    color: var(--light-text);
+}
+
 /* FORM STYLES */
 
 input:not([type]):focus:not([readonly])+label,
