@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12 l10 offset-l1 margin-top-5 center-align">
+        <div class="card-panel card-panel-bottom">
+            <h1 class="progress-title">{{ routine.routine_name }} Routine</h1>
+            <div class="card-panel-cutout margin-top-2">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="card-panel-top margin-top-2">
+                Your maximum sets achieved is {{ max[0].sets }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script>
+    // chart data
+    const data = {
+        labels : [
+            {% for label in labels %}
+                "{{ label }}",
+            {% endfor %}
+            ],
+        datasets : [{
+            label: 'sets',
+            fill: false,
+            lineTension: 0.3,
+            borderColor: "#5ac9ff",
+            pointBorderColor: "#5ac9ff",
+            data : [
+                {% for value in values %}
+                {{ value }},
+                {% endfor %}],
+            }]
+        };
+
+    // chart configuration
+    const config = {
+        type: 'line',
+        data,
+        options: {
+            plugins: {
+            legend: {
+            display: false
+            }},
+            scales: {
+                x: {
+                    type: "time"
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // initialize the chart
+    const myChart = new Chart(
+        document.getElementById("myChart"),
+        config,
+        );
+
+</script>
+{% endblock %}

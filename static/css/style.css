@@ -248,6 +248,15 @@ input[type=number] {
     border-radius: 20px;
 }
 
+.card-panel-cutout {
+    background-color: var(--dark-1);
+    border: 2px solid var(--dark-border);
+    border-radius: 20px;
+    -webkit-box-shadow: inset 0 16px 24px 2px rgba(0,0,0,0.14),inset 0 6px 30px 5px rgba(0,0,0,0.12),inset 0 8px 10px -7px rgba(0,0,0,0.2);
+	box-shadow: inset 0 16px 24px 2px rgba(0,0,0,0.14),inset 0 6px 30px 5px rgba(0,0,0,0.12),inset 0 8px 10px -7px rgba(0,0,0,0.2);
+    padding: 10px;
+}
+
 .card-panel-button {
     border-radius: 10px;
     color: var(--dark-text);
@@ -272,4 +281,11 @@ input[type=number] {
 .modal-button {
     border-radius: 10px;
     color: var(--dark-text);
+}
+
+/* TRACK PROGRESS PAGE STYLES */
+
+.progress-title {
+    margin: 1rem 0 2rem;
+
 }

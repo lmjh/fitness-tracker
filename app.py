@@ -398,6 +398,26 @@ def delete_routine(routine_id):
         return redirect(url_for("my_routines"))
 
 
+@app.route("/track_progress/<username>/<routine_id>")
+def test_route(username, routine_id):
+    dbdata = mongo.db.workout_logs.find(
+        {"$and": [{"username": username},
+        {"routine_id": ObjectId(routine_id)}]}
+        ).sort("date")
+    labels = []
+    values = []
+    for each in dbdata:
+        labels.append(each["date"])
+        values.append(each["sets"])
+    max = mongo.db.workout_logs.find(
+        {"$and": [{"username": username},
+        {"routine_id": ObjectId(routine_id)}]}
+        ).sort("sets",-1).limit(1)
+    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    return render_template("track_progress.html", max=max, labels=labels,
+        values=values, routine=routine, page_title="Track Progress")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
