@@ -5,9 +5,9 @@
         <div class="card-panel card-panel-bottom">
             <h1>Edit Workout</h1>
             <form method="POST" action="{{ url_for('edit_workout', log_id=log._id) }}">
-                <!-- select routine -->
                 <div class="row">
-                    <div class="input-field col s12">
+                    <!-- select routine -->
+                    <div class="input-field col s12 m9">
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled selected>Select Routine</option>
                             {% for routine in routines %}
@@ -19,6 +19,12 @@
                             {% endfor %}
                         </select>
                         <label for="routine_name">Routine</label>
+                    </div>
+                    <!-- enter number of sets completed -->
+                    <div class="input-field col s12 m3">
+                        <input id="sets" name="sets" class="validate" type="number" min="1" value="{{ log.sets }}" 
+                        required>
+                        <label for="sets">Sets completed</label>
                     </div>
                 </div>
                 <!-- pick date and time -->
@@ -34,11 +40,8 @@
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
-                    <div class="input-field col s12">
-                        <input id="sets" name="sets" class="validate" type="number" min="1" value="{{ log.sets }}" 
-                        required>
-                        <label for="sets">Sets completed</label>
-                    </div>
+                <!-- add notes (optional field) -->
+                <div class="row">
                     <div class="input-field col s12">
                         <textarea id="notes" name="notes" maxlength="200" 
                         class="materialize-textarea validate">
@@ -46,11 +49,13 @@
                         </textarea>
                         <label for="notes">Notes (optional)</label>
                     </div>
-
+                </div>
                 <div class="row margin-top-2">
+                    <!-- cancel button -->
                     <a href="{{ url_for('workout_log') }}" 
                     class="waves-effect card-panel-button btn-large col s12 m5 red lighten-3 z-depth-4">
                         <i class="fa-solid fa-ban right"></i>Cancel</a>
+                    <!-- submit button -->
                     <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 
                     light-green lighten-3 z-depth-4">
                         <i class="fa-solid fa-pen right"></i>Edit Record </button>

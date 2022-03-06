@@ -52,10 +52,14 @@
                         <label for="exercise_three_reps">Reps</label>
                     </div>
                 </div>
+                <!-- cancel button -->
+                <div class="row margin-top-2">
+                    <a href="{{ url_for('my_routines') }}" class="waves-effect card-panel-button btn-large col s12 m5 
+                        red lighten-3 z-depth-4">
+                        <i class="fa-solid fa-ban right"></i>Cancel</a>
                 <!-- submit button -->
-                <div class="row">
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s8 offset-s2 light-green 
-                    lighten-3 z-depth-4 margin-top-2">
+                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 
+                        light-green lighten-3 z-depth-4 margin-top-2">
                         <i class="fa-solid fa-circle-plus right"></i>Add Routine </button>
                 </div>
             </form>

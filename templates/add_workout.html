@@ -5,9 +5,9 @@
         <div class="card-panel card-panel-bottom">
             <h1>Add Workout</h1>
             <form method="POST" action="{{ url_for('add_workout') }}">
-                <!-- select routine -->
                 <div class="row">
-                    <div class="input-field col s12">
+                    <!-- select routine -->
+                    <div class="input-field col s12 m9">
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled selected>Select Routine</option>
                             {% for routine in routines %}
@@ -15,6 +15,11 @@
                             {% endfor %}
                         </select>
                         <label for="routine_name">Routine</label>
+                    </div>
+                    <!-- enter number of sets completed -->
+                    <div class="input-field col s12 m3">
+                        <input id="sets" name="sets" class="validate" type="number" min="1" required>
+                        <label for="sets">Sets completed</label>
                     </div>
                 </div>
                 <!-- pick date and time -->
@@ -28,13 +33,6 @@
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
-                <!-- enter number of sets completed -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="sets" name="sets" class="validate" type="number" min="1" required>
-                        <label for="sets">Sets completed</label>
-                    </div>
-                </div>
                 <!-- add notes (optional field) -->
                 <div class="row">
                     <div class="input-field col s12">
@@ -43,9 +41,13 @@
                         <label for="notes">Notes (optional)</label>
                     </div>
                 </div>
+                <!-- cancel button -->
+                <div class="row margin-top-2">
+                    <a href="{{ url_for('workout_log') }}" 
+                    class="waves-effect card-panel-button btn-large col s12 m5 red lighten-3 z-depth-4">
+                        <i class="fa-solid fa-ban right"></i>Cancel</a>
                 <!-- submit button -->
-                <div class="row">
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s8 offset-s2 light-green
+                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 light-green
                     lighten-3 z-depth-4 margin-top-2">
                         <i class="fa-solid fa-circle-plus right"></i>Add Record </button>
                 </div>
