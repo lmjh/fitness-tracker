@@ -6,7 +6,7 @@
     --dark-border: #505050;
     --light-text: #D0D0D0;
     --dark-text: #202020;
-    --link-color: #5ac9ff;
+    --accent-blue: #5ac9ff;
 }
 
 body,
@@ -17,7 +17,7 @@ textarea {
 }
 
 a {
-    color: var(--link-color)
+    color: var(--accent-blue)
 }
 
 nav {
@@ -69,8 +69,9 @@ input[type="datetime-local"]:not(.browser-default):focus:not([readonly])+label,
 input[type="tel"]:not(.browser-default):focus:not([readonly])+label,
 input[type="number"]:not(.browser-default):focus:not([readonly])+label,
 input[type="search"]:not(.browser-default):focus:not([readonly])+label,
-textarea.materialize-textarea:focus:not([readonly])+label {
-    color: var(--link-color);
+textarea.materialize-textarea:focus:not([readonly])+label,
+.input-field .prefix.active {
+    color: var(--accent-blue);
 }
 
 input:not([type]):focus:not([readonly]),
@@ -86,13 +87,17 @@ input[type="tel"]:not(.browser-default):focus:not([readonly]),
 input[type="number"]:not(.browser-default):focus:not([readonly]),
 input[type="search"]:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid var(--link-color);
+    border-bottom: 1px solid var(--accent-blue);
     -webkit-box-shadow: 0 1px 0 0 #26a69a;
-    box-shadow: 0 1px 0 0 var(--link-color);
+    box-shadow: 0 1px 0 0 var(--accent-blue);
 }
 
 button:focus {
-    background-color: var(--link-color);
+    background-color: var(--accent-blue);
+}
+
+.select-wrapper input.select-dropdown:focus {
+	border-bottom: 1px solid var(--accent-blue);
 }
 
 /* Hide Chrome, Safari, Edge and Opera number scroll arrows */
@@ -119,7 +124,7 @@ input[type=number] {
 .dropdown-content li>a,
 .dropdown-content li>span {
     background-color: var(--dark-3);
-    color: var(--link-color);
+    color: var(--accent-blue);
     border-width: 1px 0 1px;
     border-color: var(--dark-2);
     border-style: solid;
@@ -143,7 +148,7 @@ input[type=number] {
 }
 
 .is-selected>.datepicker-day-button {
-    background-color: var(--link-color);
+    background-color: var(--accent-blue);
     color: var(--dark-text);
 }
 
@@ -153,7 +158,7 @@ input[type=number] {
 .datepicker-done,
 .datepicker-table td.is-today,
 .timepicker-close {
-    color: var(--link-color)
+    color: var(--accent-blue)
 }
 
 .month-next>svg,
@@ -163,11 +168,11 @@ input[type=number] {
 
 .timepicker-canvas-bg,
 .timepicker-canvas-bearing {
-    fill: var(--link-color)
+    fill: var(--accent-blue)
 }
 
 .timepicker-canvas line {
-    stroke: var(--link-color);
+    stroke: var(--accent-blue);
 }
 
 .timepicker-plate {
@@ -240,5 +245,21 @@ input[type=number] {
 }
 
 .btn-floating i {
+    color: var(--dark-text);
+}
+
+/* MODAL STYLES */
+
+.modal {
+    border-radius: 20px;
+    background-color: var(--dark-2);
+}
+
+.modal .modal-footer {
+    background-color: var(--dark-3);
+}
+
+.modal-button {
+    border-radius: 10px;
     color: var(--dark-text);
 }

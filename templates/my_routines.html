@@ -41,15 +41,16 @@
                     <i class="fa-solid fa-pen right"></i>Edit</a>
 
                 <!-- Delete confimation modal -->
-                <div id="{{ routine._id }}_modal" class="modal">
+                <div id="{{ routine._id }}_modal" class="modal center-align">
                     <div class="modal-content">
                         <h4>Do you really want to delete this routine?</h4>
                         <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
                     </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+                    <div class="modal-footer z-depth-4">
+                        <a href="#!" class="modal-close waves-effect modal-button light-green lighten-4 z-depth-4
+                            btn">Cancel</a>
                         <a href="{{ url_for('delete_routine', routine_id=routine._id) }}"
-                            class="modal-close waves-effect waves-light btn red">Confirm</a>
+                            class="modal-close waves-effect modal-button btn red lighten-4 z-depth-4">Confirm</a>
                     </div>
                 </div>
             </div>

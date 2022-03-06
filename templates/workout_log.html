@@ -41,15 +41,15 @@
                             </div>
                         </div>
                         <div class="row center-align">
-                            <div class="col s12 m4">
+                            <div class="col s4">
                                 <div class="feature-number">{{ log.routine[0].exercise_one_reps * log.sets }}</div>
                                 <div>{{ log.routine[0].exercise_one }}s</div>
                             </div>
-                            <div class="col s12 m4">
+                            <div class="col s4">
                                 <div class="feature-number">{{ log.routine[0].exercise_two_reps * log.sets }}</div>
                                 <div>{{ log.routine[0].exercise_two }}s</div>
                             </div>
-                            <div class="col s12 m4">
+                            <div class="col s4">
                                 <div class="feature-number">{{ log.routine[0].exercise_three_reps * log.sets }}</div>
                                 <div>{{ log.routine[0].exercise_three }}s</div>
                             </div>
@@ -74,15 +74,16 @@
                             class="waves-effect log-button btn-large col s12 l5 offset-l2 light-green lighten-3 z-depth-4">
                             <i class="fa-solid fa-pen right"></i>Edit</a>
                         <!-- Delete confimation modal -->
-                        <div id="{{ log._id }}_modal" class="modal">
+                        <div id="{{ log._id }}_modal" class="modal center-align">
                             <div class="modal-content">
                                 <h4>Do you really want to delete this record?</h4>
                                 <p>Deleted records can't be recovered.</p>
                             </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+                            <div class="modal-footer z-depth-2">
+                                <a href="#!" class="modal-close waves-effect modal-button light-green lighten-4 
+                                    z-depth-4 btn">Cancel</a>
                                 <a href="{{ url_for('delete_workout', log_id=log._id) }}"
-                                    class="modal-close waves-effect waves-light btn red">Confirm</a>
+                                    class="modal-close waves-effect modal-button btn red lighten-4 z-depth-4">Confirm</a>
                             </div>
                         </div>
                     </div>
