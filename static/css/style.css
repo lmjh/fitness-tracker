@@ -1,4 +1,4 @@
-/* CUSTOM COLOURS */
+/* COLOURS AND FONTS */
 :root {
     --dark-1: #202020;
     --dark-2: #303030;
@@ -29,6 +29,10 @@ nav {
     color: var(--dark-text)
 }
 
+h1, h2, h3, h4 {
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
 /* UTILITY CLASSES */
 
 .margin-top-2 {
@@ -46,6 +50,11 @@ nav {
 .feature-number {
     font-size: 3em;
     font-weight: bolder;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow {
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* FLASH MESSAGES */
