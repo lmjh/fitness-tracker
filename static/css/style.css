@@ -298,3 +298,24 @@ input[type=number] {
     margin: 1rem 0 2rem;
 
 }
+
+/* MEDIA QUERIES */
+
+@media only screen and (min-width: 993px) {
+
+/* Custom classes for sizing buttons on my_routines page */
+
+.row .col.button-left {
+	width: 48%;
+	margin-left: auto;
+	left: auto;
+	right: auto;
+}
+
+.row .col.button-right {
+	width: 48%;
+	margin-left: 4%;
+	left: auto;
+	right: auto;
+}
+}

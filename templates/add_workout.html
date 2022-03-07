@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom">
-            <h1>Add Workout</h1>
+            <h1>Add Workout Log</h1>
             <form method="POST" action="{{ url_for('add_workout') }}">
                 <div class="row">
                     <!-- select routine -->
@@ -11,7 +11,11 @@
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled selected>Select Routine</option>
                             {% for routine in routines %}
-                                <option value="{{ routine._id }}">{{ routine.routine_name }}</option>
+                                {% if routine.routine_name == routine_name %}
+                                    <option value="{{ routine._id }}" selected>{{ routine.routine_name }}</option>
+                                {% else %}
+                                    <option value="{{ routine._id }}">{{ routine.routine_name }}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                         <label for="routine_name">Routine</label>
@@ -47,9 +51,9 @@
                     class="waves-effect card-panel-button btn-large col s12 m5 red lighten-3 z-depth-4">
                         <i class="fa-solid fa-ban right"></i>Cancel</a>
                 <!-- submit button -->
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 light-green
-                    lighten-3 z-depth-4 margin-top-2">
-                        <i class="fa-solid fa-circle-plus right"></i>Add Record </button>
+                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 
+                        light-green lighten-3 z-depth-4 margin-top-2">
+                        <i class="fa-solid fa-circle-plus right"></i>Add Log</button>
                 </div>
             </form>
         </div>

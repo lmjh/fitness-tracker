@@ -217,16 +217,20 @@ def add_workout():
         flash("Workout record added!")
         return redirect(url_for("workout_log"))
 
+    # retrieve routine_name query parameter, if present
+    routine_name = request.args.get('routine_name')
+
     # find default routines (created by admin) and convert cursor to a list
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
     # find user's custom routines and convert cursor to a list
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
 
-    # concatenate default and custom routines lists, then pass to the
-    # add_workout template
+    # concatenate default and custom routines lists, then pass with 
+    # routine_name to the add_workout template
     routines = default_routines + user_routines
     return render_template(
-        "add_workout.html", page_title="Add Workout", routines=routines)
+        "add_workout.html", page_title="Add Workout", routines=routines,
+        routine_name=routine_name)
 
 
 @app.route("/edit_workout/<log_id>", methods=["GET", "POST"])
