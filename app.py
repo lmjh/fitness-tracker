@@ -40,86 +40,108 @@ def login_required(f):
 @app.route("/")
 def home():
     """
-    Renders the home page.
+    If user is logged in, redirects them to workout_log page. Otherwise,
+    renders the home page.
     """
-    return render_template("home.html", page_title="Home")
+    # check if user is currently logged in
+    if session.get("user") is None:
+        return render_template("home.html", page_title="Home")
+
+    # redirect already logged in users to workout_log page
+    return redirect(url_for("workout_log"))
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    GET: Renders the login page.
+    GET: If user is logged in, redirects them to workout_log page. Otherwise,
+    renders the login page.
     POST: Collects submitted user credentials.
     If username and passsword are correct, user is logged in and redirected to
     the home page.
     If username and password are incorrect, user is redirected to the login
     page.
     """
-    if request.method == "POST":
-        # assign submitted username to a variable and query the database to
-        # find a record with that name
-        username = request.form.get("username").lower()
-        valid_username = mongo.db.users.find_one({"username": username})
+    # check if user is currently logged in
+    if session.get("user") is None:
+        if request.method == "POST":
+            # assign submitted username to a variable and query the database to
+            # find a record with that name
+            username = request.form.get("username").lower()
+            valid_username = mongo.db.users.find_one({"username": username})
 
-        # check the submitted username exists in the database
-        if valid_username:
+            # check the submitted username exists in the database
+            if valid_username:
 
-            # check the submitted password matches the database
-            if check_password_hash(
-                    valid_username["password"], request.form.get("password")):
+                # check the submitted password matches the database
+                if check_password_hash(
+                        valid_username["password"],
+                        request.form.get("password")):
 
-                # add user to session cookie and redirect to workout log
-                session["user"] = username
-                flash(f"Welcome, {username}")
-                return redirect(url_for('workout_log'))
+                    # add user to session cookie and redirect to workout log
+                    session["user"] = username
+                    flash(f"Welcome, {username}")
+                    return redirect(url_for('workout_log'))
 
-            # if submitted password is incorrect, return to login page
+                # if submitted password is incorrect, return to login page
+                flash("Username or password incorrect. Please try again.")
+                return redirect(url_for('login'))
+
+            # if submitted username is incorrect, return to login page
             flash("Username or password incorrect. Please try again.")
             return redirect(url_for('login'))
 
-        # if submitted username is incorrect, return to login page
-        flash("Username or password incorrect. Please try again.")
-        return redirect(url_for('login'))
+        return render_template("login.html", page_title="Login")
 
-    return render_template("login.html", page_title="Login")
+    # redirect already logged in users to workout_log page
+    return redirect(url_for("workout_log"))
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    GET: Renders the registration page.
+    GET: If user is logged in, redirects them to workout_log page. Otherwise,
+    renders the registration page.
     POST: Collects submitted user data and checks if requested username is
     available.
     If username is taken, user is returned to the registration page.
     If username is available, a new user record is added to the users database
     and the user is logged in and redirected to the home page.
     """
-    if request.method == "POST":
-        # assign submitted username to a variable and check if it exists in
-        # the database
-        username = request.form.get("username").lower()
-        duplicate_user = mongo.db.users.find_one({"username": username})
+    # check if user is currently logged in
+    if session.get("user") is None:
+        if request.method == "POST":
+            # assign submitted username to a variable and check if it exists in
+            # the database
+            username = request.form.get("username").lower()
+            duplicate_user = mongo.db.users.find_one({"username": username})
 
-        # if username already exists, return user to registration page
-        if duplicate_user:
-            flash(f"Username \"{username}\" is unavailable.")
-            return redirect(url_for("register"))
+            # if username already exists, return user to registration page
+            if duplicate_user:
+                flash(f"Username \"{username}\" is unavailable.")
+                return redirect(url_for("register"))
 
-        # build dictionary with user submitted details
-        new_user = {
-            "username": username,
-            "email": request.form.get("email"),
-            "password": generate_password_hash(request.form.get("password"))
-        }
+            # build dictionary with user submitted details
+            new_user = {
+                "username": username,
+                "email": request.form.get("email"),
+                "password": generate_password_hash(
+                                request.form.get("password"))
+            }
 
-        # insert new user dict to users database
-        mongo.db.users.insert_one(new_user)
+            # insert new user dict to users database
+            mongo.db.users.insert_one(new_user)
 
-        # add new user to session cookie and redirect to workout log
-        session["user"] = username
-        flash(f"Welcome, {session['user']}! Your account has been created.")
-        return redirect(url_for('workout_log'))
-    return render_template("register.html", page_title="Register")
+            # add new user to session cookie and redirect to workout log
+            session["user"] = username
+            flash(
+                f"Welcome, {session['user']}! Your account has been created.")
+            return redirect(url_for('workout_log'))
+
+        return render_template("register.html", page_title="Register")
+
+    # redirect logged in users to workout_log page
+    return redirect(url_for("workout_log"))
 
 
 @app.route('/logout')
