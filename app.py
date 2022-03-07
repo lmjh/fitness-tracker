@@ -1,12 +1,12 @@
 import os
 import datetime
+from functools import wraps
 from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
 
 if os.path.exists("env.py"):
     import env
@@ -23,8 +23,8 @@ mongo = PyMongo(app)
 
 def login_required(f):
     """
-    Decorator to check if a user is currently logged in and redirect to the login
-    page if not.
+    Decorator to check if a user is currently logged in and redirect to the
+    login page if not.
     Based on this function from the Flask documetation:
     https://flask.palletsprojects.com/en/2.0.x/patterns/viewdecorators/#login-required-decorator
     """
@@ -40,7 +40,7 @@ def login_required(f):
 @app.route("/")
 def home():
     """
-    Returns the home page.
+    Renders the home page.
     """
     return render_template("home.html", page_title="Home")
 
@@ -48,27 +48,36 @@ def home():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
-    GET: Returns the login page.
+    GET: Renders the login page.
     POST: Collects submitted user credentials.
-    If username and passsword are correct, user is logged in and
-    redirected to the home page.
-    If username and password are incorrect, user is redirected to
-    the login page.
+    If username and passsword are correct, user is logged in and redirected to
+    the home page.
+    If username and password are incorrect, user is redirected to the login
+    page.
     """
     if request.method == "POST":
+        # assign submitted username to a variable and query the database to
+        # find a record with that name
         username = request.form.get("username").lower()
         valid_username = mongo.db.users.find_one({"username": username})
 
+        # check the submitted username exists in the database
         if valid_username:
+
+            # check the submitted password matches the database
             if check_password_hash(
                     valid_username["password"], request.form.get("password")):
+
+                # add user to session cookie and redirect to workout log
                 session["user"] = username
                 flash(f"Welcome, {username}")
-                return redirect(url_for('home'))
+                return redirect(url_for('workout_log'))
 
+            # if submitted password is incorrect, return to login page
             flash("Username or password incorrect. Please try again.")
             return redirect(url_for('login'))
 
+        # if submitted username is incorrect, return to login page
         flash("Username or password incorrect. Please try again.")
         return redirect(url_for('login'))
 
@@ -78,35 +87,38 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
-    GET: Returns the registration page.
-    POST: Collects submitted user data and checks if requested username is 
+    GET: Renders the registration page.
+    POST: Collects submitted user data and checks if requested username is
     available.
     If username is taken, user is returned to the registration page.
     If username is available, a new user record is added to the users database
     and the user is logged in and redirected to the home page.
     """
     if request.method == "POST":
-        # Assign submitted username to a variable and check if it exists in 
+        # assign submitted username to a variable and check if it exists in
         # the database
         username = request.form.get("username").lower()
         duplicate_user = mongo.db.users.find_one({"username": username})
 
-        # If username already exists, return user to registration page
+        # if username already exists, return user to registration page
         if duplicate_user:
             flash(f"Username \"{username}\" is unavailable.")
             return redirect(url_for("register"))
 
+        # build dictionary with user submitted details
         new_user = {
             "username": username,
             "email": request.form.get("email"),
             "password": generate_password_hash(request.form.get("password"))
         }
 
+        # insert new user dict to users database
         mongo.db.users.insert_one(new_user)
 
+        # add new user to session cookie and redirect to workout log
         session["user"] = username
         flash(f"Welcome, {session['user']}! Your account has been created.")
-        return redirect(url_for('home'))
+        return redirect(url_for('workout_log'))
     return render_template("register.html", page_title="Register")
 
 
@@ -114,8 +126,7 @@ def register():
 @login_required
 def logout():
     """
-    Removes the user from the session cookie.
-    Returns a redirect to the home page.
+    Removes the user from the session cookie and redirects to the home page.
     """
     session.pop("user")
     flash("You have been logged out.")
@@ -126,7 +137,7 @@ def logout():
 @login_required
 def workout_log():
     """
-    Finds all workouts logged by the user and returns the workout log page. 
+    Finds all workouts logged by the user and renders the workout log page.
     """
     # find all workouts logged by the current user
     # lookup corresponding routine details using routine_id
@@ -150,23 +161,27 @@ def workout_log():
             }
         }
         ]))
-    return render_template('workout_log.html', page_title="Workout Log", logs=logs)
+    # pass the results of the query to the workout_log template
+    return render_template('workout_log.html', page_title="Workout Log",
+                           logs=logs)
 
 
 @app.route("/add_workout", methods=["GET", "POST"])
 @login_required
 def add_workout():
     """
-    GET: returns the Add Workout page
-    POST: collects user input, inserts to workout_logs database and
-    redirects user to Workout Log page
+    GET: Renders the Add Workout page
+    POST: Collects user input, inserts to workout_logs database and redirects
+    user to Workout Log page
     """
     if request.method == "POST":
         # concatenate date picker value and time picker value
-        date = request.form.get("workout_date") + request.form.get("workout_time")
-        # convert concatenated date into ISODate 
+        date = request.form.get("workout_date") + request.form.get(
+                "workout_time")
+        # convert concatenated date into ISODate
         iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
-        # build dictionary containing workout details
+
+        # build dictionary containing user submitted workout details
         entry = {
             "routine_id": ObjectId(request.form.get("routine_name")),
             "date": iso_date,
@@ -174,17 +189,19 @@ def add_workout():
             "sets": int(request.form.get("sets")),
             "username": session['user']
         }
-        # insert dictionary into database
+
+        # insert dictionary into database and redirect user to workout log
         mongo.db.workout_logs.insert_one(entry)
-        
         flash("Workout record added!")
         return redirect(url_for("workout_log"))
 
-    # find default routines (created by admin)
+    # find default routines (created by admin) and convert cursor to a list
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
-    # find user's custom routines
+    # find user's custom routines and convert cursor to a list
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
-    # concatenate default and custom routines
+
+    # concatenate default and custom routines lists, then pass to the
+    # add_workout template
     routines = default_routines + user_routines
     return render_template(
         "add_workout.html", page_title="Add Workout", routines=routines)
@@ -194,20 +211,23 @@ def add_workout():
 @login_required
 def edit_workout(log_id):
     """
-    GET: Returns edit_workout page with data from requested log id
+    GET: Renders edit_workout page with data from requested log id
     POST: If current user created the log entry, updates the entry.
     Otherwise, returns user to workout log page.
     """
     if request.method == "POST":
         # find log entry to edit from database
         log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+
         # check current user is the user who created the entry
         if log["username"] == session["user"]:
             # concatenate date picker value and time picker value
-            date = request.form.get("workout_date") + request.form.get("workout_time")
+            date = request.form.get("workout_date") + request.form.get(
+                    "workout_time")
             # convert concatenated date into ISODate
             iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
-            # build dictionary containing workout details
+
+            # build dictionary from user submitted workout details
             entry = {
                 "routine_id": ObjectId(request.form.get("routine_name")),
                 "date": iso_date,
@@ -215,8 +235,10 @@ def edit_workout(log_id):
                 "sets": int(request.form.get("sets")),
                 "username": session['user']
             }
+
+            # update the database entry with the entered details and redirect
+            # user to workout log
             flash("Workout record updated.")
-            # update the database entry with the entered details
             mongo.db.workout_logs.update_one(log, {"$set": entry})
             return redirect(url_for("workout_log"))
 
@@ -226,11 +248,12 @@ def edit_workout(log_id):
 
     # find log entry to edit from database
     log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
-    # find default routines (created by admin)
+    # find default routines (created by admin) and convert cursor to a list
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
-    # find user's custom routines
+    # find user's custom routines and convert cursor to a list
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
-    # concatenate default and custom routines
+    # concatenate default and custom routines lists, then pass to the
+    # edit_workout template
     routines = default_routines + user_routines
     return render_template(
         "edit_workout.html", page_title="Edit Workout",
@@ -241,17 +264,19 @@ def edit_workout(log_id):
 @login_required
 def delete_workout(log_id):
     """
-    Checks if current user created the log entry to be deleted
-    and deletes it if so.
-    Otherwise, returns user to workout log page.
+    Checks if current user created the log entry to be deleted and deletes it
+    if so. Otherwise, returns user to workout log page.
     """
     # find log entry to edit from database
     log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+
     # check current user is the user who created the entry
     if log["username"] == session["user"]:
+        # delete log entry from database and redirect user to workout log
         mongo.db.workout_logs.delete_one(log)
         flash("Workout record deleted.")
         return redirect(url_for("workout_log"))
+
     # redirect unauthorised users to workout log page
     flash("You don't have permission to delete this log.")
     return redirect(url_for("workout_log"))
@@ -260,20 +285,32 @@ def delete_workout(log_id):
 @app.route("/my_routines")
 @login_required
 def my_routines():
+    """
+    Finds all default (admin created) routines and all routines created by the
+    user and renders the my_routines page
+    """
+    # query database to find all admin created routines
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
-    custom_routines = list(mongo.db.routines.find({"username": session["user"]}))
-    return render_template("my_routines.html", page_title="My Routines", default_routines=default_routines, custom_routines=custom_routines)
+    # query database to find all routines created by current user
+    custom_routines = list(mongo.db.routines.find(
+                        {"username": session["user"]}))
+    # pass default and custom routines to the my_routines template
+    return render_template("my_routines.html", page_title="My Routines",
+                           default_routines=default_routines,
+                           custom_routines=custom_routines)
 
 
 @app.route("/add_routine", methods=["GET", "POST"])
 @login_required
 def add_routine():
     """
-    GET: Render add routing page template
-    POST:
+    GET: Render the add_routine page
+    POST: Checks if the submitted routine name is the same as any admin
+    routines or routines by the current. If so, user is redirected back to the
+    add_routine page. If not, the routine is added to the database.
     """
     if request.method == "POST":
-        # Assign submitted routine name to a variable and check if the current
+        # assign submitted routine name to a variable and check if the current
         # user or admin already has a routine of this name
         routine_name = request.form.get("routine_name")
         duplicate_routine = mongo.db.routines.find_one(
@@ -289,10 +326,12 @@ def add_routine():
                     }
                 ]
             })
+
         # if a record is found matching user and routine name, redirect
         # to add_routine page
         if duplicate_routine:
-            flash("Duplicate routine name. Please enter a unique routine name.")
+            flash(
+                "Duplicate routine name. Please enter a unique routine name.")
             return redirect(url_for("add_routine"))
 
         # build dictionary from user's entered data
@@ -303,10 +342,13 @@ def add_routine():
             "exercise_two": request.form.get("exercise_two"),
             "exercise_two_reps": int(request.form.get("exercise_two_reps")),
             "exercise_three": request.form.get("exercise_three"),
-            "exercise_three_reps": int(request.form.get("exercise_three_reps")),
+            "exercise_three_reps": int(
+                                    request.form.get("exercise_three_reps")),
             "username": session["user"]
         }
-        # insert new routine dictionary to database
+
+        # insert new routine dictionary to database and redirect user to
+        # my_routines page
         mongo.db.routines.insert_one(new_routine)
         flash("New routine successfully added.")
         return redirect(url_for("my_routines"))
@@ -318,16 +360,21 @@ def add_routine():
 @login_required
 def edit_routine(routine_id):
     """
-    GET: Returns edit_routine page with data from requested routine id
-    POST: 
+    GET: Renders edit_routine page with data from requested routine id
+    POST: If current user did not create the requested routine or if the
+    submitted routine name is the same as any admin routines or other routines
+    by the current user, the user is redirected to the my_routines page.
+    Otherwise, the requested routine is updated with the submitted details.
     """
     if request.method == "POST":
         # find routine to edit from database
         routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+
         # check current user is the user who created the routine
         if routine["username"] == session["user"]:
             # assign the submitted routine name to a variable
             routine_name = request.form.get("routine_name")
+
             # check if the submitted routine name has changed
             if routine_name != routine["routine_name"]:
                 # check if the current user or admin already has a routine with
@@ -345,6 +392,7 @@ def edit_routine(routine_id):
                             }
                         ]
                     })
+
                 # if a matching routine is found, redirect back to edit
                 # routine page
                 if duplicate_routine:
@@ -353,15 +401,19 @@ def edit_routine(routine_id):
                         " name.")
                     return redirect(url_for(
                         "edit_routine", routine_id=routine_id))
-            # build dictionary containing routine details
+
+            # build dictionary containing sumitted routine details
             entry = {
                 "routine_name": routine_name,
                 "exercise_one": request.form.get("exercise_one"),
-                "exercise_one_reps": int(request.form.get("exercise_one_reps")),
+                "exercise_one_reps": int(request.form.get(
+                                        "exercise_one_reps")),
                 "exercise_two": request.form.get("exercise_two"),
-                "exercise_two_reps": int(request.form.get("exercise_two_reps")),
+                "exercise_two_reps": int(request.form.get(
+                                        "exercise_two_reps")),
                 "exercise_three": request.form.get("exercise_three"),
-                "exercise_three_reps": int(request.form.get("exercise_three_reps")),
+                "exercise_three_reps": int(request.form.get(
+                                        "exercise_three_reps")),
                 "username": session["user"]
             }
             flash("Routine updated.")
@@ -388,11 +440,13 @@ def delete_routine(routine_id):
     """
     # find the requested routine in the database and assign it to a variable
     routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+
     # check current user is the user who created the routine
     if routine["username"] == session["user"]:
         # find all workout logs matching the given routine _id and delete
         mongo.db.workout_logs.delete_many({"routine_id": ObjectId(routine_id)})
-        # delete the routine
+
+        # delete the routine and redirect user to my_routines page
         mongo.db.routines.delete_one(routine)
         flash("Routine and workout logs deleted.")
         return redirect(url_for("my_routines"))
@@ -402,16 +456,17 @@ def delete_routine(routine_id):
 @login_required
 def track_progress(username, routine_id):
     """
-    If the given user has recorded workouts with the given routine, this
-    function collects the data and passes it to the track_progress page
-    template. If the user hasn't recorded any data for this routine, redirects
-    to the my_routines page.
+    If the given user has recorded workouts with the given routine, collect
+    data from the database and pass it to the track_progress page template.
+    If the user hasn't recorded any data for this routine, redirects to the
+    my_routines page.
     """
     # query the database for records matching both the username and routine_id
     # provided, then convert results to a list
     logs = list(mongo.db.workout_logs.find({"$and": [{"username": username},
                                             {"routine_id": ObjectId(routine_id)
                                              }]}).sort("date"))
+
     # if results were found
     if len(logs) > 0:
         # declare lists to store chart labels and values
@@ -422,13 +477,22 @@ def track_progress(username, routine_id):
         for log in logs:
             labels.append(log["date"])
             values.append(log["sets"])
-        # assign the record with the highest number of sets to a variable
+
+        # assign the record with the highest number of sets to a variable.
+        # based on this post from StackOverflow:
+        # https://stackoverflow.com/questions/32076382/mongodb-how-to-get-max-value-from-collections
         best = max(logs, key=lambda x: x['sets'])
-        # query the database to find the applicable routine
+
+        # query the database to find the applicable routine and assign to a
+        # variable
         routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
-        return render_template("track_progress.html", best=best, labels=labels,
-                               values=values, routine=routine,
+
+        # pass labels, values, personal best and routine data to track_progress
+        # template
+        return render_template("track_progress.html", labels=labels,
+                               values=values, best=best, routine=routine,
                                page_title="Track Progress")
+
     # if no results found, redirect user to my_routines page
     flash("No workouts recorded with this routine.")
     return redirect(url_for("my_routines"))
