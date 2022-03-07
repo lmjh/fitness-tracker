@@ -401,22 +401,37 @@ def delete_routine(routine_id):
 @app.route("/track_progress/<username>/<routine_id>")
 @login_required
 def track_progress(username, routine_id):
-    dbdata = mongo.db.workout_logs.find(
-        {"$and": [{"username": username},
-        {"routine_id": ObjectId(routine_id)}]}
-        ).sort("date")
-    labels = []
-    values = []
-    for each in dbdata:
-        labels.append(each["date"])
-        values.append(each["sets"])
-    max = mongo.db.workout_logs.find(
-        {"$and": [{"username": username},
-        {"routine_id": ObjectId(routine_id)}]}
-        ).sort("sets",-1).limit(1)
-    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
-    return render_template("track_progress.html", max=max, labels=labels,
-        values=values, routine=routine, page_title="Track Progress")
+    """
+    If the given user has recorded workouts with the given routine, this
+    function collects the data and passes it to the track_progress page
+    template. If the user hasn't recorded any data for this routine, redirects
+    to the my_routines page.
+    """
+    # query the database for records matching both the username and routine_id
+    # provided, then convert results to a list
+    logs = list(mongo.db.workout_logs.find({"$and": [{"username": username},
+                                            {"routine_id": ObjectId(routine_id)
+                                             }]}).sort("date"))
+    # if results were found
+    if len(logs) > 0:
+        # declare lists to store chart labels and values
+        labels = []
+        values = []
+        # iterate through list of workout logs and append dates to labels list
+        # and sets to values list
+        for log in logs:
+            labels.append(log["date"])
+            values.append(log["sets"])
+        # assign the record with the highest number of sets to a variable
+        best = max(logs, key=lambda x: x['sets'])
+        # query the database to find the applicable routine
+        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+        return render_template("track_progress.html", best=best, labels=labels,
+                               values=values, routine=routine,
+                               page_title="Track Progress")
+    # if no results found, redirect user to my_routines page
+    flash("No workouts recorded with this routine.")
+    return redirect(url_for("my_routines"))
 
 
 if __name__ == "__main__":
