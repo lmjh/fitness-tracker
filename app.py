@@ -168,7 +168,8 @@ def workout_log():
         date_from = datetime.datetime.strptime(
                                     request.args.get("date_from"), "%d %B %y")
         date_to = datetime.datetime.strptime(
-                                    request.args.get("date_to"), "%d %B %y")
+                                    request.args.get("date_to") + "23:59:59",
+                                    "%d %B %y%H:%M:%S")
 
         # pass date_from and date_to objects into database query
         logs = list(mongo.db.workout_logs.aggregate([
