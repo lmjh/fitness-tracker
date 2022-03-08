@@ -4,24 +4,28 @@
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom">
             <h1>Log In</h1>
+            <!-- log in form -->
             <form method="POST" action="{{ url_for('login') }}">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fa-solid fa-user prefix"></i>
-                        <input id="username" name="username" minlength="5" 
-                        maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <!-- username field -->
+                        <input id="username" name="username" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                            class="validate" type="text" required>
                         <label for="username">Username</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="fa-solid fa-lock prefix"></i>
-                        <input id="password" name="password" type="password" minlength="5"
-                            maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+                        <!-- password field -->
+                        <input id="password" name="password" type="password" minlength="5" maxlength="15"
+                            pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s8 offset-s2 light-green 
-                    lighten-3 z-depth-4 margin-top-2">
+                    <!-- submit button -->
+                    <button type="submit" class="waves-effect card-panel-button btn-large col s8 offset-s2 light-blue 
+                        lighten-3 z-depth-4 margin-top-2">
                         <i class="fa-solid fa-arrow-right-to-bracket right"></i>Log In </button>
                 </div>
                 <div class="row">

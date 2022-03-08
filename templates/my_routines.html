@@ -95,10 +95,11 @@
                         <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
                     </div>
                     <div class="modal-footer z-depth-4">
-                        <a href="#!" class="modal-close waves-effect modal-button light-green lighten-4 z-depth-4
-                            btn">Cancel</a>
-                        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}"
-                            class="modal-close waves-effect modal-button btn red lighten-4 z-depth-4">Confirm</a>
+                        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+                            <i class="fa-solid fa-ban right"></i>Cancel</a>
+                        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close 
+                            waves-effect modal-button btn red lighten-3 z-depth-4">
+                            <i class="fa-solid fa-trash right"></i>Delete</a>
                     </div>
                 </div>
             </div>

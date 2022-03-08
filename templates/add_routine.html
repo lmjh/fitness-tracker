@@ -8,54 +8,54 @@
                 <!-- routine name -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="routine_name" name="routine_name" minlength="5" maxlength="15"
-                        pattern="^[a-zA-Z0-9 \-_]{5,15}$" class="validate" type="text" required>
+                        <input id="routine_name" name="routine_name" minlength="5" maxlength="15" class="validate"
+                            type="text" pattern="^[a-zA-Z0-9 \-_]{5,15}$" required>
                         <label for="routine_name">Routine Name</label>
                     </div>
                 </div>
                 <!-- exercise one name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
-                        <input id="exercise_one" name="exercise_one" minlength="3" maxlength="20" 
-                        pattern="^[a-zA-Z0-9 \-_]{3,20}$" class="validate" type="text" required>
+                        <input id="exercise_one" name="exercise_one" minlength="3" maxlength="20" class="validate" 
+                            type="text" pattern="^[a-zA-Z0-9 \-_]{3,20}$" required>
                         <label for="exercise_one">Exercise 1</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="exercise_one_reps" name="exercise_one_reps" min="1" 
-                        class="validate" type="number" required>
+                        <input id="exercise_one_reps" name="exercise_one_reps" min="1" class="validate" type="number" 
+                            required>
                         <label for="exercise_one_reps">Reps</label>
                     </div>
                 </div>
                 <!-- exercise two name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
-                        <input id="exercise_two" name="exercise_two" minlength="3" maxlength="20" 
-                        pattern="^[a-zA-Z0-9 \-_]{3,20}$" class="validate" type="text" required>
+                        <input id="exercise_two" name="exercise_two" minlength="3" maxlength="20" class="validate" 
+                            type="text" pattern="^[a-zA-Z0-9 \-_]{3,20}$" required>
                         <label for="exercise_two">Exercise 2</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="exercise_two_reps" name="exercise_two_reps" min="1" 
-                        class="validate" type="number" required>
+                        <input id="exercise_two_reps" name="exercise_two_reps" min="1"  class="validate" type="number"
+                            required>
                         <label for="exercise_two_reps">Reps</label>
                     </div>
                 </div>
                 <!-- exercise three name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
-                        <input id="exercise_three" name="exercise_three" minlength="3" maxlength="20" 
-                        pattern="^[a-zA-Z0-9 \-_]{3,20}$" class="validate" type="text" required>
+                        <input id="exercise_three" name="exercise_three" minlength="3" maxlength="20" class="validate" 
+                            type="text" pattern="^[a-zA-Z0-9 \-_]{3,20}$" required>
                         <label for="exercise_three">Exercise 3</label>
                     </div>
                     <div class="input-field col s3">
-                        <input id="exercise_three_reps" name="exercise_three_reps" min="1" 
-                        class="validate" type="number" required>
+                        <input id="exercise_three_reps" name="exercise_three_reps" min="1" class="validate" 
+                            type="number" required>
                         <label for="exercise_three_reps">Reps</label>
                     </div>
                 </div>
                 <!-- cancel button -->
                 <div class="row margin-top-2">
                     <a href="{{ url_for('my_routines') }}" class="waves-effect card-panel-button btn-large col s12 m5 
-                        red lighten-3 z-depth-4">
+                        grey lighten-1 z-depth-4">
                         <i class="fa-solid fa-ban right"></i>Cancel</a>
                 <!-- submit button -->
                     <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 

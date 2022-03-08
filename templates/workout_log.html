@@ -95,14 +95,13 @@
                     </div>
                     <div class="row margin-top-2">
                         <!-- Delete button - triggers confirmation modal -->
-                        <a href="#{{ log._id }}_modal"
-                            class="waves-effect log-button btn-large col s12 l5 red lighten-3 z-depth-4 
-                            modal-trigger">
+                        <a href="#{{ log._id }}_modal" class="waves-effect log-button btn-large col s12 l5 red lighten-3
+                            z-depth-4 modal-trigger">
                             <i class="fa-solid fa-trash right"></i>Delete</a>
-                        <!-- Edit workout button -->
-                        <a href="{{ url_for('edit_workout', log_id=log._id) }}"
-                            class="waves-effect log-button btn-large col s12 l5 offset-l2 light-green lighten-3 z-depth-4">
-                            <i class="fa-solid fa-pen right"></i>Edit</a>
+                        <!-- Edit workout log button -->
+                        <a href="{{ url_for('edit_workout', log_id=log._id) }}" class="waves-effect log-button btn-large
+                            col s12 l5 offset-l2 amber lighten-3 z-depth-4">
+                            <i class="fa-solid fa-pen right"></i>Edit Log</a>
                         <!-- Delete confimation modal -->
                         <div id="{{ log._id }}_modal" class="modal center-align">
                             <div class="modal-content">
@@ -110,10 +109,11 @@
                                 <p>Deleted records can't be recovered.</p>
                             </div>
                             <div class="modal-footer z-depth-2">
-                                <a href="#!" class="modal-close waves-effect modal-button light-green lighten-4 
-                                    z-depth-4 btn">Cancel</a>
-                                <a href="{{ url_for('delete_workout', log_id=log._id) }}"
-                                    class="modal-close waves-effect modal-button btn red lighten-4 z-depth-4">Confirm</a>
+                                <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+                                    <i class="fa-solid fa-ban right"></i>Cancel</a>
+                                <a href="{{ url_for('delete_workout', log_id=log._id) }}" class="modal-close 
+                                    waves-effect modal-button btn red lighten-3 z-depth-4">
+                                    <i class="fa-solid fa-trash right"></i>Delete</a>
                             </div>
                         </div>
                     </div>
