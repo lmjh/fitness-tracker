@@ -163,13 +163,21 @@ def workout_log():
     """
     # if URL contains a date_from parameter
     if request.args.get("date_from"):
-        # collect date_from and date_to values from query parameter and convert
-        # to datetime object
-        date_from = datetime.datetime.strptime(
+        # collect date_from and date_to values from query parameter and try to
+        # convert to datetime objects
+        try:
+            date_from = datetime.datetime.strptime(
                                     request.args.get("date_from"), "%d/%m/%y")
-        date_to = datetime.datetime.strptime(
+            date_to = datetime.datetime.strptime(
                                     request.args.get("date_to") + "23:59:59",
                                     "%d/%m/%y%H:%M:%S")
+        except ValueError:
+            # if either of the submitted dates aren't valid and in the correct
+            # format, redirect user back to workout_log page with error message
+            flash(
+                "Invalid date. Please enter valid dates in the format "
+                "dd/mm/yy.")
+            return redirect(url_for("workout_log"))
 
         # pass date_from and date_to objects into database query
         logs = list(mongo.db.workout_logs.aggregate([
@@ -239,8 +247,16 @@ def add_workout():
         # concatenate date picker value and time picker value
         date = request.form.get("workout_date") + request.form.get(
                 "workout_time")
-        # convert concatenated date into ISODate
-        iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
+        # try to convert concatenated date into ISODate
+        try:
+            iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
+        except ValueError:
+            # if either the date or the time isn't valid and in the correct
+            # format, redirect user back to add_workout page with error message
+            flash(
+                "Invalid date/time. Please enter a valid date and time in the "
+                "formats dd/mm/yy and hh:mm.")
+            return redirect(url_for("add_workout"))
 
         # build dictionary containing user submitted workout details
         entry = {
