@@ -30,13 +30,7 @@
     </ul>
 
     <section>
-        {% with flash_messages = get_flashed_messages() %}
-            {% for message in flash_messages %}
-                <div class="row flash-messages z-depth-2 light-blue lighten-3 dark-text">
-                    <div class="center-align">{{ message }}</div>
-                </div>
-            {% endfor %}
-        {% endwith %}
+        {% include 'includes/messages.html' %}
     </section>
 
     <main class="container">

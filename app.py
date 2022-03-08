@@ -31,7 +31,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user") is None:
-            flash("You must login to access this page.")
+            flash("You must login to access this page.", "error")
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -80,15 +80,16 @@ def login():
 
                     # add user to session cookie and redirect to workout log
                     session["user"] = username
-                    flash(f"Welcome, {username}")
+                    flash(f"Welcome, {username}", "message")
                     return redirect(url_for('workout_log'))
 
                 # if submitted password is incorrect, return to login page
-                flash("Username or password incorrect. Please try again.")
+                flash("Username or password incorrect. Please try again.",
+                      "error")
                 return redirect(url_for('login'))
 
             # if submitted username is incorrect, return to login page
-            flash("Username or password incorrect. Please try again.")
+            flash("Username or password incorrect. Please try again.", "error")
             return redirect(url_for('login'))
 
         return render_template("login.html", page_title="Login")
@@ -118,7 +119,7 @@ def register():
 
             # if username already exists, return user to registration page
             if duplicate_user:
-                flash(f"Username \"{username}\" is unavailable.")
+                flash(f"Username \"{username}\" is unavailable.", "error")
                 return redirect(url_for("register"))
 
             # build dictionary with user submitted details
@@ -135,7 +136,8 @@ def register():
             # add new user to session cookie and redirect to workout log
             session["user"] = username
             flash(
-                f"Welcome, {session['user']}! Your account has been created.")
+                f"Welcome, {session['user']}! Your account has been created.",
+                "create")
             return redirect(url_for('workout_log'))
 
         return render_template("register.html", page_title="Register")
@@ -151,7 +153,7 @@ def logout():
     Removes the user from the session cookie and redirects to the home page.
     """
     session.pop("user")
-    flash("You have been logged out.")
+    flash("You have been logged out.", "message")
     return redirect(url_for('home'))
 
 
@@ -176,7 +178,7 @@ def workout_log():
             # format, redirect user back to workout_log page with error message
             flash(
                 "Invalid date. Please enter valid dates in the format "
-                "dd/mm/yy.")
+                "dd/mm/yy.", "error")
             return redirect(url_for("workout_log"))
 
         # pass date_from and date_to objects into database query
@@ -255,7 +257,7 @@ def add_workout():
             # format, redirect user back to add_workout page with error message
             flash(
                 "Invalid date/time. Please enter a valid date and time in the "
-                "formats dd/mm/yy and hh:mm.")
+                "formats dd/mm/yy and hh:mm.", "error")
             return redirect(url_for("add_workout"))
 
         # build dictionary containing user submitted workout details
@@ -269,7 +271,7 @@ def add_workout():
 
         # insert dictionary into database and redirect user to workout log
         mongo.db.workout_logs.insert_one(entry)
-        flash("Workout record added!")
+        flash("Workout log added.", "create")
         return redirect(url_for("workout_log"))
 
     # retrieve routine_name query parameter, if present
@@ -315,7 +317,7 @@ def edit_workout(log_id):
                 # message
                 flash(
                     "Invalid date/time. Please enter a valid date and time in "
-                    "the formats dd/mm/yy and hh:mm.")
+                    "the formats dd/mm/yy and hh:mm.", "error")
                 return redirect(url_for("edit_workout", log_id=log_id))
 
             # build dictionary from user submitted workout details
@@ -329,12 +331,12 @@ def edit_workout(log_id):
 
             # update the database entry with the entered details and redirect
             # user to workout log
-            flash("Workout record updated.")
             mongo.db.workout_logs.update_one(log, {"$set": entry})
+            flash("Workout log updated.", "edit")
             return redirect(url_for("workout_log"))
 
         # redirect unauthorised users to workout log page
-        flash("You don't have permission to edit this log.")
+        flash("You don't have permission to edit this log.", "error")
         return redirect(url_for("workout_log"))
 
     # find log entry to edit from database
@@ -365,11 +367,11 @@ def delete_workout(log_id):
     if log["username"] == session["user"]:
         # delete log entry from database and redirect user to workout log
         mongo.db.workout_logs.delete_one(log)
-        flash("Workout record deleted.")
+        flash("Workout log deleted.", "delete")
         return redirect(url_for("workout_log"))
 
     # redirect unauthorised users to workout log page
-    flash("You don't have permission to delete this log.")
+    flash("You don't have permission to delete this log.", "error")
     return redirect(url_for("workout_log"))
 
 
@@ -422,7 +424,8 @@ def add_routine():
         # to add_routine page
         if duplicate_routine:
             flash(
-                "Duplicate routine name. Please enter a unique routine name.")
+                "Duplicate routine name. Please enter a unique routine name.",
+                "error")
             return redirect(url_for("add_routine"))
 
         # build dictionary from user's entered data
@@ -441,7 +444,7 @@ def add_routine():
         # insert new routine dictionary to database and redirect user to
         # my_routines page
         mongo.db.routines.insert_one(new_routine)
-        flash("New routine successfully added.")
+        flash("New routine successfully added.", "create")
         return redirect(url_for("my_routines"))
 
     return render_template("add_routine.html", page_title="Add Routine")
@@ -489,7 +492,7 @@ def edit_routine(routine_id):
                 if duplicate_routine:
                     flash(
                         "Duplicate routine name. Please enter a unique routine"
-                        " name.")
+                        " name.", "error")
                     return redirect(url_for(
                         "edit_routine", routine_id=routine_id))
 
@@ -507,13 +510,13 @@ def edit_routine(routine_id):
                                         "exercise_three_reps")),
                 "username": session["user"]
             }
-            flash("Routine updated.")
+            flash("Routine updated.", "edit")
             # update the database entry with the entered details
             mongo.db.routines.update_one(routine, {"$set": entry})
             return redirect(url_for("my_routines"))
 
         # redirect unauthorised users to workout log page
-        flash("You don't have permission to edit this routine.")
+        flash("You don't have permission to edit this routine.", "error")
         return redirect(url_for("my_routines"))
 
     # find routine to edit from database
@@ -539,7 +542,7 @@ def delete_routine(routine_id):
 
         # delete the routine and redirect user to my_routines page
         mongo.db.routines.delete_one(routine)
-        flash("Routine and workout logs deleted.")
+        flash("Routine and workout logs deleted.", "delete")
         return redirect(url_for("my_routines"))
 
 
@@ -585,7 +588,7 @@ def track_progress(username, routine_id):
                                page_title="Track Progress")
 
     # if no results found, redirect user to my_routines page
-    flash("No workouts recorded with this routine.")
+    flash("No workouts logged with this routine.", "error")
     return redirect(url_for("my_routines"))
 
 
