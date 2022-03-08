@@ -16,17 +16,18 @@
         <div class="card-panel card-panel-bottom">
             <!-- Workout Logs filter panel -->
             <form action="" method="GET">
-                <div class="row">
+                <div class="row center-align">
                     <div class="col s12 m6">
                         <!-- From Date filter -->
                         <input id="date_from" name="date_from" type="text" class="datepicker validate"
-                            pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
-                        <label for="date_from">From Date</label>
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
+                        <label for="date_from">From</label>
                     </div>
                     <div class="col s12 m6">
                         <!-- To Date filter -->
-                        <input id="date_to" name="date_to" type="text" class="datepicker validate" required>
-                        <label for="date_to">To Date</label>
+                        <input id="date_to" name="date_to" type="text" class="datepicker validate"
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
+                        <label for="date_to">To</label>
                     </div>
                 </div>
                 <div class="row">

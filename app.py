@@ -305,8 +305,18 @@ def edit_workout(log_id):
             # concatenate date picker value and time picker value
             date = request.form.get("workout_date") + request.form.get(
                     "workout_time")
-            # convert concatenated date into ISODate
-            iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
+
+            # try to convert concatenated date into ISODate
+            try:
+                iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
+            except ValueError:
+                # if either the date or the time isn't valid and in the correct
+                # format, redirect user back to edit_workout page with error
+                # message
+                flash(
+                    "Invalid date/time. Please enter a valid date and time in "
+                    "the formats dd/mm/yy and hh:mm.")
+                return redirect(url_for("edit_workout", log_id=log_id))
 
             # build dictionary from user submitted workout details
             entry = {
