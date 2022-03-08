@@ -46,11 +46,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col s12 margin-top-2">
+                        Your progress with this routine is currently PRIVATE. If you'd like to share your progress, 
+                        click the button below to make this page visible and get a link to share.
+                    </div> 
+                </div>
+                <div class="row">
+                    <!-- Share button triggers confirmation modal -->
+                    <a href="#{{ routine._id }}_modal" class="waves-effect btn-large col s10 offset-s1 m8 offset-m2 l6 offset-l3 amber lighten-3
+                        card-panel-button modal-trigger z-depth-4">
+                    <i class="fa-solid fa-share-from-square right"></i>Share Progress</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
+<!-- Share confimation modal -->
+<div id="{{ routine._id }}_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you want to share your progress with this routine?</h4>
+        <p>Once you've updated your sharing settings, anyone with the link will be able to view your progress page for
+            this routine.</p>
+    </div>
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <a href="{{ url_for('toggle_sharing', routine_id=routine._id, username=username) }}" class="modal-close 
+            waves-effect modal-button btn amber lighten-3 z-depth-4">
+            <i class="fa-solid fa-share-from-square right"></i>Share</a>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <script>
@@ -86,6 +112,9 @@
             scales: {
                 x: {
                     type: "time",
+                    time: {
+                        unit: 'day'
+                    },
                     grid: {
                         lineWidth: 3
                     },

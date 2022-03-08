@@ -562,7 +562,7 @@ def track_progress(username, routine_id):
                                              }]}).sort("date"))
 
     # if results were found
-    if len(logs) > 0:
+    if logs:
         # declare lists to store chart labels and values
         labels = []
         values = []
@@ -585,10 +585,49 @@ def track_progress(username, routine_id):
         # template
         return render_template("track_progress.html", labels=labels,
                                values=values, best=best, routine=routine,
-                               page_title="Track Progress")
+                               page_title="Track Progress", username=username)
 
     # if no results found, redirect user to my_routines page
     flash("No workouts logged with this routine.", "error")
+    return redirect(url_for("my_routines"))
+
+
+@app.route("/toggle_sharing/<username>/<routine_id>")
+@login_required
+def toggle_sharing(username, routine_id):
+    """
+    Toggles sharing on/off for the given username and routine.
+    """
+    # check current user is the owner of the track_progress page
+    if username == session["user"]:
+        user = mongo.db.users.find_one({"username": username})
+        if routine_id in user["shared_routines"]:
+            flash("Routine found")
+            mongo.db.users.update_one(
+                {
+                    "username": username
+                },
+                {
+                    "$pull": {
+                        'shared_routines': routine_id
+                    }
+                })
+            flash("Routine removed", "delete")
+            return redirect(url_for("my_routines"))
+        mongo.db.users.update_one(
+                {
+                    "username": username
+                },
+                {
+                    "$push": {
+                        'shared_routines': routine_id
+                    }
+                })
+        flash("Routine added")
+        return redirect(url_for("my_routines"))
+
+    flash("You don't have permission to edit this page's share settings",
+          "error")
     return redirect(url_for("my_routines"))
 
 
