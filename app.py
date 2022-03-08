@@ -166,10 +166,10 @@ def workout_log():
         # collect date_from and date_to values from query parameter and convert
         # to datetime object
         date_from = datetime.datetime.strptime(
-                                    request.args.get("date_from"), "%d %B %y")
+                                    request.args.get("date_from"), "%d/%m/%y")
         date_to = datetime.datetime.strptime(
                                     request.args.get("date_to") + "23:59:59",
-                                    "%d %B %y%H:%M:%S")
+                                    "%d/%m/%y%H:%M:%S")
 
         # pass date_from and date_to objects into database query
         logs = list(mongo.db.workout_logs.aggregate([
@@ -240,7 +240,7 @@ def add_workout():
         date = request.form.get("workout_date") + request.form.get(
                 "workout_time")
         # convert concatenated date into ISODate
-        iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
+        iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
 
         # build dictionary containing user submitted workout details
         entry = {
@@ -290,7 +290,7 @@ def edit_workout(log_id):
             date = request.form.get("workout_date") + request.form.get(
                     "workout_time")
             # convert concatenated date into ISODate
-            iso_date = datetime.datetime.strptime(date, "%d %B %y%I:%M %p")
+            iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
 
             # build dictionary from user submitted workout details
             entry = {

@@ -31,12 +31,12 @@
                 <div class="row">
                     <div class="col s12 m6">
                         <input id="workout_date" name="workout_date" type="text" class="datepicker validate" 
-                        value="{{ log.date.strftime('%d %B %y') }}" required>
+                        value="{{ log.date.strftime('%d/%m/%y') }}" required>
                         <label for="workout_date">Date</label>
                     </div>
                     <div class="col s12 m6">
                         <input id="workout_time" name="workout_time" type="text" class="timepicker validate" 
-                        value="{{ log.date.strftime('%I:%M %p') }}" required>
+                        value="{{ log.date.strftime('%H:%M') }}" required>
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
