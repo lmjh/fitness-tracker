@@ -4,30 +4,35 @@
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom">
             <h1>Register</h1>
+            <!-- registration form -->
             <form method="POST" action="{{ url_for('register') }}">
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fa-solid fa-user prefix"></i>
-                        <input id="username" name="username" minlength="5" 
-                        maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" type="text" required>
+                        <!-- username input -->
+                        <input id="username" name="username" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" 
+                            class="validate" type="text" required>
                         <label for="username">Username</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="fa-solid fa-user prefix"></i>
-                        <input id="email" name="email" minlength="5" 
-                        maxlength="15" class="validate" type="email" required>
+                        <!-- email input -->
+                        <input id="email" name="email" minlength="5" maxlength="60" class="validate" type="email" 
+                            required>
                         <label for="email">Email</label>
                     </div>
                     <div class="input-field col s12">
                         <i class="fa-solid fa-lock prefix"></i>
+                        <!-- password input -->
                         <input id="password" name="password" type="password" minlength="5"
-                            maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
+                            maxlength="20" pattern="^[a-zA-Z0-9]{5,15}$" class="validate" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
                 <div class="row">
+                    <!-- form submit button -->
                     <button type="submit" class="waves-effect card-panel-button btn-large col s8 offset-s2 light-green 
-                    lighten-3 z-depth-4 margin-top-2">
+                        lighten-3 z-depth-4 margin-top-2">
                         <i class="fa-solid fa-user-plus right"></i>Register </button>
                 </div>
                 <div class="row">
