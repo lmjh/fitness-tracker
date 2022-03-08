@@ -6,9 +6,37 @@
     </div>
 </div>
 <div class="row">
+    <!-- Add Workout Log button -->
     <a href="{{ url_for('add_workout') }}" class="waves-effect log-button btn-large col s6 offset-s3 m4 offset-m4 
         light-green lighten-3 z-depth-4">
-        <i class="fa-solid fa-circle-plus right"></i>Add Record</a>
+        <i class="fa-solid fa-circle-plus right"></i>Add Workout Log</a>
+</div>
+<div class="row">
+    <div class="col s12 l8 offset-l2">
+        <div class="card-panel card-panel-bottom">
+            <!-- Workout Logs filter panel -->
+            <form action="" method="GET">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <!-- From Date filter -->
+                        <input id="date_from" name="date_from" type="text" class="datepicker validate" required>
+                        <label for="date_from">From Date</label>
+                    </div>
+                    <div class="col s12 m6">
+                        <!-- To Date filter -->
+                        <input id="date_to" name="date_to" type="text" class="datepicker validate" required>
+                        <label for="date_to">To Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Filter submit button -->
+                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m6 offset-m3 
+                    light-blue lighten-3 z-depth-4 margin-top-2">
+                    <i class="fa-solid fa-magnifying-glass right"></i>Filter Logs</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col s12 l8 offset-l2">

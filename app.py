@@ -161,12 +161,50 @@ def workout_log():
     """
     Finds all workouts logged by the user and renders the workout log page.
     """
+    # if URL contains a date_from parameter
+    if request.args.get("date_from"):
+        # collect date_from and date_to values from query parameter and convert
+        # to datetime object
+        date_from = datetime.datetime.strptime(
+                                    request.args.get("date_from"), "%d %B %y")
+        date_to = datetime.datetime.strptime(
+                                    request.args.get("date_to"), "%d %B %y")
+
+        # pass date_from and date_to objects into database query
+        logs = list(mongo.db.workout_logs.aggregate([
+            {
+                "$match": {
+                    "username": session['user'],
+                    "date": {
+                        "$gte": date_from,
+                        "$lt": date_to
+                    }
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "routines",
+                    "localField": "routine_id",
+                    "foreignField": "_id",
+                    "as": "routine"
+                }
+            },
+            {
+                "$sort": {
+                    "date": -1
+                }
+            }
+            ]))
+        # pass the results of the query to the workout_log template
+        return render_template('workout_log.html', page_title="Workout Log",
+                               logs=logs)
+
     # find all workouts logged by the current user
     # lookup corresponding routine details using routine_id
     logs = list(mongo.db.workout_logs.aggregate([
         {
             "$match": {
-                "username": session['user']
+                "username": session['user'],
             }
         },
         {
@@ -225,7 +263,7 @@ def add_workout():
     # find user's custom routines and convert cursor to a list
     user_routines = list(mongo.db.routines.find({"username": session['user']}))
 
-    # concatenate default and custom routines lists, then pass with 
+    # concatenate default and custom routines lists, then pass with
     # routine_name to the add_workout template
     routines = default_routines + user_routines
     return render_template(
