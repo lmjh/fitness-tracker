@@ -96,47 +96,49 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
-<!-- Include share modal if user is page owner and page is not shared -->
+{% block modals %}
+<!-- Share modal included if user is page owner and page is not shared -->
 {% if data.owner and not data.shared %}
-<!-- Share confimation modal -->
-<div id="share_modal" class="modal center-align">
-    <div class="modal-content">
-        <h4>Do you want to share your progress with this routine?</h4>
-        <p>
-            Once you've updated your sharing settings, other users with the link will be able to view your progress page
-             for this routine.
-        </p>
+    <!-- Share confimation modal -->
+    <div id="share_modal" class="modal center-align">
+        <div class="modal-content">
+            <h4>Do you want to share your progress with this routine?</h4>
+            <p>
+                Once you've updated your sharing settings, other users with the link will be able to view your progress page
+                for this routine.
+            </p>
+        </div>
+        <div class="modal-footer z-depth-4">
+            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+                <i class="fa-solid fa-ban right"></i>Cancel</a>
+            <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
+                class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
+                <i class="fa-solid fa-share-from-square right"></i>Share</a>
+        </div>
     </div>
-    <div class="modal-footer z-depth-4">
-        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-            <i class="fa-solid fa-ban right"></i>Cancel</a>
-        <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
-            class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
-            <i class="fa-solid fa-share-from-square right"></i>Share</a>
-    </div>
-</div>
 {% endif %}
 
-<!-- Include hide modal if user is page owner and page is shared -->
+<!-- Hide modal included if user is page owner and page is shared -->
 {% if data.owner and data.shared %}
-<!-- Share confimation modal -->
-<div id="hide_modal" class="modal center-align">
-    <div class="modal-content">
-        <h4>Do you want to hide your progress with this routine?</h4>
-        <p>
-            Once you've updated your sharing settings, only you will be able to view your progress page for 
-            this routine.
-        </p>
+    <!-- Share confimation modal -->
+    <div id="hide_modal" class="modal center-align">
+        <div class="modal-content">
+            <h4>Do you want to hide your progress with this routine?</h4>
+            <p>
+                Once you've updated your sharing settings, only you will be able to view your progress page for 
+                this routine.
+            </p>
+        </div>
+        <div class="modal-footer z-depth-4">
+            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+                <i class="fa-solid fa-ban right"></i>Cancel</a>
+            <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
+                class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
+                <i class="fa-solid fa-eye-slash right"></i>Hide</a>
+        </div>
     </div>
-    <div class="modal-footer z-depth-4">
-        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-            <i class="fa-solid fa-ban right"></i>Cancel</a>
-        <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
-            class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
-            <i class="fa-solid fa-eye-slash right"></i>Hide</a>
-    </div>
-</div>
 {% endif %}
 {% endblock %}
 

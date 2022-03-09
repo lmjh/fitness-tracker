@@ -87,21 +87,6 @@
                 <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
                 class="waves-effect btn-large col s12 button-right offset-l2 amber lighten-3 card-panel-button z-depth-4">
                 <i class="fa-solid fa-pen right"></i>Edit Routine</a>
-
-                <!-- Delete confimation modal -->
-                <div id="{{ routine._id }}_modal" class="modal center-align">
-                    <div class="modal-content">
-                        <h4>Do you really want to delete this routine?</h4>
-                        <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
-                    </div>
-                    <div class="modal-footer z-depth-4">
-                        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-                            <i class="fa-solid fa-ban right"></i>Cancel</a>
-                        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close 
-                            waves-effect modal-button btn red lighten-3 z-depth-4">
-                            <i class="fa-solid fa-trash right"></i>Delete</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -116,7 +101,23 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
-
-
+{% block modals %}
+<!-- Delete confimation modals -->
+{% for routine in custom_routines %}
+    <div id="{{ routine._id }}_modal" class="modal center-align">
+        <div class="modal-content">
+            <h4>Do you really want to delete this routine?</h4>
+            <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
+        </div>
+        <div class="modal-footer z-depth-4">
+            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+                <i class="fa-solid fa-ban right"></i>Cancel</a>
+            <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close 
+                waves-effect modal-button btn red lighten-3 z-depth-4">
+                <i class="fa-solid fa-trash right"></i>Delete</a>
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}

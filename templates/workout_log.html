@@ -33,7 +33,7 @@
                 <div class="row">
                     <!-- Filter submit button -->
                     <button type="submit" class="waves-effect card-panel-button btn-large col s12 m6 offset-m3 
-                    light-blue lighten-3 z-depth-4 margin-top-2">
+                        light-blue lighten-3 z-depth-4 margin-top-2">
                     <i class="fa-solid fa-magnifying-glass right"></i>Filter Logs</button>
                 </div>
             </form>
@@ -45,82 +45,96 @@
         <ul class="collapsible log-collapsible z-depth-0">
             <!-- iterate over workout logs and add a collapsible accordion section for each -->
             {% for log in logs %}
-            <li class="log-container z-depth-4">
-                <!-- collapsible header -->
-                <div class="collapsible-header log-header">
-                    <div class="col s10">
-                        {{ log.date.strftime("%d/%m/%Y, %I:%M %p") }} - {{ log.routine[0].routine_name }}
+                <li class="log-container z-depth-4">
+                    <!-- collapsible header -->
+                    <div class="collapsible-header log-header">
+                        <div class="col s10">
+                            <!-- Convert log datetime to string and display with routine name -->
+                            {{ log.date.strftime("%d/%m/%Y, %I:%M %p") }} - {{ log.routine[0].routine_name }}
+                        </div>
+                        <div class="col s2">
+                            <i class="fa-solid fa-circle-chevron-down right"></i>
+                        </div>
                     </div>
-                    <div class="col s2">
-                        <i class="fa-solid fa-circle-chevron-down right"></i>
-                    </div>
-                </div>
-                <!-- collapsible body -->
-                <div class="collapsible-body log-body">
-                    <div class="log-panel-top z-depth-2">
-                        <div class="row center-align">
-                            <div class="col s12 m4 offset-m4">
-                                <div class="feature-number">
-                                    {{ log.sets }}
+                    <!-- collapsible body -->
+                    <div class="collapsible-body log-body">
+                        <div class="log-panel-top z-depth-2">
+                            <div class="row center-align">
+                                <div class="col s12 m4 offset-m4">
+                                    <div class="feature-number">
+                                        {{ log.sets }}
+                                    </div>
+                                </div>
+                                <div class="col s12 m4 offset-m4">
+                                    <div>
+                                        sets completed, totalling:
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col s12 m4 offset-m4">
-                                <div>
-                                    sets completed, totalling:
+                            <div class="row center-align">
+                                <div class="col s4">
+                                    <!-- Calculate total reps by multiplying routine reps by no. of sets completed -->
+                                    <div class="feature-number">
+                                        {{ log.routine[0].exercise_one_reps * log.sets }}
+                                    </div>
+                                    <div>{{ log.routine[0].exercise_one }}s</div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="feature-number">
+                                        {{ log.routine[0].exercise_two_reps * log.sets }}
+                                    </div>
+                                    <div>{{ log.routine[0].exercise_two }}s</div>
+                                </div>
+                                <div class="col s4">
+                                    <div class="feature-number">
+                                        {{ log.routine[0].exercise_three_reps * log.sets }}
+                                    </div>
+                                    <div>{{ log.routine[0].exercise_three }}s</div>
                                 </div>
                             </div>
+                            <!-- Include workout log notes if available -->
+                            {% if log.notes %}
+                                <div class="row">
+                                    <div class="col s10 offset-s1">
+                                        <strong class="bolder">Notes:</strong><br>
+                                        {{ log.notes }}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
-                        <div class="row center-align">
-                            <div class="col s4">
-                                <div class="feature-number">{{ log.routine[0].exercise_one_reps * log.sets }}</div>
-                                <div>{{ log.routine[0].exercise_one }}s</div>
-                            </div>
-                            <div class="col s4">
-                                <div class="feature-number">{{ log.routine[0].exercise_two_reps * log.sets }}</div>
-                                <div>{{ log.routine[0].exercise_two }}s</div>
-                            </div>
-                            <div class="col s4">
-                                <div class="feature-number">{{ log.routine[0].exercise_three_reps * log.sets }}</div>
-                                <div>{{ log.routine[0].exercise_three }}s</div>
-                            </div>
-                        </div>
-                        {% if log.notes %}
-                        <div class="row">
-                            <div class="col s10 offset-s1">
-                                <strong class="bolder">Notes:</strong><br>
-                                {{ log.notes }}
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="row margin-top-2">
-                        <!-- Delete button - triggers confirmation modal -->
-                        <a href="#{{ log._id }}_modal" class="waves-effect log-button btn-large col s12 l5 red lighten-3
-                            z-depth-4 modal-trigger">
-                            <i class="fa-solid fa-trash right"></i>Delete</a>
-                        <!-- Edit workout log button -->
-                        <a href="{{ url_for('edit_workout', log_id=log._id) }}" class="waves-effect log-button btn-large
-                            col s12 l5 offset-l2 amber lighten-3 z-depth-4">
-                            <i class="fa-solid fa-pen right"></i>Edit Log</a>
-                        <!-- Delete confimation modal -->
-                        <div id="{{ log._id }}_modal" class="modal center-align">
-                            <div class="modal-content">
-                                <h4>Do you really want to delete this record?</h4>
-                                <p>Deleted records can't be recovered.</p>
-                            </div>
-                            <div class="modal-footer z-depth-2">
-                                <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-                                    <i class="fa-solid fa-ban right"></i>Cancel</a>
-                                <a href="{{ url_for('delete_workout', log_id=log._id) }}" class="modal-close 
-                                    waves-effect modal-button btn red lighten-3 z-depth-4">
-                                    <i class="fa-solid fa-trash right"></i>Delete</a>
-                            </div>
+                        <div class="row margin-top-2">
+                            <!-- Delete button triggers confirmation modal -->
+                            <a href="#{{ log._id }}_modal" class="waves-effect log-button btn-large col s12 l5 red 
+                                lighten-3 z-depth-4 modal-trigger">
+                                <i class="fa-solid fa-trash right"></i>Delete</a>
+                            <!-- Edit workout log button -->
+                            <a href="{{ url_for('edit_workout', log_id=log._id) }}" class="waves-effect log-button 
+                                btn-large col s12 l5 offset-l2 amber lighten-3 z-depth-4">
+                                <i class="fa-solid fa-pen right"></i>Edit Log</a>
                         </div>
                     </div>
-                </div>
-            </li>
+                </li>
             {% endfor %}
         </ul>
     </div>
 </div>
+{% endblock %}
+
+{% block modals %}
+<!-- Delete confimation modals -->
+{% for log in logs %}
+<div id="{{ log._id }}_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you really want to delete this workout log?</h4>
+        <p>Deleted logs can't be recovered.</p>
+    </div>
+    <div class="modal-footer z-depth-2">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <a href="{{ url_for('delete_workout', log_id=log._id) }}" class="modal-close 
+            waves-effect modal-button btn red lighten-3 z-depth-4">
+            <i class="fa-solid fa-trash right"></i>Delete</a>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}
