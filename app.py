@@ -127,7 +127,8 @@ def register():
                 "username": username,
                 "email": request.form.get("email"),
                 "password": generate_password_hash(
-                                request.form.get("password"))
+                                request.form.get("password")),
+                "shared_routines": []
             }
 
             # insert new user dict to users database
@@ -555,40 +556,55 @@ def track_progress(username, routine_id):
     If the user hasn't recorded any data for this routine, redirects to the
     my_routines page.
     """
-    # query the database for records matching both the username and routine_id
-    # provided, then convert results to a list
-    logs = list(mongo.db.workout_logs.find({"$and": [{"username": username},
-                                            {"routine_id": ObjectId(routine_id)
-                                             }]}).sort("date"))
+    # find the page owner in the users database
+    user = mongo.db.users.find_one({"username": username})
 
-    # if results were found
-    if logs:
-        # declare lists to store chart labels and values
-        labels = []
-        values = []
-        # iterate through list of workout logs and append dates to labels list
-        # and sets to values list
-        for log in logs:
-            labels.append(log["date"])
-            values.append(log["sets"])
+    # determine if the current user is the page owner and if the page has been
+    # shared.
+    owner = username == session["user"]
+    shared = routine_id in user["shared_routines"]
 
-        # assign the record with the highest number of sets to a variable.
-        # based on this post from StackOverflow:
-        # https://stackoverflow.com/questions/32076382/mongodb-how-to-get-max-value-from-collections
-        best = max(logs, key=lambda x: x['sets'])
+    if owner or shared:
+        # query the database for records matching both the username and
+        # routine_id provided, then convert results to a list
+        logs = list(mongo.db.workout_logs.find(
+            {"$and": [{"username": username},
+             {"routine_id": ObjectId(routine_id)
+              }]}).sort("date"))
 
-        # query the database to find the applicable routine and assign to a
-        # variable
-        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+        # if results were found
+        if logs:
+            # declare lists to store chart labels and values
+            labels = []
+            values = []
+            # iterate through list of workout logs and append dates to labels
+            # list and sets to values list
+            for log in logs:
+                labels.append(log["date"])
+                values.append(log["sets"])
 
-        # pass labels, values, personal best and routine data to track_progress
-        # template
-        return render_template("track_progress.html", labels=labels,
-                               values=values, best=best, routine=routine,
-                               page_title="Track Progress", username=username)
+            # assign the record with the highest number of sets to a variable.
+            # based on this post from StackOverflow:
+            # https://stackoverflow.com/questions/32076382/mongodb-how-to-get-max-value-from-collections
+            best = max(logs, key=lambda x: x['sets'])
 
-    # if no results found, redirect user to my_routines page
-    flash("No workouts logged with this routine.", "error")
+            # query the database to find the applicable routine and assign to a
+            # variable
+            routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+
+            # pass labels, values, personal best and routine data to
+            # track_progress template
+            return render_template("track_progress.html", labels=labels,
+                                   values=values, best=best, routine=routine,
+                                   page_title="Track Progress",
+                                   username=username)
+
+        # if no results found, redirect user to my_routines page
+        flash("No workouts logged with this routine.", "error")
+        return redirect(url_for("my_routines"))
+
+    # if user is not owner and page is not shared, redirect to my_routines
+    flash("You don't have permission to view this page.", "error")
     return redirect(url_for("my_routines"))
 
 
@@ -600,33 +616,46 @@ def toggle_sharing(username, routine_id):
     """
     # check current user is the owner of the track_progress page
     if username == session["user"]:
-        user = mongo.db.users.find_one({"username": username})
-        if routine_id in user["shared_routines"]:
-            flash("Routine found")
+        # check if the routine exists in the database
+        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+        if routine:
+            # find the user in the users database
+            user = mongo.db.users.find_one({"username": username})
+            # If the routine_id is in the shared_routines array, remove it.
+            if routine_id in user["shared_routines"]:
+                mongo.db.users.update_one(
+                    {
+                        "username": username
+                    },
+                    {
+                        "$pull": {
+                            'shared_routines': routine_id
+                        }
+                    })
+                flash("Settings updated. This page is now private", "edit")
+                return redirect(url_for("track_progress", username=username,
+                                        routine_id=routine_id))
+
+            # If the routine_id is not in the shared_routines array, add it.
             mongo.db.users.update_one(
-                {
-                    "username": username
-                },
-                {
-                    "$pull": {
-                        'shared_routines': routine_id
-                    }
-                })
-            flash("Routine removed", "delete")
-            return redirect(url_for("my_routines"))
-        mongo.db.users.update_one(
-                {
-                    "username": username
-                },
-                {
-                    "$push": {
-                        'shared_routines': routine_id
-                    }
-                })
-        flash("Routine added")
+                    {
+                        "username": username
+                    },
+                    {
+                        "$push": {
+                            'shared_routines': routine_id
+                        }
+                    })
+
+            flash("Settings updated. This page can now be shared via link.",
+                  "edit")
+            return redirect(url_for("track_progress", username=username,
+                            routine_id=routine_id))
+
+        flash("Routine not found.", "error")
         return redirect(url_for("my_routines"))
 
-    flash("You don't have permission to edit this page's share settings",
+    flash("You don't have permission to edit this user's share settings",
           "error")
     return redirect(url_for("my_routines"))
 
