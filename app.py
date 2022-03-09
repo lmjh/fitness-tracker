@@ -638,7 +638,7 @@ def toggle_sharing(username, routine_id):
                             'shared_routines': routine_id
                         }
                     })
-                flash("Settings updated. This page is now private", "edit")
+                flash("Settings updated. This page is now private.", "edit")
                 return redirect(url_for("track_progress", username=username,
                                         routine_id=routine_id))
 
@@ -661,7 +661,7 @@ def toggle_sharing(username, routine_id):
         flash("Routine not found.", "error")
         return redirect(url_for("my_routines"))
 
-    flash("You don't have permission to edit this user's share settings",
+    flash("You don't have permission to edit this user's share settings.",
           "error")
     return redirect(url_for("my_routines"))
 
