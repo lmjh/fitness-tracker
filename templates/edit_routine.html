@@ -4,8 +4,8 @@
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom">
             <h1>Edit Routine</h1>
-            <form method="POST" action="{{ url_for('edit_routine', routine_id=routine._id) }}">
-                <!-- routine name -->
+            <form id="edit_routine" method="POST" action="{{ url_for('edit_routine', routine_id=routine._id) }}">
+                <!-- Routine name -->
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="routine_name" name="routine_name" minlength="5" maxlength="15" class="validate" 
@@ -13,7 +13,7 @@
                         <label for="routine_name">Routine Name</label>
                     </div>
                 </div>
-                <!-- exercise one name and reps -->
+                <!-- Exercise one name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
                         <input id="exercise_one" name="exercise_one" minlength="3" maxlength="20" class="validate" 
@@ -26,7 +26,7 @@
                         <label for="exercise_one_reps">Reps</label>
                     </div>
                 </div>
-                <!-- exercise two name and reps -->
+                <!-- Exercise two name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
                         <input id="exercise_two" name="exercise_two" minlength="3" maxlength="20" class="validate" 
@@ -39,7 +39,7 @@
                         <label for="exercise_two_reps">Reps</label>
                     </div>
                 </div>
-                <!-- exercise three name and reps -->
+                <!-- Exercise three name and reps -->
                 <div class="row">
                     <div class="input-field col s9">
                         <input id="exercise_three" name="exercise_three" minlength="3" maxlength="20" class="validate" 
@@ -52,18 +52,35 @@
                         <label for="exercise_three_reps">Reps</label>
                     </div>
                 </div>
-                <!-- cancel button -->
-                <div class="row margin-top-2">
-                    <a href="{{ url_for('my_routines') }}" class="waves-effect card-panel-button btn-large col s12 m5 
-                        grey lighten-1 z-depth-4">
-                        <i class="fa-solid fa-ban right"></i>Cancel</a>
-                <!-- submit button -->
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 amber
-                        lighten-3 z-depth-4 margin-top-2">
-                        <i class="fa-solid fa-pen right"></i>Edit Routine </button>
-                </div>
             </form>
+            <!-- Cancel button -->
+            <div class="row margin-top-2">
+                <a href="{{ url_for('my_routines') }}" class="waves-effect card-panel-button btn-large col s12 m5 
+                    grey lighten-1 z-depth-4">
+                    <i class="fa-solid fa-ban right"></i>Cancel</a>
+            <!-- Edit routine button opens confirmation modal -->
+                <a href="#confirm_modal" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 amber 
+                    lighten-3 card-panel-button modal-trigger z-depth-4">
+                    <i class="fa-solid fa-pen right"></i>Edit Routine</a>
+            </div>
         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+<!-- Edit confirmation modal -->
+<div id="confirm_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you really want to edit this routine?</h4>
+        <p>Changes to this routine will also affect all workout logs recorded under this routine.</p>
+    </div>
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <button type="submit" form="edit_routine" class="modal-close waves-effect modal-button 
+            btn amber lighten-3 z-depth-4">
+            <i class="fa-solid fa-pen right"></i>Edit Routine</button>
     </div>
 </div>
 {% endblock %}

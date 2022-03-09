@@ -3,10 +3,10 @@
 <div class="row">
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom">
-            <h1>Edit Workout</h1>
-            <form method="POST" action="{{ url_for('edit_workout', log_id=log._id) }}">
+            <h1>Edit Workout Log</h1>
+            <form id="edit_log" method="POST" action="{{ url_for('edit_workout', log_id=log._id) }}">
                 <div class="row">
-                    <!-- select routine -->
+                    <!-- Routine select element -->
                     <div class="input-field col s12 m9">
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled selected>Select Routine</option>
@@ -20,14 +20,14 @@
                         </select>
                         <label for="routine_name">Routine</label>
                     </div>
-                    <!-- enter number of sets completed -->
+                    <!-- Number of sets completed -->
                     <div class="input-field col s12 m3">
                         <input id="sets" name="sets" class="validate" type="number" min="1" value="{{ log.sets }}" 
                         required>
                         <label for="sets">Sets completed</label>
                     </div>
                 </div>
-                <!-- pick date and time -->
+                <!-- Date and time pickers -->
                 <div class="row">
                     <div class="col s12 m6">
                         <input id="workout_date" name="workout_date" type="text" class="datepicker validate" 
@@ -42,7 +42,7 @@
                         <label for="workout_time">Time</label>
                     </div>
                 </div>
-                <!-- add notes (optional field) -->
+                <!-- Notes (optional field) -->
                 <div class="row">
                     <div class="input-field col s12">
                         <textarea id="notes" name="notes" maxlength="200" 
@@ -52,18 +52,35 @@
                         <label for="notes">Notes (optional)</label>
                     </div>
                 </div>
-                <div class="row margin-top-2">
-                    <!-- cancel button -->
-                    <a href="{{ url_for('workout_log') }}" class="waves-effect card-panel-button btn-large col s12 m5
-                        grey lighten-1 z-depth-4">
-                        <i class="fa-solid fa-ban right"></i>Cancel</a>
-                    <!-- submit button -->
-                    <button type="submit" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 amber
-                        lighten-3 z-depth-4">
-                        <i class="fa-solid fa-pen right"></i>Edit Log</button>
-                </div>
             </form>
+            <div class="row margin-top-2">
+                <!-- Cancel button -->
+                <a href="{{ url_for('workout_log') }}" class="waves-effect card-panel-button btn-large col s12 m5
+                    grey lighten-1 z-depth-4">
+                    <i class="fa-solid fa-ban right"></i>Cancel</a>
+                <!-- Edit log button opens confirmation modal -->
+                <a href="#confirm_modal" class="waves-effect card-panel-button btn-large col s12 m5 offset-m2 amber 
+                    lighten-3 card-panel-button modal-trigger z-depth-4">
+                <i class="fa-solid fa-pen right"></i>Edit Log</a>
+            </div>
         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+<!-- Edit log confirmation modal -->
+<div id="confirm_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you really want to edit this workout?</h4>
+        <p>Once you've applied changes, you won't be able to recover the previous values.</p>
+    </div>
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <button type="submit" form="edit_log" class="modal-close waves-effect modal-button 
+            btn amber lighten-3 z-depth-4">
+            <i class="fa-solid fa-pen right"></i>Edit Log</button>
     </div>
 </div>
 {% endblock %}
