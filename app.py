@@ -575,13 +575,13 @@ def track_progress(username, routine_id):
         # if results were found
         if logs:
             # declare lists to store chart labels and values
-            labels = []
-            values = []
-            # iterate through list of workout logs and append dates to labels
-            # list and sets to values list
+            dates = []
+            sets = []
+            # iterate through list of workout logs and append dates to dates
+            # list and sets to sets list
             for log in logs:
-                labels.append(log["date"])
-                values.append(log["sets"])
+                dates.append(log["date"])
+                sets.append(log["sets"])
 
             # assign the record with the highest number of sets to a variable.
             # based on this post from StackOverflow:
@@ -592,12 +592,18 @@ def track_progress(username, routine_id):
             # variable
             routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
 
-            # pass labels, values, personal best and routine data to
-            # track_progress template
-            return render_template("track_progress.html", labels=labels,
-                                   values=values, best=best, routine=routine,
-                                   page_title="Track Progress",
-                                   username=username)
+            # gather data in a dict and pass to template
+            data = {
+                "owner": owner,
+                "shared": shared,
+                "best": best,
+                "dates": dates,
+                "sets": sets,
+                "routine": routine,
+                "username": username
+            }
+            return render_template("track_progress.html", data=data,
+                                   page_title="Track Progress")
 
         # if no results found, redirect user to my_routines page
         flash("No workouts logged with this routine.", "error")
