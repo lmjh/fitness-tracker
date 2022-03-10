@@ -118,6 +118,24 @@
         </ul>
     </div>
 </div>
+
+{% if count > 10 %}
+<!-- This section is only rendered if there are more than 10 logs to display -->
+<div class="row">
+    <div class="col s6 l4 offset-l2">
+        {% if count > skip + 10 %}
+                <a href="{{ url_for('workout_log', skip=skip + 10, from_date=from_date, to_date=to_date ) }}" 
+                    class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
+        {% endif %}
+    </div>
+    <div class="col s6 l4">
+        {% if skip >= 10 %}
+            <a href="{{ url_for('workout_log', skip=skip - 10, from_date=from_date, to_date=to_date ) }}" 
+                class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4 right">Newer Logs</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
 {% endblock %}
 
 {% block modals %}

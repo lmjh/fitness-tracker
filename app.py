@@ -211,8 +211,21 @@ def workout_log():
         return render_template('workout_log.html', page_title="Workout Log",
                                logs=logs)
 
+    # check if a skip query parameter is present and if so assign it to a
+    # variable. Otherwise, set the skip variable to 0.
+    if request.args.get("skip"):
+        skip = int(request.args.get("skip"))
+    else:
+        skip = 0
+
+    # query the database to count how many workouts have been logged by the
+    # current user
+    count = mongo.db.workout_logs.count_documents(
+                                                 {"username": session['user']})
+
     # find all workouts logged by the current user
     # lookup corresponding routine details using routine_id
+    # sort by date and use skip and limit to paginate results in batches of 10
     logs = list(mongo.db.workout_logs.aggregate([
         {
             "$match": {
@@ -231,11 +244,19 @@ def workout_log():
             "$sort": {
                 "date": -1
             }
+        },
+        {
+            "$skip": skip
+        },
+        {
+            "$limit": 10
         }
         ]))
-    # pass the results of the query to the workout_log template
+
+    # pass the results of the query, the current skip value and the document
+    # count to the workout_log template
     return render_template('workout_log.html', page_title="Workout Log",
-                           logs=logs)
+                           logs=logs, skip=skip, count=count)
 
 
 @app.route("/add_workout", methods=["GET", "POST"])
