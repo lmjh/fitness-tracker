@@ -115,10 +115,6 @@ button:focus {
     background-color: var(--accent-blue);
 }
 
-.select-wrapper input.select-dropdown:focus {
-	border-bottom: 1px solid var(--accent-blue);
-}
-
 /* Hide Chrome, Safari, Edge and Opera number scroll arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -134,19 +130,40 @@ input[type=number] {
 /* MATERIALIZE SELECT ELEMENT STYLES */
 
 .select-dropdown li.disabled,
-.select-dropdown li.disabled>span,
-.select-dropdown li.optgroup {
-    background-color: var(--dark-3);
+.select-dropdown li.disabled>span {
+    background-color: var(--dark-2);
+    color: #9e9e9e;
+}
+
+.select-dropdown li.optgroup,
+.dropdown-content li,
+.select-dropdown.dropdown-content li.selected  {
+    background-color: var(--dark-2);
     color: var(--light-text)
 }
 
-.dropdown-content li>a,
-.dropdown-content li>span {
+.dropdown-content li > a:hover,
+.dropdown-content li > span:hover {
     background-color: var(--dark-3);
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+	color: var(--light-text);
+}
+
+.dropdown-content li>a:focus,
+.dropdown-content li>span:focus,
+.dropdown-content li.selected>a,
+.dropdown-content li.selected>span {
     color: var(--accent-blue);
-    border-width: 1px 0 1px;
-    border-color: var(--dark-2);
-    border-style: solid;
+}
+
+body.keyboard-focused .select-dropdown.dropdown-content li:focus {
+    background-color: var(--dark-3);
+}
+
+.select-wrapper input.select-dropdown:focus {
+	border-bottom: 1px solid var(--accent-blue);
 }
 
 .select-wrapper .caret {
@@ -250,6 +267,10 @@ input[type=number] {
     font-size: 1.5rem;
 }
 
+.exercise-name {
+    word-wrap: break-word;
+}
+
 /* CUSTOM CARD STYLES  */
 
 .card-panel-top {
@@ -305,6 +326,16 @@ input[type=number] {
 .progress-title {
     margin: 1rem 0 2rem;
 
+}
+
+/* FOCUS STYLES */
+
+.log-button:focus, .card-panel-button:focus, .modal-button:focus, .btn-floating:focus {
+    box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
+}
+
+.log-container:focus-within {
+    box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
 }
 
 /* MEDIA QUERIES */
