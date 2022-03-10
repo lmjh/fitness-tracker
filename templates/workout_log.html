@@ -15,18 +15,30 @@
     <div class="col s12 l8 offset-l2">
         <div class="card-panel card-panel-bottom">
             <!-- Workout Logs filter panel -->
+            <div class="row">
+                <div class="col s12 right-align clear-link">
+                    <!-- Remove filters button -->
+                    <a href="{{ url_for('workout_log') }}" class="tooltipped" aria-label="Remove filters"  
+                        data-position="bottom" data-tooltip="Remove filters">
+                        <i class="fa-solid fa-square-xmark"></i></a>
+                </div>
+            </div>
             <form action="" method="GET">
                 <div class="row center-align">
                     <div class="col s12 m6">
                         <!-- From Date filter -->
+                        <!-- Assign value to date_from from query parameter, if available -->
                         <input id="date_from" name="date_from" type="text" class="datepicker validate"
-                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" 
+                            value="{{ request.args.get('date_from') if request.args.get('date_from') }}" required>
                         <label for="date_from">From</label>
                     </div>
                     <div class="col s12 m6">
                         <!-- To Date filter -->
+                        <!-- Assign value to date_to from query parameter, if available -->
                         <input id="date_to" name="date_to" type="text" class="datepicker validate"
-                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" 
+                            value="{{ request.args.get('date_to') if request.args.get('date_to') }}" required>
                         <label for="date_to">To</label>
                     </div>
                 </div>
@@ -121,46 +133,45 @@
 
 {% if count > 10 %}
 <!-- This section is only rendered if there are more than 10 logs to display -->
-<div class="row center-align">
-    <div class="col s12 l8 offset-l2">
-        <p>
-            Displaying 
-            {{ skip + 1 }}
-             to 
-            {{ skip + 10 if skip + 10 < count else count }}
-             of 
-            {{ count }}
-             logs.
-        </p>
+    <div class="row center-align">
+        <div class="col s12 l8 offset-l2">
+            <p>
+                Displaying 
+                {{ skip + 1 }}
+                to 
+                <!-- Use inline expression to determine if this is the last page -->
+                {{ skip + 10 if skip + 10 < count else count }}
+                of 
+                {{ count }}
+                logs.
+            </p>
+        </div>
     </div>
-</div>
 
-
-
-<div class="row">
-    <div class="col s6 l4 offset-l2">
-        <!-- If the number of results is greater than the current skip + 10, display Older Logs button  -->
-        {% if count > skip + 10 %}
-            <!-- Genereate Older Logs link by increasing current skip by 10 and retrieving any date parameters -->
-            <a href="{{ url_for('workout_log',
-                        skip=skip + 10,
-                        date_from=request.args.get('date_from'),
-                        date_to=request.args.get('date_to') ) }}" 
-                class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
-        {% endif %}
+    <div class="row">
+        <div class="col s6 l4 offset-l2">
+            <!-- If the number of results is greater than the current skip + 10, display Older Logs button  -->
+            {% if count > skip + 10 %}
+                <!-- Genereate Older Logs link by increasing current skip by 10 and retrieving any date parameters -->
+                <a href="{{ url_for('workout_log',
+                            skip=skip + 10,
+                            date_from=request.args.get('date_from'),
+                            date_to=request.args.get('date_to') ) }}" 
+                    class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
+            {% endif %}
+        </div>
+        <div class="col s6 l4">
+            <!-- If the current skip is greater than or equal to 10, display Newer Logs button  -->
+            {% if skip >= 10 %}
+                <!-- Genereate Newer Logs link by decreasing current skip by 10 and retrieving any date parameters -->
+                <a href="{{ url_for('workout_log',
+                            skip=skip - 10,
+                            date_from=request.args.get('date_from'),
+                            date_to=request.args.get('date_to') ) }}" 
+                    class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4 right">Newer Logs</a>
+            {% endif %}
+        </div>
     </div>
-    <div class="col s6 l4">
-        <!-- If the current skip is greater than or equal to 10, display Newer Logs button  -->
-        {% if skip >= 10 %}
-            <!-- Genereate Newer Logs link by decreasing current skip by 10 and retrieving any date parameters -->
-            <a href="{{ url_for('workout_log',
-                        skip=skip - 10,
-                        date_from=request.args.get('date_from'),
-                        date_to=request.args.get('date_to') ) }}" 
-                class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4 right">Newer Logs</a>
-        {% endif %}
-    </div>
-</div>
 {% endif %}
 {% endblock %}
 

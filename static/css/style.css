@@ -242,6 +242,14 @@ input[type=number] {
     margin: 8px 0 8px;
 }
 
+.clear-link a {
+    color: #9e9e9e;
+}
+
+.clear-link i {
+    font-size: 1.5rem;
+}
+
 /* CUSTOM CARD STYLES  */
 
 .card-panel-top {

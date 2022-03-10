@@ -5,4 +5,5 @@ $(document).ready(function(){
     $('.datepicker').datepicker({format: "dd/mm/yy"});
     $('.timepicker').timepicker({twelveHour: false});
     $('.modal').modal();
+    $('.tooltipped').tooltip();
   });
