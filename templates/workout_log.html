@@ -123,14 +123,24 @@
 <!-- This section is only rendered if there are more than 10 logs to display -->
 <div class="row">
     <div class="col s6 l4 offset-l2">
+        <!-- If the number of results is greater than the current skip + 10, display Older Logs button  -->
         {% if count > skip + 10 %}
-                <a href="{{ url_for('workout_log', skip=skip + 10, from_date=from_date, to_date=to_date ) }}" 
-                    class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
+            <!-- Genereate Older Logs link by increasing current skip by 10 and retrieving any date parameters -->
+            <a href="{{ url_for('workout_log',
+                        skip=skip + 10,
+                        date_from=request.args.get('date_from'),
+                        date_to=request.args.get('date_to') ) }}" 
+                class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
         {% endif %}
     </div>
     <div class="col s6 l4">
+        <!-- If the current skip is greater than or equal to 10, display Newer Logs button  -->
         {% if skip >= 10 %}
-            <a href="{{ url_for('workout_log', skip=skip - 10, from_date=from_date, to_date=to_date ) }}" 
+            <!-- Genereate Newer Logs link by decreasing current skip by 10 and retrieving any date parameters -->
+            <a href="{{ url_for('workout_log',
+                        skip=skip - 10,
+                        date_from=request.args.get('date_from'),
+                        date_to=request.args.get('date_to') ) }}" 
                 class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4 right">Newer Logs</a>
         {% endif %}
     </div>
