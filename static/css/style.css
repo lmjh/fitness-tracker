@@ -342,6 +342,10 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 
 @media only screen and (min-width: 993px) {
 
+.container {
+    width: 80%;
+}
+
 /* Custom classes for sizing buttons on my_routines page */
 
 .row .col.button-left {
@@ -357,4 +361,5 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 	left: auto;
 	right: auto;
 }
+
 }
