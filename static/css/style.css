@@ -57,6 +57,14 @@ h1, h2, h3, h4 {
     text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
+.img-responsive {
+    width: 100%;
+}
+
+.wrapper-fix {
+    flex-wrap: wrap;
+}
+
 /* FLASH MESSAGES */
 
 .flash-messages {
@@ -325,7 +333,14 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 
 .progress-title {
     margin: 1rem 0 2rem;
+    font-size: 3.56rem;
+    line-height: 110%;
+}
 
+/* GETTING STARTED PAGE STYLES */
+
+.img-gs {
+    max-width: 300px;
 }
 
 /* FOCUS STYLES */

@@ -716,6 +716,15 @@ def toggle_sharing(username, routine_id):
     return redirect(url_for("my_routines"))
 
 
+@app.route("/getting_started")
+def getting_started():
+    """
+    Renders the getting_started page.
+    """
+    return render_template('getting_started.html',
+                           page_title="Getting Started")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
