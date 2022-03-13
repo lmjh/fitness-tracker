@@ -343,13 +343,39 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
     max-width: 300px;
 }
 
+/* FAQ PAGE STYLES */
+
+.faq-collapsible {
+    border: none;
+}
+
+.faq-container {
+    margin-bottom: 10px;
+    border-radius: 20px;
+    background-color: var(--dark-3);
+    border: 2px solid var(--dark-border);
+}
+
+.faq-header {
+    background-color: var(--dark-3) !important;
+    border-radius: 20px;
+    border: none;
+}
+
+.faq-body {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: var(--dark-2);
+    border: none;
+}
+
 /* FOCUS STYLES */
 
 .log-button:focus, .card-panel-button:focus, .modal-button:focus, .btn-floating:focus {
     box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
 }
 
-.log-container:focus-within {
+.log-container:focus-within, .faq-container:focus-within {
     box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
 }
 
