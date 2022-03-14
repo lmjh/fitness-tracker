@@ -1,4 +1,4 @@
-# Fitness Tracker Application
+# Fitrio Fitness Tracker Application
 
 The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines. 
 
@@ -28,7 +28,37 @@ This application aims to solve this problem by encouraging people to try more fo
 
 ### Design
 
+The site uses the Materialize framework and features a dark mode design. I used the [Materialize dark theme](https://material.io/design/color/dark-theme.html) guidance to inform my design decisions, though I deviated from a strict, direct implementation of the guidance in a few areas.
 
+#### Colours and Shades
+
+* The site uses three shades of grey on the site’s surfaces to create a sense of depth. The darkest grey sits on the lowest visual level, with the mid grey in the middle and the lighter grey on the top level.
+
+* The sense of depth is reinforced by consistent use of two levels of drop shadows on site elements. Elements with the shadow further from the element appear further from the surface they sit on, while elements with a closer drop shadow appear closer. 
+
+* I’ve tried to use shadows consistently, so card panels / surfaces in the mid grey colour sit far from their base layer, while the card panels/surfaces in the light grey sit closer to the mid grey surfaces beneath them. Buttons are always high above their parent elements for emphasis. 
+
+* In places, such as the graphs on the Track Progress pages, I’ve created a ‘cut-out’ effect using an inner drop shadow and colouring the inner element with the bottom grey shade.
+
+* In line with the Material Design dark theme guidance, I’ve used mostly light, desaturated colours.
+
+* Colours are used consistently in association with a particular type of task:
+
+* Light green is used on all buttons and flash messages associated with Create / Add operations, like adding a workout log or a new routine.
+
+* Light blue is used on all buttons and flash messages associated with Read / Review operations, like searching the logs or tracking progress.
+
+* Light amber is used on all buttons and flash messages associated with Update / Edit operations, like editing logs or routines, or updating sharing settings.
+
+* Light red is used on all buttons and flash messages associated with Delete / Remove operations, like deleting logs or routines. Light red is also used for error messages.
+
+* A light grey is used for neutral buttons, like ‘Cancel’ buttons. This creates a clear visual contrast between confirmation and cancellation in the confirmation modals for editing or deleting records.
+
+* Finally, a brighter, more saturated blue is used occasionally for emphasis. This is a brand colour and is used in the logo, on the progress graphs and to make links stand out.
+
+#### Typography
+
+#### Imagery
 
 ### Wireframes
 
@@ -37,12 +67,6 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 ***
 
 ## Features
-
-
-
-***
-
-## Organisation of Content
 
 
 
@@ -59,20 +83,24 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 
 ### Frameworks, Libraries & Programs Used
 
-1. GitHub - 
-2. GitPod - 
-3. Balsamiq - 
-4. Materialize - 
-5. jQuery - 
-6. Python 3.8 -
-7. Flask - 
-8. PyMongo -
-9. Heroku - 
-10. 
+1. [GitHub](https://github.com/) - Used for version control.
+2. [GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.
+3. [Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.
+4. [Materialize](https://materializecss.com/) - Materialize CSS framework used extensively to create layout and styling of site.
+5. [jQuery](https://jquery.com/) - 
+6. [Python 3.8](https://www.python.org/) - Used to code the application.
+7. [Flask](https://palletsprojects.com/p/flask/), [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) and [Werkzeug](https://palletsprojects.com/p/werkzeug/) - Used to build the main application structure, page templates (Jinja) and account security (Werkzeug).
+8. [PyMongo](https://github.com/mongodb/mongo-python-driver) - 
+9. [Heroku](https://heroku.com/) - Used to deploy the site.
+10. [Chart.js](https://www.chartjs.org/) - Used to render the routine progress charts.
+11. [Regexr](https://regexr.com/) - Used to assist with writing and testing regular expressions.
+12. [Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo and illustrations and to resize screenshots.
 
 ***
 
 ## Testing
+
+Please see TESTING.md for details of tests performed and bugs fixed.
 
 ***
 
