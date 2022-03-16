@@ -18,14 +18,14 @@
     <nav class="z-depth-3">
         <div class="nav-wrapper dark-2">
             <a href="#!" class="brand-logo">Fitness Tracker</a>
-            <a href="#" data-target="mobile-menu" class="sidenav-trigger right" 
+            <a href="#" data-target="mobile-menu" class="sidenav-trigger right hide-on-large-only" 
                 aria-label="Expand and collapse navigation menu">
                 <i class="fa-solid fa-bars"></i></a>
             <ul class="right hide-on-med-and-down">
                 {% include 'includes/nav.html' %}
             </ul>
         </div>
-        <ul class="sidenav z-depth-4" id="mobile-menu">
+        <ul class="sidenav z-depth-4 hide-on-large-only" id="mobile-menu">
             {% include 'includes/nav.html' %}
         </ul>
     </nav>
