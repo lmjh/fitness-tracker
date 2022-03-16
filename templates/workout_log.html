@@ -59,7 +59,7 @@
             {% for log in logs %}
                 <li class="log-container z-depth-4">
                     <!-- collapsible header -->
-                    <div class="collapsible-header log-header">
+                    <div class="collapsible-header log-header" aria-label="Click to open or close log entry">
                         <div class="col s10">
                             <!-- Convert log datetime to string and display with routine name -->
                             {{ log.date.strftime("%d/%m/%Y, %I:%M %p") }} - {{ log.routine[0].routine_name }}
