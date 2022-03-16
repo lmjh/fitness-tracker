@@ -162,7 +162,9 @@ def logout():
 @login_required
 def workout_log():
     """
-    Finds all workouts logged by the user and renders the workout log page.
+    Finds workouts logged by the user and renders the workout log page.
+    Reads query parameters from the URL to restrict results to a requested date
+    range and/or paginate results.
     """
     # if URL contains a date_from parameter
     if request.args.get("date_from"):
@@ -349,10 +351,10 @@ def edit_workout(log_id):
     POST: If current user created the log entry, updates the entry.
     Otherwise, returns user to workout log page.
     """
+    # find log entry to edit from database
+    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+    # MOVE LOG OUTSIDE IF STATEMENT
     if request.method == "POST":
-        # find log entry to edit from database
-        log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
-
         # check current user is the user who created the entry
         if log["username"] == session["user"]:
             # concatenate date picker value and time picker value
@@ -390,8 +392,6 @@ def edit_workout(log_id):
         flash("You don't have permission to edit this log.", "error")
         return redirect(url_for("workout_log"))
 
-    # find log entry to edit from database
-    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
     # find default routines (created by admin) and convert cursor to a list
     default_routines = list(mongo.db.routines.find({"username": "admin"}))
     # find user's custom routines and convert cursor to a list
@@ -400,8 +400,8 @@ def edit_workout(log_id):
     # edit_workout template
     routines = default_routines + user_routines
     return render_template(
-        "edit_workout.html", page_title="Edit Workout",
-        log=log, routines=routines)
+        "edit_workout.html", page_title="Edit Workout", log=log,
+        routines=routines)
 
 
 @app.route("/delete_workout/<log_id>")
@@ -450,8 +450,8 @@ def add_routine():
     """
     GET: Render the add_routine page
     POST: Checks if the submitted routine name is the same as any admin
-    routines or routines by the current. If so, user is redirected back to the
-    add_routine page. If not, the routine is added to the database.
+    routines or routines by the current user. If so, user is redirected back to
+    the add_routine page. If not, the routine is added to the database.
     """
     if request.method == "POST":
         # assign submitted routine name to a variable and check if the current
@@ -471,8 +471,8 @@ def add_routine():
                 ]
             })
 
-        # if a record is found matching user and routine name, redirect
-        # to add_routine page
+        # if a record is found matching current user and routine name or admin
+        # and routine name, redirect to add_routine page
         if duplicate_routine:
             flash(
                 "Duplicate routine name. Please enter a unique routine name.",
@@ -511,10 +511,10 @@ def edit_routine(routine_id):
     by the current user, the user is redirected to the my_routines page.
     Otherwise, the requested routine is updated with the submitted details.
     """
-    if request.method == "POST":
-        # find routine to edit from database
-        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    # find routine to edit from database
+    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
 
+    if request.method == "POST":
         # check current user is the user who created the routine
         if routine["username"] == session["user"]:
             # assign the submitted routine name to a variable
@@ -570,8 +570,6 @@ def edit_routine(routine_id):
         flash("You don't have permission to edit this routine.", "error")
         return redirect(url_for("my_routines"))
 
-    # find routine to edit from database
-    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
     return render_template(
         "edit_routine.html", page_title="Edit Routine", routine=routine)
 
@@ -580,8 +578,10 @@ def edit_routine(routine_id):
 @login_required
 def delete_routine(routine_id):
     """
-    Deletes the requested routine and all logs using that routine from the
-    database, then redirects the user to the my_routines page
+    If current user created the requested routine, deletes the routine and all
+    logs using that routine from the database, then redirects the user to the
+    my_routines page. Otherwise, redirects user to my_routines page with an
+    error message.
     """
     # find the requested routine in the database and assign it to a variable
     routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
@@ -596,14 +596,20 @@ def delete_routine(routine_id):
         flash("Routine and workout logs deleted.", "delete")
         return redirect(url_for("my_routines"))
 
+    # redirect unauthorised users to my_routines page
+    flash("You don't have permission to delete this routine.", "error")
+    return redirect(url_for("my_routines"))
+
 
 @app.route("/track_progress/<username>/<routine_id>")
 @login_required
 def track_progress(username, routine_id):
     """
-    If the given user has recorded workouts with the given routine, collect
+    Check if the current user is the page owner or if the page owner has shared
+    the page. If so, proceed, if not, redirect user to my_routines page.
+    If the page owner has recorded workouts with the given routine, collect
     data from the database and pass it to the track_progress page template.
-    If the user hasn't recorded any data for this routine, redirects to the
+    If the user hasn't recorded any data for this routine, redirect to the
     my_routines page.
     """
     # find the page owner in the users database
@@ -614,13 +620,22 @@ def track_progress(username, routine_id):
     owner = username == session["user"]
     shared = routine_id in user["shared_routines"]
 
+    # if either the current user is the page owner or the page owner has shared
+    # the page, proceed to display the page.
     if owner or shared:
         # query the database for records matching both the username and
-        # routine_id provided, then convert results to a list
+        # routine_id provided, sort by date then convert results to a list
         logs = list(mongo.db.workout_logs.find(
-            {"$and": [{"username": username},
-             {"routine_id": ObjectId(routine_id)
-              }]}).sort("date"))
+            {
+                "$and": [
+                    {
+                        "username": username
+                    },
+                    {
+                        "routine_id": ObjectId(routine_id)
+                    }
+                ]
+            }).sort("date"))
 
         # if results were found
         if logs:
@@ -633,9 +648,11 @@ def track_progress(username, routine_id):
                 dates.append(log["date"])
                 sets.append(log["sets"])
 
-            # assign the record with the highest number of sets to a variable.
-            # based on this post from StackOverflow:
-            # https://stackoverflow.com/questions/32076382/mongodb-how-to-get-max-value-from-collections
+            # use the python max() function on the list of logs to assign the
+            # record with the highest number of sets to a variable, in order to
+            # show a 'personal best' score on the track_progress page.
+            # based on this answer from StackOverflow:
+            # https://stackoverflow.com/a/5326622
             best = max(logs, key=lambda x: x['sets'])
 
             # query the database to find the applicable routine and assign to a
@@ -668,7 +685,9 @@ def track_progress(username, routine_id):
 @login_required
 def toggle_sharing(username, routine_id):
     """
-    Toggles sharing on/off for the given username and routine.
+    If current user is the page owner, toggles sharing on/off for the given
+    username and routine pair by adding or removing the routine's object id to
+    an array in the user's database document.
     """
     # check current user is the owner of the track_progress page
     if username == session["user"]:
