@@ -107,7 +107,7 @@ def register():
     available.
     If username is taken, user is returned to the registration page.
     If username is available, a new user record is added to the users database
-    and the user is logged in and redirected to the home page.
+    and the user is logged in and redirected to the getting started page.
     """
     # check if user is currently logged in
     if session.get("user") is None:
@@ -134,12 +134,12 @@ def register():
             # insert new user dict to users database
             mongo.db.users.insert_one(new_user)
 
-            # add new user to session cookie and redirect to workout log
+            # add new user to session cookie and redirect to getting started
             session["user"] = username
             flash(
                 f"Welcome, {session['user']}! Your account has been created.",
                 "create")
-            return redirect(url_for('workout_log'))
+            return redirect(url_for('getting_started'))
 
         return render_template("register.html", page_title="Register")
 
