@@ -20,16 +20,12 @@ a {
     color: var(--accent-blue)
 }
 
-nav {
-    background-color: var(--dark-2);
-    border-bottom: 2px solid var(--dark-border);
-}
-
 .dark-text {
     color: var(--dark-text)
 }
 
 h1, h2, h3, h4 {
+    font-family: 'Cantarell', sans-serif;
     text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -72,7 +68,19 @@ h1, h2, h3, h4 {
     font-weight: bold;
 }
 
-/* MOBILE NAV SYLES */
+/* NAV SYLES */
+
+nav {
+    background-color: var(--dark-2);
+    border-bottom: 2px solid var(--dark-border);
+}
+
+.logo {
+    height: auto;
+    width: auto;
+    max-height: 40px;
+    margin: 8px 0 8px;
+}
 
 .sidenav {
     background-color: var(--dark-2);
@@ -381,10 +389,22 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 
 /* MEDIA QUERIES */
 
+@media only screen and (min-width: 601px) {
+
+.logo {
+    max-height: 48px;
+}
+
+}
+
 @media only screen and (min-width: 993px) {
 
 .container {
     width: 80%;
+}
+
+.logo {
+    margin: 8px 0 8px 8px;
 }
 
 /* Custom classes for sizing buttons on my_routines page */
