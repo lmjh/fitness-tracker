@@ -5,6 +5,19 @@
         <h1>My Routines</h1>
     </div>
 </div>
+<div class="row">
+    <div class="col s12 l8 offset-l2">
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <p>
+                Here you can manage all of your routines. Click the green ‘Add New Routine’ button to add a custom 
+                routine. Click “Track” to track your progress with a routine, or click “Add Log” to record a new 
+                workout. For your own custom routines, you can click “Edit Routine” to update the routine details, or 
+                “Delete” to completely remove the routine. Note that you can’t edit or delete the preset routines.
+            </p>
+        </div>
+    </div>
+</div>
+
 <div class="row center-align">
     <!-- Do not add default routines if admin is logged in -->
     {% if session.user != "admin" %}
@@ -38,13 +51,22 @@
                     <div class="row margin-top-2">
                         <!-- Track progress button -->
                         <a href="{{ url_for('track_progress', username=session['user'], routine_id=routine._id, ) }}"
-                        class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger z-depth-4">
+                            class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
+                            z-depth-4">
                         <i class="fa-solid fa-chart-line right"></i>Track</a>
 
                         <!-- Add workout log button -->
                         <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
-                        class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button z-depth-4">
+                            class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
+                            z-depth-4">
                         <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
+                    </div>
+                    <div class="row center-align no-margin">
+                        <div class="col s12">
+                            <p class="faded-text">
+                                Preset routine.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,22 +102,26 @@
                 <div class="row margin-top-2">
                     <!-- Track progress button -->
                     <a href="{{ url_for('track_progress', username=routine.username, routine_id=routine._id, ) }}"
-                    class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger z-depth-4">
+                        class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
+                         z-depth-4">
                     <i class="fa-solid fa-chart-line right"></i>Track</a>
 
                     <!-- Add workout log button -->
                     <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
-                    class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button z-depth-4">
+                        class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
+                        z-depth-4">
                     <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
 
                     <!-- Delete button triggers confirmation modal -->
                     <a href="#{{ routine._id }}_modal"
-                    class="waves-effect btn-large col s12 button-left red lighten-3 card-panel-button modal-trigger z-depth-4">
+                        class="waves-effect btn-large col s12 button-left red lighten-3 card-panel-button modal-trigger 
+                        z-depth-4">
                     <i class="fa-solid fa-trash right"></i>Delete</a>
 
                     <!-- Edit routine button -->
                     <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
-                    class="waves-effect btn-large col s12 button-right offset-l2 amber lighten-3 card-panel-button z-depth-4">
+                        class="waves-effect btn-large col s12 button-right offset-l2 amber lighten-3 card-panel-button 
+                        z-depth-4">
                     <i class="fa-solid fa-pen right"></i>Edit Routine</a>
                 </div>
             </div>
@@ -105,7 +131,8 @@
         <div class="card-panel card-panel-bottom">
             <div class="row">
                 <a href="{{ url_for('add_routine') }}" class="btn-floating btn-large waves-effect light-green lighten-3 
-                margin-top-5 z-depth-4 dark-text" aria-labelledby="add-routine"><i class="fa-solid fa-plus"></i></a>
+                    margin-top-5 z-depth-4 dark-text" aria-labelledby="add-routine">
+                    <i class="fa-solid fa-plus"></i></a>
                 <p id="add-routine">Add New Routine</p>
             </div>
         </div>

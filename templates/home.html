@@ -4,16 +4,21 @@
     <div class="col s12 l8 offset-l2 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom z-depth-4">
             <h1>Welcome!</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod ipsam earum asperiores optio esse? Ducimus, nam. 
-                Quos recusandae, reprehenderit ea provident, delectus amet quas inventore aperiam atque laudantium beatae ipsa?</p>
+            <p>Fitrio is a fitness tracking app based around short workout routines that you can do at home. Each 
+                routine is just three exercises, so they're easy for beginners to pick up, and you can record your 
+                progress to see how much you've improved.
+            </p>
+            <p>If you'd like to learn more, check out our <a href="{{ url_for('getting_started') }}">getting started 
+                guide</a>. Otherwise, you can sign in or register a new account by clicking the buttons below.
+            </p>
             <div class="row margin-top-2">
                 <!-- log in button -->
                 <a href="{{ url_for('login') }}" class="waves-effect btn-large col s12 l5 light-blue lighten-3 
-                card-panel-button z-depth-4">
+                    card-panel-button z-depth-4">
                     <i class="fa-solid fa-arrow-right-to-bracket right"></i> Log In</a>
                 <!-- register button -->
                 <a href="{{ url_for('register') }}" class="waves-effect btn-large col s12 l5 offset-l2 light-green 
-                lighten-3 card-panel-button z-depth-4">
+                    lighten-3 card-panel-button z-depth-4">
                     <i class="fa-solid fa-user-plus right"></i>Sign Up</a>
             </div>
         </div>
