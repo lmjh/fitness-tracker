@@ -58,7 +58,14 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 #### Typography
 
+* The site logo and headings use the [Cantarell font](https://fonts.google.com/specimen/Cantarell) from Google Fonts. This font was selected for its high legibility and simple, clean lines.
+* All other text on the site uses the standard Materialize framework font stack, which consists of a number of simple, legible sans-serif fonts targeted at a range of different viewing devices and operating systems.
+
 #### Imagery
+
+* [Font Awesome 6](https://fontawesome.com/) icons are used throughout the site to illustrate buttons.
+* Illustrative screenshots are included in the “how to log your workouts” section of the Getting Started page and in some FAQ sections.
+* The “how it works” section of the Getting Started page is illustrated with drawings of clocks representing the time each stage should take. These illustrations were drawn as vectors with [Affinity Designer](https://affinity.serif.com/en-gb/designer/) in a style intended to match and complement the other site elements.
 
 ### Wireframes
 
