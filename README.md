@@ -36,9 +36,13 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 * The sense of depth is reinforced by consistent use of two levels of drop shadows on site elements. Elements with the shadow further from the element appear further from the surface they sit on, while elements with a closer drop shadow appear closer. 
 
+![Three shades of grey and drop shadows on the My Routines page](documentation/readme-images/design-1.jpg)
+
 * I’ve tried to use shadows consistently, so card panels / surfaces in the mid grey colour sit far from their base layer, while the card panels/surfaces in the light grey sit closer to the mid grey surfaces beneath them. Buttons are always high above their parent elements for emphasis. 
 
 * In places, such as the graphs on the Track Progress pages, I’ve created a ‘cut-out’ effect using an inner drop shadow and colouring the inner element with the bottom grey shade.
+
+!['Cut-out' visual effect on the progress graph](documentation/readme-images/design-2.jpg)
 
 * In line with the Material Design dark theme guidance, I’ve used mostly light, desaturated colours.
 
@@ -52,9 +56,15 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 * Light red is used on all buttons and flash messages associated with Delete / Remove operations, like deleting logs or routines. Light red is also used for error messages.
 
+![Buttons on the My Routine page, coloured according to function](documentation/readme-images/design-3.jpg)
+
 * A light grey is used for neutral buttons, like ‘Cancel’ buttons. This creates a clear visual contrast between confirmation and cancellation in the confirmation modals for editing or deleting records.
 
+![Grey cancel button provides visual contrast with red confirmation button](documentation/readme-images/design-4.jpg)
+
 * Finally, a brighter, more saturated blue is used occasionally for emphasis. This is a brand colour and is used in the logo, on the progress graphs and to make links stand out.
+
+![Saturated blue used in logo](documentation/readme-images/design-5.jpg)
 
 #### Typography
 
