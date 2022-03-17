@@ -23,7 +23,7 @@
         offset-l4 light-green lighten-3 z-depth-4">
         <i class="fa-solid fa-circle-plus right"></i>Add Workout Log</a>
 </div>
-<div class="row">
+<div class="row" id="filters">
     <div class="col s12 l8 offset-l2">
         <div class="card-panel card-panel-bottom z-depth-4">
             <!-- Workout Logs filter panel -->
@@ -35,7 +35,7 @@
                         <i class="fa-solid fa-square-xmark"></i></a>
                 </div>
             </div>
-            <form action="" method="GET">
+            <form action="#filters" method="GET">
                 <div class="row center-align">
                     <div class="col s12 m6">
                         <!-- From Date filter -->
@@ -64,7 +64,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" id="logs">
     <div class="col s12 l8 offset-l2">
         <ul class="collapsible log-collapsible z-depth-0">
             <!-- iterate over workout logs and add a collapsible accordion section for each -->
@@ -168,7 +168,7 @@
                 <a href="{{ url_for('workout_log',
                             skip=skip + 10,
                             date_from=request.args.get('date_from'),
-                            date_to=request.args.get('date_to') ) }}" 
+                            date_to=request.args.get('date_to') ) }}#logs" 
                     class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4">Older Logs</a>
             {% endif %}
         </div>
@@ -191,7 +191,7 @@
                 <a href="{{ url_for('workout_log',
                             skip=skip - 10,
                             date_from=request.args.get('date_from'),
-                            date_to=request.args.get('date_to') ) }}" 
+                            date_to=request.args.get('date_to') ) }}#logs" 
                     class="waves-effect log-button btn-large light-blue lighten-3 z-depth-4 right">Newer Logs</a>
             {% endif %}
         </div>
