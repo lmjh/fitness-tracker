@@ -191,8 +191,13 @@ def workout_log():
             # if either of the submitted dates aren't valid and in the correct
             # format, redirect user back to workout_log page with error message
             flash(
-                "Invalid date. Please enter valid dates in the format "
+                "Invalid date. Please enter valid dates in the format."
                 "dd/mm/yy.", "error")
+            return redirect(url_for("workout_log"))
+
+        # show an error message if date_to is earlier than date_from
+        if date_to < date_from:
+            flash("Search end date must be after start date.", "error")
             return redirect(url_for("workout_log"))
 
         # check if a skip query parameter is present and if so assign it to
