@@ -803,6 +803,27 @@ def faq():
                            page_title="Frequently Asked Questions")
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    """
+    Renders an error page when a 404 exception is raised.
+    Based on the examples in the Flask documentation:
+    https://flask.palletsprojects.com/en/2.0.x/errorhandling/
+    """
+    return render_template('errors/404.html', page_title="Page Not Found"), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    """
+    Renders an error page when a 500 exception is raised.
+    Based on the examples in the Flask documentation:
+    https://flask.palletsprojects.com/en/2.0.x/errorhandling/
+    """
+    return render_template('errors/500.html',
+                           page_title="Internal Server Error"), 500
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

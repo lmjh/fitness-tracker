@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col s12 center-align">
+        <h1>Internal Server Error</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col s12 l8 offset-l2 center-align">
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <p>Oops, something seems to have gone wrong.</p> 
+            <p>Would you like to go <a href="{{ url_for('home') }}">home</a>?</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
