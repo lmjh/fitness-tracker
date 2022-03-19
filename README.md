@@ -85,7 +85,123 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 
 ## Features
 
+### User Accounts
 
+Fitrio features a user account system whereby users can create a persistent account, accessed by username and password, and store data associated with their account. 
+
+* Users create accounts by filling in a simple registration form.
+
+![Registration form](documentation/readme-images/user-accounts-register.jpg)
+
+* Users sign in to their accounts by filling in a login form and sign out using a link in the navigation bar.
+
+![Login form](documentation/readme-images/user-accounts-login.jpg)
+
+* The application uses the Flask session object to handle user login functionality and passwords are hashed using Werkzeug helper functions.
+
+### Workout Log
+
+The core feature of Fitrio is a workout log allowing users to record their workouts. Full CRUD (create, read, update, delete) functionality is implemented for workout logs, so users can add, delete and edit their records as they wish.
+
+* Workouts logs are added by completing a form, which is linked to from buttons on the Workout Log and My Routines pages.
+
+![Add workout logs by filling a form](documentation/readme-images/workout-log-add-form.jpg)
+
+* All workout logs are listed on the Workout Log page.
+
+![List of workout logs](documentation/readme-images/workout-log-list.jpg)
+
+* The workout logs are paginated and displayed in batches of ten to prevent pages becoming too large as more records are added.
+
+![Log pagination with buttons to view older/newer logs](documentation/readme-images/workout-log-pagination.jpg)
+
+* Workout logs can be filtered by date
+
+![Log from and to date filter](documentation/readme-images/workout-log-filter.jpg)
+
+* Individual workout records can be expanded by clicking or pressing enter on the keyboard when focused. The app calculates and displays the total number of exercise reps that were done for each log entry. The record can be edited or deleted by clicking the buttons here.
+
+![An expanded workout log entry showing workout details and edit and delete buttons](documentation/readme-images/workout-log-expanded.jpg)
+
+* When editing a log entry, the form is prepopulated with the current values of that log.
+
+![Prepopulated edit log form](documentation/readme-images/workout-log-edit-form.jpg)
+
+### Routine Management
+
+A routine in Fitrio is a set of three exercises with an associated number of repetitions for each. Users select a routine whenever they log a workout.
+
+* All users have access to three preset / default routines, which are displayed on the My Routines page and can be selected when adding a workout log.
+
+![User view of preset routines](documentation/readme-images/routine-management-user-defaults.jpg)
+
+* By design, users cannot edit or delete the default routines, as they are intended to be the basic foundational routines of the application that all users always have access to. However, the ‘admin’ user account can add, edit or delete default routines. This allows the site admin to make changes to the preset routines or add additional preset routines that will be automatically applied to all other users.
+
+![Admin view of preset routines](documentation/readme-images/routine-management-admin-defaults.jpg)
+
+* Users can add their own custom routines by clicking the link in the My Routines page and then filling out a form.
+
+![Add a routine by completing a form](documentation/readme-images/routine-management-add-routine.jpg)
+
+* Full CRUD functionality is implemented for users’ own custom routines. Custom routines can be deleted or edited by clicking the appropriate buttons on the My Routines page.
+
+![Delete or edit custom routines](documentation/readme-images/routine-management-custom-edit-delete.jpg)
+
+*  When editing a routine, the form is prepopulated with the current values of that routine.
+
+![Edit routine forms are prepopulated](documentation/readme-images/routine-management-edit-prepopulated.jpg)
+
+### Track and Share Progress
+
+Users can track their progress with Fitrio routines (both preset and custom routines) by clicking the ‘Track’ link present on each routine on the My Routines page.
+
+* Progress for each routine is visualised with a line chart. This chart plots the number of sets completed against the date/time for each workout logged by the given user with the given routine.
+
+![A chart visualises progress data](documentation/readme-images/track-progress-chart.jpg)
+
+* A ‘personal best’ section displays the details of the workout with the highest number of sets that the user has recorded with this routine. Where multiple logs have the same highest number of sets, the log with the earliest date is used.
+
+![Personal best statistics are displayed](documentation/readme-images/track-progress-best.jpg)
+
+* By default, Track Progress pages cannot be viewed by any user except the page owner. However, users can click a “Share Page” button on the Track Progress page if they want to  share their progress. The page will then be viewable by any other logged in user who visits the page URL.
+
+![Users can choose to share their progress](documentation/readme-images/track-progress-share.jpg)
+
+* For convenience, pages which are currently shared show a link that users can copy. The “Share Page” button is also replaced with a “Hide Page” button, which can be clicked to hide the page at any time. The “Hide Page” button is only visible to the page owner.
+
+![Users can choose to hide their progress](documentation/readme-images/track-progress-link-and-hide.jpg)
+
+### Tutorials and FAQ
+
+New users are redirected to a ‘Getting Started’ page after registration to help them learn how Fitrio works. An FAQ page is also provided with answers to common questions.
+
+* The Getting Started page provides a step by step run down of how to use Fitrio workout routines.
+
+![Step by step instructions for workouts](documentation/readme-images/tutorials-how-it-works.jpg)
+
+* The Getting Started page also provides instructions on how to record workouts in the workout log and track progress.
+
+![Instructions for logging workouts](documentation/readme-images/tutorials-how-to-log.jpg)
+
+* The FAQ page provides answers to common questions in a collapsible accordion. Users can find detailed instructions for the exercises in the preset routines here.
+
+![FAQ accordion](documentation/readme-images/tutorials-faq.jpg)
+
+* Succinct instructions on how to use the features of the page are included at the top of the Workout Log and My Routines pages.
+
+![Instruction box](documentation/readme-images/tutorials-instructions-box.jpg)
+
+### Confirmation Modals
+
+To mitigate the risk of accidental data loss, confirmation modals are used for all potentially destructive actions, including editing and deleting workout logs and editing and deleting custom routines.
+
+* To ensure that the interface options are clear to users, the confirmation buttons are clearly labelled with the action to be taken and always match the colouring and icon of the action trigger button that was pressed. The cancel button is always in a neutral grey colour.
+
+![Delete log confirmation modal](documentation/readme-images/modals-delete-log.jpg)
+
+* A confirmation modal is also included for the action of updating the sharing settings on the Track Progress pages.
+
+![Share progress confirmation modal](documentation/readme-images/modals-share.jpg)
 
 ***
 
@@ -106,8 +222,9 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 4. [Materialize](https://materializecss.com/) - Materialize CSS framework used extensively to create layout and styling of site.
 5. [jQuery](https://jquery.com/) - 
 6. [Python 3.8](https://www.python.org/) - Used to code the application.
+7. [MongoDB](https://www.mongodb.com/) - Used for the application's database.
 7. [Flask](https://palletsprojects.com/p/flask/), [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) and [Werkzeug](https://palletsprojects.com/p/werkzeug/) - Used to build the main application structure, page templates (Jinja) and account security (Werkzeug).
-8. [PyMongo](https://github.com/mongodb/mongo-python-driver) - 
+8. [PyMongo](https://github.com/mongodb/mongo-python-driver) - Used to connect Python with MongoDB
 9. [Heroku](https://heroku.com/) - Used to deploy the site.
 10. [Chart.js](https://www.chartjs.org/) - Used to render the routine progress charts.
 11. [Regexr](https://regexr.com/) - Used to assist with writing and testing regular expressions.
@@ -117,7 +234,7 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 
 ## Testing
 
-Please see TESTING.md for details of tests performed and bugs fixed.
+Please see [TESTING.md](TESTING.md) for details of tests performed and bugs fixed.
 
 ***
 
