@@ -192,6 +192,25 @@ When users clicked on "Older Logs" or "Newer Logs" to cycle through paginated re
 
 This was resolved by adding an element id to the workout logs results section and adding that element to the older/newer pagination links. Now when the links are clicked, the user is taken directly to the results. For consistency, a similar effect was added to the filter logs button, this time focusing the user on the filters panel when a new date range is submitted.
 
+### 13. Entering invalid data into flask route parameters caused errors
+
+The edit_workout, delete_workout, edit_routine, delete_routine, track_progress, and toggle_sharing pages all use route parameters to specify which records should be operated on. An error would be thrown if a user entered invalid data into these functions.
+
+![Invalid object id entered in track_progress URL](documentation/testing-images/bugs-13-invalid-objectid.jpg)
+
+![Invalid username entered in track_progress URL](documentation/testing-images/bugs-13-invalid-username.jpg)
+
+This was fixed by adding code to each function to check the data is valid. Submitted usernames are validated by querying the database and submitted log and routine ids are validated by using the ObjectId.is_valid() function. Users are redirected if invalid data is entered. e.g. from the track_progress function:
+
+    # find the page owner in the users database
+    user = find_user(username)
+
+    # if username is not valid or routine id is not valid, redirect to
+    # my_routines
+    if not user or not ObjectId.is_valid(routine_id):
+        flash("Invalid Username or Routine ID.", "error")
+        return redirect(url_for("my_routines"))
+
 ***
 
 ## Outstanding Issues

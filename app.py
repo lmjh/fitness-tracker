@@ -37,6 +37,16 @@ def login_required(f):
     return decorated_function
 
 
+def find_user(username):
+    """
+    Helper function that searches the database for the given username and
+    returns the record if found.
+    """
+    # query database for username and return it
+    user = mongo.db.users.find_one({"username": username})
+    return user
+
+
 @app.route("/")
 def home():
     """
@@ -351,6 +361,11 @@ def edit_workout(log_id):
     POST: If current user created the log entry, updates the entry.
     Otherwise, returns user to workout log page.
     """
+    # if log_id is not a valid objectid, redirect to workout_log
+    if not ObjectId.is_valid(log_id):
+        flash("Invalid Log ID.", "error")
+        return redirect(url_for("workout_log"))
+
     # find log entry to edit from database
     log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
     # MOVE LOG OUTSIDE IF STATEMENT
@@ -411,6 +426,11 @@ def delete_workout(log_id):
     Checks if current user created the log entry to be deleted and deletes it
     if so. Otherwise, returns user to workout log page.
     """
+    # if log_id is not a valid objectid, redirect to workout_log
+    if not ObjectId.is_valid(log_id):
+        flash("Invalid Log ID.", "error")
+        return redirect(url_for("workout_log"))
+
     # find log entry to edit from database
     log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
 
@@ -511,6 +531,11 @@ def edit_routine(routine_id):
     by the current user, the user is redirected to the my_routines page.
     Otherwise, the requested routine is updated with the submitted details.
     """
+    # if routine_id is not a valid objectid, redirect to my_routines
+    if not ObjectId.is_valid(routine_id):
+        flash("Invalid Routine ID.", "error")
+        return redirect(url_for("my_routines"))
+
     # find routine to edit from database
     routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
 
@@ -583,6 +608,11 @@ def delete_routine(routine_id):
     my_routines page. Otherwise, redirects user to my_routines page with an
     error message.
     """
+    # if routine_id is not a valid objectid, redirect to my_routines
+    if not ObjectId.is_valid(routine_id):
+        flash("Invalid Routine ID.", "error")
+        return redirect(url_for("my_routines"))
+
     # find the requested routine in the database and assign it to a variable
     routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
 
@@ -613,7 +643,13 @@ def track_progress(username, routine_id):
     my_routines page.
     """
     # find the page owner in the users database
-    user = mongo.db.users.find_one({"username": username})
+    user = find_user(username)
+
+    # if username is not valid or routine id is not valid, redirect to
+    # my_routines
+    if not user or not ObjectId.is_valid(routine_id):
+        flash("Invalid Username or Routine ID.", "error")
+        return redirect(url_for("my_routines"))
 
     # determine if the current user is the page owner and if the page has been
     # shared.
@@ -689,13 +725,20 @@ def toggle_sharing(username, routine_id):
     username and routine pair by adding or removing the routine's object id to
     an array in the user's database document.
     """
+    # find the user in the users database
+    user = find_user(username)
+
+    # if username is not valid or routine id is not valid, redirect to
+    # my_routines
+    if not user or not ObjectId.is_valid(routine_id):
+        flash("Invalid Username or Routine ID.", "error")
+        return redirect(url_for("my_routines"))
+
     # check current user is the owner of the track_progress page
     if username == session["user"]:
         # check if the routine exists in the database
         routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
         if routine:
-            # find the user in the users database
-            user = mongo.db.users.find_one({"username": username})
             # If the routine_id is in the shared_routines array, remove it.
             if routine_id in user["shared_routines"]:
                 mongo.db.users.update_one(
