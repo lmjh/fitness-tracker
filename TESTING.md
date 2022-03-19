@@ -190,7 +190,7 @@ This bug was fixed by adding an if condition to the jinja template so that the f
 
 When users clicked on "Older Logs" or "Newer Logs" to cycle through paginated records on the Workout Logs page, the window view would return to the top of the page. This created a frustrating user experience, as users would have to scroll down past the title, description and filters every time they changed page. 
 
-This was resolved by adding an element id to the workout logs results section and adding that element to the older/newer pagination links. Now when the links are clicked, the user is taken directly to the results. For consistency, a similar effect was added to the filter logs button, this time focusing the user on the filters panel when a new date range is submitted.
+This was resolved by adding an element id to the workout logs results section and adding that element to the older/newer pagination links. Now when the links are clicked, the user is taken directly to the results.
 
 ### 13. Entering invalid data into flask route parameters caused errors
 
@@ -210,6 +210,21 @@ This was fixed by adding code to each function to check the data is valid. Submi
     if not user or not ObjectId.is_valid(routine_id):
         flash("Invalid Username or Routine ID.", "error")
         return redirect(url_for("my_routines"))
+
+### 14. Removing 'to_date' parameter from Workout Log URL caused an error
+
+![Error caused by removing to_date from URL](documentation/testing-images/bugs-14-to_date-removed.jpg)
+
+This happened because the code was only checking for a 'from_date' before executing code on the 'to_date', assuming a to_date would always be present. I resolved this by refactoring the code slightly and adding an and condition to the if block to check that the to_date was present:
+
+    # retrieve date_from and date_to values from query parameters if available
+    # and assign to variables
+    date_from = request.args.get("date_from")
+    date_to = request.args.get("date_to")
+    # if date_from and date_to query parameters were found
+    if date_from and date_to:
+
+
 
 ***
 

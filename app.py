@@ -176,16 +176,17 @@ def workout_log():
     Reads query parameters from the URL to restrict results to a requested date
     range and/or paginate results.
     """
-    # if URL contains a date_from parameter
-    if request.args.get("date_from"):
-        # collect date_from and date_to values from query parameter and try to
-        # convert to datetime objects
+    # retrieve date_from and date_to values from query parameters if available
+    # and assign to variables
+    date_from = request.args.get("date_from")
+    date_to = request.args.get("date_to")
+    # if date_from and date_to query parameters were found
+    if date_from and date_to:
+        # try to convert date_from and date_to to datetime objects
         try:
-            date_from = datetime.datetime.strptime(
-                                    request.args.get("date_from"), "%d/%m/%y")
-            date_to = datetime.datetime.strptime(
-                                    request.args.get("date_to") + "23:59:59",
-                                    "%d/%m/%y%H:%M:%S")
+            date_from = datetime.datetime.strptime(date_from, "%d/%m/%y")
+            date_to = datetime.datetime.strptime(date_to + "23:59:59",
+                                                 "%d/%m/%y%H:%M:%S")
         except ValueError:
             # if either of the submitted dates aren't valid and in the correct
             # format, redirect user back to workout_log page with error message
@@ -249,6 +250,7 @@ def workout_log():
 
         # pass the results of the query, the current skip value and the
         # document count to the workout_log template
+        flash("Results updated.", "message")
         return render_template('workout_log.html', page_title="Workout Log",
                                logs=logs, skip=skip, count=count)
 
