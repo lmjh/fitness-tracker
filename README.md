@@ -26,6 +26,8 @@ This application aims to solve this problem by encouraging people to try more fo
 * As a returning user, I want to be able to quickly access the features I’m interested in.
 * As a returning user, I want to be able to easily access and manage the data I’ve saved in the application.
 * As a returning user, I want to be able to create and manage my own custom routines
+* As a returning user, I want to be able to assess my progress so I can see if the app is providing value for me
+* As a returning user, I want to be able to share my achievements with others
 
 ### Design
 

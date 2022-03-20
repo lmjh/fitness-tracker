@@ -35,7 +35,9 @@
         </ul>
     </nav>
 
-
+    {% if config['DEBUG'] %}
+        <div class="btn red" style="position:fixed">DEBUG ENABLED</div>
+    {% endif %}
 
     <section>
         {% include 'includes/messages.html' %}
