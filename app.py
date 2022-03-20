@@ -639,7 +639,6 @@ def delete_routine(routine_id):
 
 
 @app.route("/track_progress/<username>/<routine_id>")
-@login_required
 def track_progress(username, routine_id):
     """
     Check if the current user is the page owner or if the page owner has shared
@@ -652,15 +651,18 @@ def track_progress(username, routine_id):
     # find the page owner in the users database
     user = find_user(username)
 
-    # if username is not valid or routine id is not valid, redirect to
-    # my_routines
+    # if username is not valid or routine id is not valid, redirect to home
     if not user or not ObjectId.is_valid(routine_id):
         flash("Invalid Username or Routine ID.", "error")
-        return redirect(url_for("my_routines"))
+        return redirect(url_for("home"))
 
-    # determine if the current user is the page owner and if the page has been
-    # shared.
-    owner = username == session["user"]
+    # if a user is logged in, determine if they are the page owner
+    if session.get("user"):
+        owner = username == session["user"]
+    else:
+        owner = False
+
+    # determine if the page has been shared by its owner
     shared = routine_id in user["shared_routines"]
 
     # if either the current user is the page owner or the page owner has shared
@@ -719,9 +721,9 @@ def track_progress(username, routine_id):
         flash("No workouts logged with this routine.", "error")
         return redirect(url_for("my_routines"))
 
-    # if user is not owner and page is not shared, redirect to my_routines
-    flash("You don't have permission to view this page.", "error")
-    return redirect(url_for("my_routines"))
+    # if user is not owner and page is not shared, redirect to home
+    flash("You don't have permission to view that page.", "error")
+    return redirect(url_for("home"))
 
 
 @app.route("/toggle_sharing/<username>/<routine_id>")
@@ -780,7 +782,7 @@ def toggle_sharing(username, routine_id):
         flash("Routine not found.", "error")
         return redirect(url_for("my_routines"))
 
-    flash("You don't have permission to edit this user's share settings.",
+    flash("You don't have permission to edit that user's share settings.",
           "error")
     return redirect(url_for("my_routines"))
 
