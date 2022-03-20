@@ -47,13 +47,31 @@ def find_user(username):
     return user
 
 
+def find_log(log_id):
+    """
+    Helper function that searches the workout_logs collection for a record with
+    an ObjectId matching the given routine_id and returns the record if found.
+    """
+    # query database for log
+    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+
+    # if log not found, raise a ValueError
+    if log is None:
+        raise ValueError('Invalid Log Id')
+    return log
+
+
 def find_routine(routine_id):
     """
-    Helper function that searches the routines collection for a record with an 
-    objectId matching the given routine_id and returns the record if found.
+    Helper function that searches the routines collection for a record with an
+    ObjectId matching the given routine_id and returns the record if found.
     """
-    # query database for username and return it
+    # query database for routine
     routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+
+    # if routine not found, raise a ValueError
+    if routine is None:
+        raise ValueError('Invalid Routine Id')
     return routine
 
 
@@ -383,8 +401,14 @@ def edit_workout(log_id):
         flash("Invalid Log ID.", "error")
         return redirect(url_for("workout_log"))
 
-    # find log entry to edit from database
-    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+    # try to find log to edit from database
+    # redirect to workout_log if Id is invalid
+    try:
+        log = find_log(log_id)
+    except ValueError:
+        flash("Invalid Log ID.", "error")
+        return redirect(url_for("workout_log"))
+
 
     if request.method == "POST":
         # check current user is the user who created the entry
@@ -448,8 +472,13 @@ def delete_workout(log_id):
         flash("Invalid Log ID.", "error")
         return redirect(url_for("workout_log"))
 
-    # find log entry to edit from database
-    log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
+    # try to find log to delete from database
+    # redirect to workout_log if Id is invalid
+    try:
+        log = find_log(log_id)
+    except ValueError:
+        flash("Invalid Log ID.", "error")
+        return redirect(url_for("workout_log"))
 
     # check current user is the user who created the entry
     if log["username"] == session["user"]:
@@ -554,7 +583,12 @@ def edit_routine(routine_id):
         return redirect(url_for("my_routines"))
 
     # find routine to edit from database
-    routine = find_routine(routine_id)
+    # redirect to my_routines if Id is invalid
+    try:
+        routine = find_routine(routine_id)
+    except ValueError:
+        flash("Invalid Routine ID.", "error")
+        return redirect(url_for("my_routines"))
 
     if request.method == "POST":
         # check current user is the user who created the routine
@@ -630,8 +664,13 @@ def delete_routine(routine_id):
         flash("Invalid Routine ID.", "error")
         return redirect(url_for("my_routines"))
 
-    # find the requested routine in the database and assign it to a variable
-    routine = find_routine(routine_id)
+    # try to find routine to delete from database
+    # redirect to my_routines if Id is invalid
+    try:
+        routine = find_routine(routine_id)
+    except ValueError:
+        flash("Invalid Routine ID.", "error")
+        return redirect(url_for("my_routines"))
 
     # check current user is the user who created the routine
     if routine["username"] == session["user"]:
@@ -755,42 +794,45 @@ def toggle_sharing(username, routine_id):
 
     # check current user is the owner of the track_progress page
     if username == session["user"]:
-        # check if the routine exists in the database
-        routine = find_routine(routine_id)
-        if routine:
-            # If the routine_id is in the shared_routines array, remove it.
-            if routine_id in user["shared_routines"]:
-                mongo.db.users.update_one(
-                    {
-                        "username": username
-                    },
-                    {
-                        "$pull": {
-                            'shared_routines': routine_id
-                        }
-                    })
-                flash("Settings updated. This page is now private.", "edit")
-                return redirect(url_for("track_progress", username=username,
-                                        routine_id=routine_id))
 
-            # If the routine_id is not in the shared_routines array, add it.
+        # check routine exists in the database
+        # redirect to my_routines if Id is invalid
+        try:
+            find_routine(routine_id)
+        except ValueError:
+            flash("Invalid Routine ID.", "error")
+            return redirect(url_for("my_routines"))
+
+        # If the routine_id is in the shared_routines array, remove it.
+        if routine_id in user["shared_routines"]:
             mongo.db.users.update_one(
-                    {
-                        "username": username
-                    },
-                    {
-                        "$push": {
-                            'shared_routines': routine_id
-                        }
-                    })
-
-            flash("Settings updated. This page can now be shared via link.",
-                  "edit")
+                {
+                    "username": username
+                },
+                {
+                    "$pull": {
+                        'shared_routines': routine_id
+                    }
+                })
+            flash("Settings updated. This page is now private.", "edit")
             return redirect(url_for("track_progress", username=username,
-                            routine_id=routine_id))
+                                    routine_id=routine_id))
 
-        flash("Routine not found.", "error")
-        return redirect(url_for("my_routines"))
+        # If the routine_id is not in the shared_routines array, add it.
+        mongo.db.users.update_one(
+                {
+                    "username": username
+                },
+                {
+                    "$push": {
+                        'shared_routines': routine_id
+                    }
+                })
+
+        flash("Settings updated. This page can now be shared via link.",
+              "edit")
+        return redirect(url_for("track_progress", username=username,
+                        routine_id=routine_id))
 
     flash("You don't have permission to edit that user's share settings.",
           "error")

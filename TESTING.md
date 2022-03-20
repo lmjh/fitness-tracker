@@ -325,7 +325,24 @@ This happened because the code was only checking for a 'from_date' before execut
     # if date_from and date_to query parameters were found
     if date_from and date_to:
 
+### 15. Error thrown if user entered an unmatching but valid Object Id into the URL
 
+The edit_workout, delete_workout, edit_routine and delete_routine functions were checking if the variable in the URL was a valid object Id, but not if it matched any records. This meant that errors could be thrown if users entered an object id that was of a valid form, but not matching any documents in the database.
+
+This was resolved for the edit_routine and delete_routine functions by adding error handling to the helper function that retrieves routines so an exception is raised if no record is found:
+
+    if routine is None:
+        raise ValueError('Invalid Routine Id')
+
+Then adding a try except block to the edit_routine and delete_routine functions:
+
+    try:
+        routine = find_routine(routine_id)
+    except ValueError:
+        flash("Invalid Routine ID.", "error")
+        return redirect(url_for("my_routines"))
+
+The bug was resolved for the edit_workout and delete_workout functions by adding a find_log helper function with the same functionality.
 
 ***
 
