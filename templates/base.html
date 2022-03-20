@@ -1,64 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cantarell&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" type="text/css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-        type="text/css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>{{ page_title }} - Fitness Tracker</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cantarell&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+            type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <title>{{ page_title }} - Fitrio</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+    </head>
 
-<body>
-    <nav class="z-depth-3">
-        <div class="nav-wrapper dark-2">
-            <a href="#!" class="brand-logo"><img src="/static/images/logo.png" alt="fitrio logo" class="logo"></a>
-            <a href="#" data-target="mobile-menu" class="sidenav-trigger right hide-on-large-only" 
-                aria-label="Expand and collapse navigation menu">
-                <i class="fa-solid fa-bars"></i></a>
-            <ul class="right hide-on-med-and-down">
-                {% include 'includes/nav.html' %}
-            </ul>
-        </div>
-        <ul class="sidenav z-depth-4 hide-on-large-only" id="mobile-menu">
-            {% include 'includes/nav.html' %}
-        </ul>
-    </nav>
+    <body>
+        <header>
+            <nav class="z-depth-3">
+                <div class="nav-wrapper dark-2">
+                    <!-- Site logo -->
+                    <a href="{{ url_for('home') }}" class="brand-logo"><img src="/static/images/logo.png" alt="fitrio logo" 
+                        class="logo"></a>
+                    <!-- Mobile menu toggle -->
+                    <a href="#" data-target="mobile-menu" class="sidenav-trigger right hide-on-large-only" 
+                        aria-label="Expand and collapse navigation menu">
+                        <i class="fa-solid fa-bars"></i></a>
+                    <!-- Navigation menus -->
+                    <ul class="right hide-on-med-and-down">
+                        {% include 'includes/nav.html' %}
+                    </ul>
+                </div>
+                <ul class="sidenav z-depth-4 hide-on-large-only" id="mobile-menu">
+                    {% include 'includes/nav.html' %}
+                </ul>
+            </nav>
+        </header>
 
-    {% if config['DEBUG'] %}
-        <div class="btn red" style="position:fixed">DEBUG ENABLED</div>
-    {% endif %}
+        {% if config['DEBUG'] %}
+            <div class="btn red" style="position:fixed">DEBUG ENABLED</div>
+        {% endif %}
 
-    <section>
-        {% include 'includes/messages.html' %}
-    </section>
+        <section>
+            {% include 'includes/messages.html' %}
+        </section>
 
-    <main class="container">
-        {% block content %}
+        <main class="container">
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+        {% block modals %}
         {% endblock %}
-    </main>
-    
-    {% block modals %}
-    {% endblock %}
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- Include Materialize scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Include custom scripts -->
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    {% block scripts %}
-    {% endblock %}
-</body>
+        <!-- Include jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- Include Materialize scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- Include custom scripts -->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        {% block scripts %}
+        {% endblock %}
+    </body>
 
 </html>

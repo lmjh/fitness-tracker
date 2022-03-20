@@ -9,90 +9,94 @@
                     {{ data.username | capitalize }}'s
                 {% endif %}
                     {{ data.routine.routine_name }} Routine Progress</h2>
-                
-            <div class="card-panel-cutout margin-top-2">
-                <canvas id="myChart"></canvas>
+            <figure class="no-margin">
+                <div class="card-panel-cutout margin-top-2">
+                    <canvas id="myChart"></canvas>
+                </div>
+                <figcaption class="visually-hidden">
+                    This graph plots the date of the workout against the score achieved to visualise your progress with 
+                    the routine. 
+                </figcaption>
+            </figure>
+
+            <div class="row">
+                <div class="col s12 flow-text text-shadow">
+                    <span class="">{{ data.sets|length }}</span> Workouts Recorded
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 flow-text text-shadow">
+                    Personal Best:
+                </div>
+            </div>
+            <div class="card-panel-top z-depth-2">
+                <div class="row center-align">
+                    <div class="col s12 m4 offset-m4">
+                        <div class="feature-number">
+                            {{ data.best.sets }}
+                        </div>
+                    </div>
+                    <div class="col s12 m4 offset-m4">
+                        <div>
+                            sets on {{ data.best.date.strftime('%d %B %y') }}, totalling:
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-align">
+                    <div class="col s4">
+                        <div class="feature-number">{{ data.routine.exercise_one_reps * data.best.sets }}</div>
+                        <div class="exercise-name">{{ data.routine.exercise_one }}</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ data.routine.exercise_two_reps * data.best.sets }}</div>
+                        <div class="exercise-name">{{ data.routine.exercise_two }}</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ data.routine.exercise_three_reps * data.best.sets }}</div>
+                        <div class="exercise-name">{{ data.routine.exercise_three }}</div>
+                    </div>
+                </div>
             </div>
 
-                <div class="row">
-                    <div class="col s12 flow-text text-shadow">
-                        <span class="">{{ data.sets|length }}</span> Workouts Recorded
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12 flow-text text-shadow">
-                        Personal Best:
-                    </div>
-                </div>
-                <div class="card-panel-top z-depth-2">
-                    <div class="row center-align">
-                        <div class="col s12 m4 offset-m4">
-                            <div class="feature-number">
-                                {{ data.best.sets }}
-                            </div>
-                        </div>
-                        <div class="col s12 m4 offset-m4">
-                            <div>
-                                sets on {{ data.best.date.strftime('%d %B %y') }}, totalling:
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row center-align">
-                        <div class="col s4">
-                            <div class="feature-number">{{ data.routine.exercise_one_reps * data.best.sets }}</div>
-                            <div class="exercise-name">{{ data.routine.exercise_one }}</div>
-                        </div>
-                        <div class="col s4">
-                            <div class="feature-number">{{ data.routine.exercise_two_reps * data.best.sets }}</div>
-                            <div class="exercise-name">{{ data.routine.exercise_two }}</div>
-                        </div>
-                        <div class="col s4">
-                            <div class="feature-number">{{ data.routine.exercise_three_reps * data.best.sets }}</div>
-                            <div class="exercise-name">{{ data.routine.exercise_three }}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Include share button and content if user is page owner and page is not shared -->
-                {% if data.owner and not data.shared %}
-                <div class="row">
-                    <div class="col s12 margin-top-2">
-                        <p>Your progress with this routine is currently HIDDEN.</p>
-                        <p>If you'd like to share your progress with others, click the button below to make this 
-                            page visible and get a link to share.</p>
-                    </div> 
-                </div>
-                <div class="row">
-                    <!-- Share button triggers confirmation modal -->
-                    <a href="#share_modal" class="waves-effect btn-large col s10 offset-s1 m8 offset-m2 l6 offset-l3 
-                        amber lighten-3 card-panel-button modal-trigger z-depth-4">
-                    <i class="fa-solid fa-share-from-square right"></i>Share Page</a>
-                </div>
-                {% endif %}
-
-                <!-- Include hide page button and content if user is page owner and page is shared -->
-                {% if data.owner and data.shared %}
-                <div class="row">
-                    <div class="col s12 margin-top-2">
-                        <p>Your progress with this routine is currently VISIBLE to anyone with the link.</p> 
-                        <p>You can share this page with others using the following link:</p>
-                    </div> 
-                    <div class="col col s12 m10 offset-m1 margin-top-2">
-                        <div class="card-panel-top z-depth-2">
-                            <a href="{{ request.url }}">
-                                {{ request.url }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!-- Share button triggers confirmation modal -->
-                    <a href="#hide_modal" class="waves-effect btn-large col s10 offset-s1 m8 offset-m2 l6 offset-l3 
-                        amber lighten-3 card-panel-button modal-trigger z-depth-4">
-                    <i class="fa-solid fa-eye-slash right"></i>Hide Page</a>
-                </div>
-                {% endif %}
+            <!-- Include share button and content if user is page owner and page is not shared -->
+            {% if data.owner and not data.shared %}
+            <div class="row">
+                <div class="col s12 margin-top-2">
+                    <p>Your progress with this routine is currently HIDDEN.</p>
+                    <p>If you'd like to share your progress with others, click the button below to make this 
+                        page visible and get a link to share.</p>
+                </div> 
             </div>
+            <div class="row">
+                <!-- Share button triggers confirmation modal -->
+                <a href="#share_modal" class="waves-effect btn-large col s10 offset-s1 m8 offset-m2 l6 offset-l3 
+                    amber lighten-3 card-panel-button modal-trigger z-depth-4">
+                <i class="fa-solid fa-share-from-square right"></i>Share Page</a>
+            </div>
+            {% endif %}
+
+            <!-- Include hide page button and content if user is page owner and page is shared -->
+            {% if data.owner and data.shared %}
+            <div class="row">
+                <div class="col s12 margin-top-2">
+                    <p>Your progress with this routine is currently VISIBLE to anyone with the link.</p> 
+                    <p>You can share this page with others using the following link:</p>
+                </div> 
+                <div class="col col s12 m10 offset-m1 margin-top-2">
+                    <div class="card-panel-top z-depth-2">
+                        <a href="{{ request.url }}">
+                            {{ request.url }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Share button triggers confirmation modal -->
+                <a href="#hide_modal" class="waves-effect btn-large col s10 offset-s1 m8 offset-m2 l6 offset-l3 
+                    amber lighten-3 card-panel-button modal-trigger z-depth-4">
+                <i class="fa-solid fa-eye-slash right"></i>Hide Page</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
