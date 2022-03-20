@@ -39,12 +39,22 @@ def login_required(f):
 
 def find_user(username):
     """
-    Helper function that searches the database for the given username and
-    returns the record if found.
+    Helper function that searches the users collection for a record with a
+    username matching the given username and returns the record if found.
     """
     # query database for username and return it
     user = mongo.db.users.find_one({"username": username})
     return user
+
+
+def find_routine(routine_id):
+    """
+    Helper function that searches the routines collection for a record with an 
+    objectId matching the given routine_id and returns the record if found.
+    """
+    # query database for username and return it
+    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    return routine
 
 
 @app.route("/")
@@ -78,7 +88,7 @@ def login():
             # assign submitted username to a variable and query the database to
             # find a record with that name
             username = request.form.get("username").lower()
-            valid_username = mongo.db.users.find_one({"username": username})
+            valid_username = find_user(username)
 
             # check the submitted username exists in the database
             if valid_username:
@@ -125,7 +135,7 @@ def register():
             # assign submitted username to a variable and check if it exists in
             # the database
             username = request.form.get("username").lower()
-            duplicate_user = mongo.db.users.find_one({"username": username})
+            duplicate_user = find_user(username)
 
             # if username already exists, return user to registration page
             if duplicate_user:
@@ -375,7 +385,7 @@ def edit_workout(log_id):
 
     # find log entry to edit from database
     log = mongo.db.workout_logs.find_one({"_id": ObjectId(log_id)})
-    # MOVE LOG OUTSIDE IF STATEMENT
+
     if request.method == "POST":
         # check current user is the user who created the entry
         if log["username"] == session["user"]:
@@ -544,7 +554,7 @@ def edit_routine(routine_id):
         return redirect(url_for("my_routines"))
 
     # find routine to edit from database
-    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    routine = find_routine(routine_id)
 
     if request.method == "POST":
         # check current user is the user who created the routine
@@ -621,7 +631,7 @@ def delete_routine(routine_id):
         return redirect(url_for("my_routines"))
 
     # find the requested routine in the database and assign it to a variable
-    routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+    routine = find_routine(routine_id)
 
     # check current user is the user who created the routine
     if routine["username"] == session["user"]:
@@ -702,7 +712,7 @@ def track_progress(username, routine_id):
 
             # query the database to find the applicable routine and assign to a
             # variable
-            routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+            routine = find_routine(routine_id)
 
             # gather data in a dict and pass to template
             data = {
@@ -746,7 +756,7 @@ def toggle_sharing(username, routine_id):
     # check current user is the owner of the track_progress page
     if username == session["user"]:
         # check if the routine exists in the database
-        routine = mongo.db.routines.find_one({"_id": ObjectId(routine_id)})
+        routine = find_routine(routine_id)
         if routine:
             # If the routine_id is in the shared_routines array, remove it.
             if routine_id in user["shared_routines"]:
