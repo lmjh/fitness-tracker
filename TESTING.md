@@ -22,13 +22,114 @@
 ***
 
 ## User Stories Testing
-### New User Stories
+### Testing New User Stories
 
+#### As a new user, I want to quickly understand the purpose of the site so that I can decide if it provides value to me.
 
+* The welcome screen on the home page provides a brief overview of the purpose and features of the site to allow new users to quickly asses the value it offers.
+* A link to the 'Getting Started' page is included in a prominent position on the welcome screen, which users can follow to find more in-depth information on the application.
 
-### Returning User Stories
+![Welcome screen with overview and links](documentation/testing-images/user-stories-1-1.jpg)
 
+#### As a new user, I want to be able to quickly understand how to use the application to meet my needs.
 
+* The 'Getting Started' page contains instructions on how to use the main application features.
+
+![Instructions on the Getting Started page](documentation/testing-images/user-stories-2-1.jpg)
+
+* New users are redirected to this page upon registration of their account. The page is also linked from the Welcome Screen.
+
+* The 'Getting Started' page links to the FAQ, where users can fond more information if needed.
+
+![Link to FAQ](documentation/testing-images/user-stories-2-2.jpg)
+
+* Both 'Getting Started' and 'FAQ' pages are linked from the nav bar for both logged in and logged out users.
+
+![Logged in nav bar](documentation/testing-images/user-stories-2-3.jpg)
+
+![Logged out nav bar](documentation/testing-images/user-stories-2-4.jpg)
+
+#### As a new user, I want clear instructions on how to perform the featured exercises and record my progress.
+
+* Detailed instructions on how to perform the exercises in the preset routines are included in the top accordion section of the FAQ page, which is open on page load.
+
+![Exercise instructions on the FAQ page](documentation/testing-images/user-stories-3-1.jpg)
+
+* As well as written descriptions, the FAQ entry has a direct link to a YouTube search for videos showing proper form for each exercise. This is included as many people will find it easier to learn exercises by watching others perform them.
+
+![Links to video searches](documentation/testing-images/user-stories-3-2.jpg))
+
+* Instructions for recording progress are included on the Getting Started page.
+* The Workout Log and My Routines pages each have a box at the top of the page containing concise instructions for the features on that page.
+
+![Information box on the Workout Log page](documentation/testing-images/user-stories-3-3.jpg)
+
+#### As a new user, I want to know where to look for more information and help if I don’t understand something.
+
+* The instruction boxes on the workout Log and My Routines pages both have links to the Getting Started guide and the FAQ.
+
+* Links to the Getting Started guide and the FAQ are also provided in the nav bar.
+
+### Testing Returning User Stories
+
+#### As a returning user, I want to be able to quickly access the features I’m interested in.
+
+* It's likely that returning users will usually be logging on to record a new workout, so users are redirected to the Workout Log page upon logging in. This page has a prominent "Add Workout Log" button at the top for adding workouts.
+
+![Add Workout button at top of Workout Log page](documentation/testing-images/user-stories-5-1.jpg)
+
+* The nav bar provides quick access to all other features and pages of the site.
+
+#### As a returning user, I want to be able to easily access and manage the data I’ve saved in the application.
+
+* The Workout Log page provides access to all workouts recorded by users.
+* Users can expand workout records to view key details and access the delete and edit options.
+
+![Expanded workout log](documentation/testing-images/user-stories-6-1.jpg)
+
+* Edit workout log forms prepopulate with their current data for convenience
+
+![Prepopulated edit form](documentation/testing-images/user-stories-6-2.jpg)
+
+* Workouts on the Workout log are displayed in batches of 10 and paginated so the page doesn't become too large to navigate easily
+
+![Log pagination](documentation/testing-images/user-stories-6-3.jpg)
+
+* Users can filter the workout logs by date to help them find the records they're looking for
+
+![Workout log filters](documentation/testing-images/user-stories-6-4.jpg)
+
+#### As a returning user, I want to be able to create and manage my own custom routines
+
+* The My Routines page allows user to add their own routines
+
+![Add routine button](documentation/testing-images/user-stories-7-1.jpg)
+
+* Routines can be edited or deleted using the buttons on the My Routines page
+
+![Routine management buttons](documentation/testing-images/user-stories-7-2.jpg)
+
+* Edit routine forms prepopulate with their current data for convenience
+
+#### As a returning user, I want to be able to assess my progress and whether the app is working for me
+
+* Users can assess their progress on the track progress pages, which provide a helpful overview of stored data.
+
+![Graph visualising progress](documentation/testing-images/user-stories-8-1.jpg)
+
+* The graphs provide a clear visualisation of how a user's scores are changinging over time, which allows users to see if their fitness is improving by using the app.
+
+#### As a returning user, I want to be able to share my achievements with others
+
+* All user data is private by default, but users can opt to share their progress with a routine by clicking the "Share Page" button on the track progress pages.
+
+![Share page button](documentation/testing-images/user-stories-9-1.jpg)
+
+* Once sharing is enabled for a page, users can send the page link to anyone to share their personal best score and progress graph.
+
+![Share page link and hide page button](documentation/testing-images/user-stories-9-2.jpg)
+
+* Users can disable sharing by clicking the "Hide Page" button.
 
 ***
 
