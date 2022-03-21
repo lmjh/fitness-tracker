@@ -206,6 +206,18 @@ To mitigate the risk of accidental data loss, confirmation modals are used for a
 
 ![Share progress confirmation modal](documentation/readme-images/modals-share.jpg)
 
+### Error Pages
+
+Custom error pages are included to gracefully handle errors.
+
+* A 404 - Not Found page will display when a user attempts to visit an unvalid URL.
+
+![404 Page Not Found error page](documentation/readme-images/error-pages-404.jpg)
+
+* A 500 - Internal Server Error will display for any unhandled exceptions that might occur.
+
+![500 Internal Server Error page](documentation/readme-images/error-pages-500.jpg)
+
 ***
 
 ## Future Features
