@@ -5,7 +5,9 @@
 
 * CSS code validated with W3C [CSS Validator](https://jigsaw.w3.org/css-validator/).
 
-* Javascript and code validated with [JSHint](https://jshint.com/).
+* Javascript code validated with [JSHint](https://jshint.com/).
+
+* Python code validated with [PEP8 Online](http://pep8online.com/).
 
 ### HTML Validation
 
@@ -47,7 +49,9 @@ The undefined variable "Chart" is a chart object imported from chart.js and the 
 
 ### Python Validation
 
+Validation of the app.py python file passed with no errors or warnings.
 
+![app.py validation](documentation/testing-images/python-validation.jpg)
 
 ***
 
@@ -180,10 +184,10 @@ This was resolved by simply adding the @login_required decorator to the logout f
 ![Editworkout form showing full datetime](documentation/testing-images/bugs-2-datetime.jpg)
 
 This was fixed by using the strftime() method within the jinja template to covert to the appropriate format for date and time:
-
-    {{ log.date.strftime('%d/%m/%y') }}
-    {{ log.date.strftime('%H:%M') }}
-
+```python
+{{ log.date.strftime('%d/%m/%y') }}
+{{ log.date.strftime('%H:%M') }}
+```
 ### 3. Users could duplicate admin routine names
 
 The code checked if a user had already used a routine name on form submission to prevent duplication, but didn't originally check if they were duplicating an admin routine. This could result in a confusing experience;
@@ -192,19 +196,21 @@ The code checked if a user had already used a routine name on form submission to
 
 This was resolved by changing the database query that searched for duplicate names to use an $or expression:
 
-    find_one(
-            {
-                "$or": [
-                    {
-                        "username": session["user"],
-                        "routine_name": routine_name
-                    },
-                    {
-                        "username": "admin",
-                        "routine_name": routine_name
-                    }
-                ]
-            })
+```python
+find_one(
+        {
+            "$or": [
+                {
+                    "username": session["user"],
+                    "routine_name": routine_name
+                },
+                {
+                    "username": "admin",
+                    "routine_name": routine_name
+                }
+            ]
+        })
+```
 
 ### 4. The add and edit routine functions were storing "reps" as a string, instead of an int
 
@@ -213,8 +219,9 @@ Because of this, wherever the application tried to display total numbers of exer
 ![Total exercises being shows as a long string of 5s](documentation/testing-images/bugs-4-reps-as-strings.jpg)
 
 This was resolved by converting the form input to an int on submission:
-
-    "exercise_one_reps": int(request.form.get("exercise_one_reps"))
+```python
+"exercise_one_reps": int(request.form.get("exercise_one_reps"))
+```
 
 ### 5. It was possible to enter 0 or negative numbers into the number of sets field when adding workout logs
 
@@ -227,12 +234,14 @@ This was resolved by simply adding min="1" to the HTML input elements.
 ![No records bug](documentation/testing-images/bugs-6-no-records.jpg)
 
 This was resolved by adding a condition to the track_progress function that checks for logs. If no logs are found, users are redirected back to the my_routines page:
+```python
+if logs:
+    # continue function
+    # ...
 
-    if logs:
-        # continue function
-        ...
-    flash("No workouts logged with this routine.", "error")
-    return redirect(url_for("my_routines"))
+flash("No workouts logged with this routine.", "error")
+return redirect(url_for("my_routines"))
+```
 
 ### 7. Track Progress Personal Best section wasn't displaying the earliest date
 
@@ -241,20 +250,21 @@ The 'Personal Best' section of the Track Progress page displays the date that th
 This happened because the personal best was being found with a $max database query, and the database was using the ObjectId as a tiebreaker (ObjectIds have a timestamp portion which represents the time the object was created). 
 
 I resolved this by taking an alternative approach to finding the best score. Based on [this answer](https://stackoverflow.com/a/5326622) from StackOverflow, I used the python max() function on the list of logs that I'd already retrieved from the database earlier in the function, which was already sorted by date. I decided this was a preferable solution, as it saved a database query and avoided sorting by date twice.
+```python
+logs = list(mongo.db.workout_logs.find(
+    {
+        "$and": [
+            {
+                "username": username
+            },
+            {
+                "routine_id": ObjectId(routine_id)
+            }
+        ]
+    }).sort("date"))
 
-    logs = list(mongo.db.workout_logs.find(
-        {
-            "$and": [
-                {
-                    "username": username
-                },
-                {
-                    "routine_id": ObjectId(routine_id)
-                }
-            ]
-        }).sort("date"))
-
-    best = max(logs, key=lambda x: x['sets'])
+best = max(logs, key=lambda x: x['sets'])
+```
 
 ### 8. An error was thrown if users entered invalid data into the date and time pickers
 
@@ -263,43 +273,46 @@ Although basic form validation was in place, it was possible for users to enter 
 ![Invalid date entered](documentation/testing-images/bugs-8-invalid-date.jpg)
 
 This was resolved by using a try-except block wherever the application converted user input into a datetime object, to handle the error gracefully:
-
-    try:
-        iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
-    except ValueError:
-        flash(
-            "Invalid date/time. Please enter a valid date and time in the "
-            "formats dd/mm/yy and hh:mm.", "error")
-        return redirect(url_for("add_workout"))
+```python
+try:
+    iso_date = datetime.datetime.strptime(date, "%d/%m/%y%H:%M")
+except ValueError:
+    flash(
+        "Invalid date/time. Please enter a valid date and time in the "
+        "formats dd/mm/yy and hh:mm.", "error")
+    return redirect(url_for("add_workout"))
+```
 
 ### 9. Search by date wasn't returning results for the last date entered
 
 When a user entered a 'from' and 'to' date in the Workout Log filter form, any logs recorded on the 'to' date would not be shown. For example, if a user had a workout logged on 07/03/22 and they searched from 01/03/22 to 07/03/22, the workout would not be shown.
 
 This happened because the search function was converting the entered 'from' and 'to' dates into datetime objects and then querying the database for records with a 'date' property greater than the 'from' date and less than the 'to' date:
+```python
+# convert input to datetime objects 
+date_from = datetime.datetime.strptime(
+                                request.args.get("date_from"), "%d/%m/%y")
+date_to = datetime.datetime.strptime(
+                                request.args.get("date_to"), "%d/%m/%y")
 
-    # convert input to datetime objects 
-    date_from = datetime.datetime.strptime(
-                                    request.args.get("date_from"), "%d/%m/%y")
-    date_to = datetime.datetime.strptime(
-                                    request.args.get("date_to"), "%d/%m/%y")
-
-    # find records between dates
-    "$match": {
-        "username": session['user'],
-        "date": {
-            "$gte": date_from,
-            "$lt": date_to
-        }
+# find records between dates
+"$match": {
+    "username": session['user'],
+    "date": {
+        "$gte": date_from,
+        "$lt": date_to
     }
+}
+```
 
 Because only a date, and not a time, was being collected for both values, the time part of the datetime objects were defaulting to 00:00:00 - i.e. midnight at the beginning of the date entered. Therefore, any workouts logged after 00:00:00 on the 'to' date were outside the range of the query.
 
 This was resolved by adding "23:59:59" to the date_to string before converting into a datetime object:
-
-    date_to = datetime.datetime.strptime(
-                                    request.args.get("date_to") + "23:59:59",
-                                    "%d/%m/%y%H:%M:%S")
+```python
+date_to = datetime.datetime.strptime(
+                                request.args.get("date_to") + "23:59:59",
+                                "%d/%m/%y%H:%M:%S")
+```
 
 ### 10. Mobile menu only visually hidden on larger screens
 
@@ -314,8 +327,9 @@ This bug was resolved by simply adding the Materialize 'hide-on-large-screens-on
 Because the My Routines page was set up to iterate through all admin added routines and then all routines added by the current user, when the current user was admin, the admin routines were added twice.
 
 This bug was fixed by adding an if condition to the jinja template so that the first iteration wasn't run when admin was logged in:
-
-    {% if session.user != "admin" %}
+```python
+{% if session.user != "admin" %}
+```
 
 ### 12. Window view returned to top of Workout Logs page when pagination controls used
 
@@ -332,45 +346,49 @@ The edit_workout, delete_workout, edit_routine, delete_routine, track_progress, 
 ![Invalid username entered in track_progress URL](documentation/testing-images/bugs-13-invalid-username.jpg)
 
 This was fixed by adding code to each function to check the data is valid. Submitted usernames are validated by querying the database and submitted log and routine ids are validated by using the ObjectId.is_valid() function. Users are redirected if invalid data is entered. e.g. from the track_progress function:
+```python
+# find the page owner in the users database
+user = find_user(username)
 
-    # find the page owner in the users database
-    user = find_user(username)
-
-    # if username is not valid or routine id is not valid, redirect to
-    # my_routines
-    if not user or not ObjectId.is_valid(routine_id):
-        flash("Invalid Username or Routine ID.", "error")
-        return redirect(url_for("my_routines"))
+# if username is not valid or routine id is not valid, redirect to
+# my_routines
+if not user or not ObjectId.is_valid(routine_id):
+    flash("Invalid Username or Routine ID.", "error")
+    return redirect(url_for("my_routines"))
+```
 
 ### 14. Removing 'to_date' parameter from Workout Log URL caused an error
 
 ![Error caused by removing to_date from URL](documentation/testing-images/bugs-14-to_date-removed.jpg)
 
-This happened because the code was only checking for a 'from_date' before executing code on the 'to_date', assuming a to_date would always be present. I resolved this by refactoring the code slightly and adding an and condition to the if block to check that the to_date was present:
-
-    # retrieve date_from and date_to values from query parameters if available
-    # and assign to variables
-    date_from = request.args.get("date_from")
-    date_to = request.args.get("date_to")
-    # if date_from and date_to query parameters were found
-    if date_from and date_to:
+This happened because the code was only checking for a 'from_date' before executing code on the 'to_date', assuming a to_date would always be present. I resolved this by refactoring the code slightly and adding an 'and' condition to the if block to check that the to_date was present:
+```python
+# retrieve date_from and date_to values from query parameters if available
+# and assign to variables
+date_from = request.args.get("date_from")
+date_to = request.args.get("date_to")
+# if date_from and date_to query parameters were found
+if date_from and date_to:
+```
 
 ### 15. Error thrown if user entered an unmatching but valid Object Id into the URL
 
 The edit_workout, delete_workout, edit_routine and delete_routine functions were checking if the variable in the URL was a valid object Id, but not if it matched any records. This meant that errors could be thrown if users entered an object id that was of a valid form, but not matching any documents in the database.
 
 This was resolved for the edit_routine and delete_routine functions by adding error handling to the helper function that retrieves routines so an exception is raised if no record is found:
-
-    if routine is None:
-        raise ValueError('Invalid Routine Id')
+```python
+if routine is None:
+    raise ValueError('Invalid Routine Id')
+```
 
 Then adding a try except block to the edit_routine and delete_routine functions:
-
-    try:
-        routine = find_routine(routine_id)
-    except ValueError:
-        flash("Invalid Routine ID.", "error")
-        return redirect(url_for("my_routines"))
+```python
+try:
+    routine = find_routine(routine_id)
+except ValueError:
+    flash("Invalid Routine ID.", "error")
+    return redirect(url_for("my_routines"))
+```
 
 The bug was resolved for the edit_workout and delete_workout functions by adding a find_log helper function with the same functionality.
 
