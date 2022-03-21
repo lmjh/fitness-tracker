@@ -9,16 +9,17 @@
                     {{ data.username | capitalize }}'s
                 {% endif %}
                     {{ data.routine.routine_name }} Routine Progress</h2>
-            <figure class="no-margin">
                 <div class="card-panel-cutout margin-top-2">
-                    <canvas id="myChart"></canvas>
+                    <figure class="no-margin">
+                        <canvas id="myChart" aria-label="A chart of workout score against time." role="img">
+                            <p>Unfortunately, this element is not supported by your browser.</p>
+                        </canvas>
+                        <figcaption class="visually-hidden">
+                            This graph plots the date of the workout against the score achieved to visualise your progress with 
+                            the routine. 
+                        </figcaption>
+                    </figure>
                 </div>
-                <figcaption class="visually-hidden">
-                    This graph plots the date of the workout against the score achieved to visualise your progress with 
-                    the routine. 
-                </figcaption>
-            </figure>
-
             <div class="row">
                 <div class="col s12 flow-text text-shadow">
                     <span class="">{{ data.sets|length }}</span> Workouts Recorded

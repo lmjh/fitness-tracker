@@ -118,6 +118,10 @@ nav {
     color: var(--light-text);
 }
 
+nav ul a:focus {
+    background-color: #404040;
+}
+
 /* FORM STYLES */
 
 input:not([type]):focus:not([readonly])+label,
