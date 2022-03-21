@@ -17,6 +17,16 @@ textarea {
     color: var(--light-text);
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 a {
     color: var(--accent-blue)
 }
@@ -29,9 +39,16 @@ a {
     color: var(--disabled);
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Cantarell', sans-serif;
     text-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 4rem;
 }
 
 /* UTILITY CLASSES */
@@ -79,7 +96,7 @@ h1, h2, h3, h4 {
     padding: 0 !important;
     margin: -1px !important;
     overflow: hidden !important;
-    clip: rect(0,0,0,0) !important;
+    clip: rect(0, 0, 0, 0) !important;
     white-space: nowrap !important;
     border: 0 !important;
 }
@@ -114,12 +131,23 @@ nav {
     background-color: var(--dark-2);
 }
 
-.sidenav li > a {
+.sidenav li>a {
     color: var(--light-text);
 }
 
 nav ul a:focus {
     background-color: #404040;
+}
+
+/* FOOTER STYLES */
+
+.page-footer {
+    padding: 20px 0;
+    color: var(--light-text);
+    background-color: var(--dark-2);
+    -webkit-box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.14), 0 -1px 10px 0 rgba(0, 0, 0, 0.12), 0 -1px 4px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -2px 5px 0 rgba(0, 0, 0, 0.14), 0 -1px 10px 0 rgba(0, 0, 0, 0.12), 0 -1px 4px -1px rgba(0, 0, 0, 0.3);
+
 }
 
 /* FORM STYLES */
@@ -185,18 +213,19 @@ input[type=number] {
 
 .select-dropdown li.optgroup,
 .dropdown-content li,
-.select-dropdown.dropdown-content li.selected  {
+.select-dropdown.dropdown-content li.selected {
     background-color: var(--dark-2);
     color: var(--light-text)
 }
 
-.dropdown-content li > a:hover,
-.dropdown-content li > span:hover {
+.dropdown-content li>a:hover,
+.dropdown-content li>span:hover {
     background-color: var(--dark-3);
 }
 
-.dropdown-content li > a, .dropdown-content li > span {
-	color: var(--light-text);
+.dropdown-content li>a,
+.dropdown-content li>span {
+    color: var(--light-text);
 }
 
 .dropdown-content li>a:focus,
@@ -211,7 +240,7 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 }
 
 .select-wrapper input.select-dropdown:focus {
-	border-bottom: 1px solid var(--accent-blue);
+    border-bottom: 1px solid var(--accent-blue);
 }
 
 .select-wrapper .caret {
@@ -220,19 +249,19 @@ body.keyboard-focused .select-dropdown.dropdown-content li:focus {
 
 /* Change select element colours so it is visually hidden */
 select {
-	background-color: #303030;
-	border: 1px solid #303030;
+    background-color: #303030;
+    border: 1px solid #303030;
 }
 
 /* Select element validation classes to be added and removed by javascript */
 .select-valid {
-    border-bottom: 1px solid #4caf50!important;
-    box-shadow: 0 1px 0 0 #4caf50!important;
+    border-bottom: 1px solid #4caf50 !important;
+    box-shadow: 0 1px 0 0 #4caf50 !important;
 }
 
 .select-invalid {
-    border-bottom: 1px solid #f44336!important;
-    box-shadow: 0 1px 0 0 #f44336!important;
+    border-bottom: 1px solid #f44336 !important;
+    box-shadow: 0 1px 0 0 #f44336 !important;
 }
 
 /* MATERIALIZE DATE AND TIME PICKER STYLES */
@@ -355,8 +384,8 @@ select {
     background-color: var(--dark-1);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
-    -webkit-box-shadow: inset 0 16px 24px 2px rgba(0,0,0,0.14),inset 0 6px 30px 5px rgba(0,0,0,0.12),inset 0 8px 10px -7px rgba(0,0,0,0.2);
-	box-shadow: inset 0 16px 24px 2px rgba(0,0,0,0.14),inset 0 6px 30px 5px rgba(0,0,0,0.12),inset 0 8px 10px -7px rgba(0,0,0,0.2);
+    -webkit-box-shadow: inset 0 16px 24px 2px rgba(0, 0, 0, 0.14), inset 0 6px 30px 5px rgba(0, 0, 0, 0.12), inset 0 8px 10px -7px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 16px 24px 2px rgba(0, 0, 0, 0.14), inset 0 6px 30px 5px rgba(0, 0, 0, 0.12), inset 0 8px 10px -7px rgba(0, 0, 0, 0.2);
     padding: 10px;
 }
 
@@ -428,11 +457,15 @@ select {
 
 /* FOCUS STYLES */
 
-.log-button:focus, .card-panel-button:focus, .modal-button:focus, .btn-floating:focus {
+.log-button:focus,
+.card-panel-button:focus,
+.modal-button:focus,
+.btn-floating:focus {
     box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
 }
 
-.log-container:focus-within, .faq-container:focus-within {
+.log-container:focus-within,
+.faq-container:focus-within {
     box-shadow: 0 0 0 .25rem rgba(200, 200, 200, .3);
 }
 
@@ -440,36 +473,36 @@ select {
 
 @media only screen and (min-width: 601px) {
 
-.logo {
-    max-height: 48px;
-}
+    .logo {
+        max-height: 48px;
+    }
 
 }
 
 @media only screen and (min-width: 993px) {
 
-.container {
-    width: 80%;
-}
+    .container {
+        width: 80%;
+    }
 
-.logo {
-    margin: 8px 0 8px 8px;
-}
+    .logo {
+        margin: 8px 0 8px 8px;
+    }
 
-/* Custom classes for sizing buttons on my_routines page */
+    /* Custom classes for sizing buttons on my_routines page */
 
-.row .col.button-left {
-	width: 48%;
-	margin-left: auto;
-	left: auto;
-	right: auto;
-}
+    .row .col.button-left {
+        width: 48%;
+        margin-left: auto;
+        left: auto;
+        right: auto;
+    }
 
-.row .col.button-right {
-	width: 48%;
-	margin-left: 4%;
-	left: auto;
-	right: auto;
-}
+    .row .col.button-right {
+        width: 48%;
+        margin-left: 4%;
+        left: auto;
+        right: auto;
+    }
 
 }
