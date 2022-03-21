@@ -1,19 +1,49 @@
 # Testing of Fitrio Fitness Tracker
 ## Code Validation
 
+* HTML code validated with W3C [HTML Validator](https://validator.w3.org/nu/).
 
+* CSS code validated with W3C [CSS Validator](https://jigsaw.w3.org/css-validator/).
+
+* Javascript and code validated with [JSHint](https://jshint.com/).
 
 ### HTML Validation
 
+Because the raw html files contained jinja template code which would prevent proper validation, HTML validation was done by opening the page to be validated in a browser, then copying the source code and pasting into the W3C HTML Validator.
 
+I created a checklist to keep track of the pages validated:
+
+![HTML validation checklist](documentation/testing-images/html-validation-checklist.jpg)
+
+All page validation passed with no errors. Screenshots of all validation reports can be viewed [here](documentation/testing-images/html-validation).
+
+A warning was returned for all collapsibles on the FAQ and Workout Log pages, which reads:
+
+"Possible misuse of aria-label. (If you disagree with this warning, file an issue report or send e-mail to www-validator@w3.org.)"
+
+This warning is being raised because I added an aria-label to the header of each collapsible which reads "Click to open or close question/log entry". I think this is appropriate use of the aria-label based on the [W3C Web Content Accessibility Guidelines](https://www.w3.org/TR/WCAG20-TECHS/ARIA14.html):
+
+"elements can be given the attribute aria-label to provide an accessible name for situations when there is no visible label due to a chosen design approach or layout but the context and visual appearance of the control make its purpose clear."
+
+In my case, the collapsible header is an interactive element which opens and closes the collapsible. This behaviour is made clear visually by the chevron symbol on the right side. The aria-label makes the behaviour clear to users who cannot see the symbol.
 
 ### CSS Validation
 
+CSS validation passed with no errors or warnings.
 
+![CSS validation screenshot](documentation/testing-images/css-validation.jpg)
 
 ### Javascript Validation
 
+Validation of the script.js file passed with no errors or warnings.
 
+![script.js validation](documentation/testing-images/javascript-validation.jpg)
+
+The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page and copying the code (with injected values from jinja) and pasting that into JSHint.
+
+The code passed validation with two warnings: "One undefined variable - Chart" and "One unused variable - myChart". 
+
+The undefined variable "Chart" is a chart object imported from chart.js and the unused variable "myChart" is used to initialise the chart on the page, so I don't consider the warnings to be an issue.
 
 ### Python Validation
 
