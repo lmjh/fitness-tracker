@@ -377,3 +377,13 @@ The bug was resolved for the edit_workout and delete_workout functions by adding
 ***
 
 ## Outstanding Issues
+
+### 1. Accessibility Issues with Materialize select element
+
+The Materialize select element works by hiding the actual select element and replacing it with an input field and unordered list, then using javascript to handle user selections.
+
+Unfortunately, this creates an accessibility issue because the label that's applied to the select element is not transferred to the input field that's genereated by Materialize. Technically, all form elements should have an appropriate label.
+
+The input field is still functional, though, and can be fully navigated by keyboard. In my case, the default option that's active before a user selects an option reads "Select Routine", so this should provide an adequate description of the function of the imput.
+
+Given more development time, I would write some javascript to improve the accessibility of the Materialize select element, or replace it with a more accessible alternative. 
