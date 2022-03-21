@@ -25,7 +25,8 @@
 </div>
 <div class="row valign-wrapper wrapper-fix">
     <div class="col s5 m4">
-        <img src="/static/images/clock-5-1.jpg" alt="Warm up for five minutes" class="img-responsive img-gs">
+        <img src="{{ url_for('static', filename='images/clock-5-1.jpg') }}" alt="Warm up for five minutes" 
+            class="img-responsive img-gs">
     </div>
     <div class="col s7 m8 hide-on-med-and-up">
         <p class="flow-text text-shadow">1. Warm up for five minutes.</p>
@@ -41,7 +42,7 @@
 </div>
 <div class="row valign-wrapper wrapper-fix">
     <div class="col s5 m4">
-        <img src="/static/images/clock-20.jpg" alt="Perform routine exercises for 20 minutes" class="img-responsive 
+        <img src="{{ url_for('static', filename='images/clock-20.jpg') }}" alt="Perform routine exercises for 20 minutes" class="img-responsive 
             img-gs">
     </div>
     <div class="col s7 m8 hide-on-med-and-up">
@@ -61,7 +62,8 @@
 </div>
 <div class="row valign-wrapper wrapper-fix">
     <div class="col s5 m4">
-        <img src="/static/images/clock-5-2.jpg" alt="Cool down for five minutes" class="img-responsive img-gs">
+        <img src="{{ url_for('static', filename='images/clock-5-2.jpg') }}" alt="Cool down for five minutes" 
+            class="img-responsive img-gs">
     </div>
     <div class="col s7 m8 hide-on-med-and-up">
         <p class="flow-text text-shadow">3. Cool down for five minutes.</p>
@@ -86,7 +88,7 @@
         <div class="card-panel card-panel-bottom z-depth-4">
             <div class="card-panel-cutout">
                 <figure class="no-margin">
-                    <img src="/static/images/log-tutorial-1.jpg" alt="Add Log buttons are found in each routine on the 
+                    <img src="{{ url_for('static', filename='images/log-tutorial-1.jpg') }}" alt="Add Log buttons are found in each routine on the 
                         My Routines page" class="img-responsive img-gs">
                         <figcaption class="visually-hidden">
                             Each routine on the routines page has a link to quickly add a log using that routine.
@@ -103,8 +105,8 @@
         <div class="card-panel card-panel-bottom z-depth-4">
             <div class="card-panel-cutout">
                 <figure class="no-margin">
-                    <img src="/static/images/log-tutorial-2.jpg" alt="Fill out the Add Workout form to add a new record" 
-                        class="img-responsive img-gs">
+                    <img src="{{ url_for('static', filename='images/log-tutorial-2.jpg') }}" 
+                        alt="Fill out the Add Workout form to add a new record" class="img-responsive img-gs">
                         <figcaption class="visually-hidden">
                             Workouts are added by filling in and submitting a form.
                         </figcaption>
@@ -121,8 +123,9 @@
         <div class="card-panel card-panel-bottom z-depth-4">
             <div class="card-panel-cutout">
                 <figure class="no-margin">
-                    <img src="/static/images/log-tutorial-3.jpg" alt="Routine progress is visualised in a graph on the 
-                        Track Progress pages" class="img-responsive img-gs">
+                    <img src="{{ url_for('static', filename='images/log-tutorial-3.jpg') }}" 
+                        alt="Routine progress is visualised in a graph on the Track Progress pages" 
+                        class="img-responsive img-gs">
                      <figcaption class="visually-hidden">
                         The Track Progress page provides an overview of recorded data, including a graph of progress.
                     </figcaption>

@@ -15,8 +15,10 @@
             type="text/css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <title>{{ page_title }} - Fitrio</title>
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+        <link rel="icon" type="image/png" sizes="32x32" 
+            href="{{ url_for('static', filename='icons/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" 
+            href="{{ url_for('static', filename='icons/favicon-16x16.png') }}">
     </head>
 
     <body>
@@ -24,8 +26,9 @@
             <nav class="z-depth-3">
                 <div class="nav-wrapper dark-2">
                     <!-- Site logo -->
-                    <a href="{{ url_for('home') }}" class="brand-logo"><img src="/static/images/logo.png" alt="fitrio logo" 
-                        class="logo"></a>
+                    <a href="{{ url_for('home') }}" class="brand-logo">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="fitrio logo" class="logo">
+                    </a>
                     <!-- Mobile menu toggle -->
                     <a href="#" data-target="mobile-menu" class="sidenav-trigger right hide-on-large-only" 
                         aria-label="Expand and collapse navigation menu">
