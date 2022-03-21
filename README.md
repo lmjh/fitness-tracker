@@ -1,11 +1,11 @@
 # Fitrio Fitness Tracker Application
 
-The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines. 
+The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines.
 
-This application aims to solve this problem by encouraging people to try more focused circuit training consisting of just three exercises per routine. 
+This application aims to solve this problem by encouraging people to try more focused circuit training consisting of just three exercises per routine.
 
 * Three basic routines are provided, using compound exercises selected to cover as broad a range of muscle groups as possible
-* Users can add their own routines. 
+* Users can add their own routines.
 * The only equipment required for the provided routines is a pull-up bar, which is cheap and readily available.
 * Workouts are time-limited and users record the number of exercises they completed in the time limit.
 * Users can clearly see their progress as their recorded number of sets for each routine will gradually increase as they master the exercises and improve their fitness.
@@ -37,11 +37,11 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 * The site uses three shades of grey on the site’s surfaces to create a sense of depth. The darkest grey sits on the lowest visual level, with the mid grey in the middle and the lighter grey on the top level.
 
-* The sense of depth is reinforced by consistent use of two levels of drop shadows on site elements. Elements with the shadow further from the element appear further from the surface they sit on, while elements with a closer drop shadow appear closer. 
+* The sense of depth is reinforced by consistent use of two levels of drop shadows on site elements. Elements with the shadow further from the element appear further from the surface they sit on, while elements with a closer drop shadow appear closer.
 
 ![Three shades of grey and drop shadows on the My Routines page](documentation/readme-images/design-1.jpg)
 
-* I’ve tried to use shadows consistently, so card panels / surfaces in the mid grey colour sit far from their base layer, while the card panels/surfaces in the light grey sit closer to the mid grey surfaces beneath them. Buttons are always high above their parent elements for emphasis. 
+* I’ve tried to use shadows consistently, so card panels / surfaces in the mid grey colour sit far from their base layer, while the card panels/surfaces in the light grey sit closer to the mid grey surfaces beneath them. Buttons are always high above their parent elements for emphasis.
 
 * In places, such as the graphs on the Track Progress pages, I’ve created a ‘cut-out’ effect using an inner drop shadow and colouring the inner element with the bottom grey shade.
 
@@ -90,7 +90,7 @@ The site is responsively designed to adapt to the user's viewing device. Wirefra
 
 ### User Accounts
 
-Fitrio features a user account system whereby users can create a persistent account, accessed by username and password, and store data associated with their account. 
+Fitrio features a user account system whereby users can create a persistent account, accessed by username and password, and store data associated with their account.
 
 * Users create accounts by filling in a simple registration form.
 
@@ -208,6 +208,39 @@ To mitigate the risk of accidental data loss, confirmation modals are used for a
 
 ***
 
+## Future Features
+
+The following features could be added in the future, given more development time:
+
+### 1. Account Management Tools
+
+* Helpful account management tools could be provided, such as the ability to update usernames, email addresses and passwords.
+* A password recovery function could also be provided. The [flask-security](https://pythonhosted.org/Flask-Security/features.html) extention can provide this functionality.
+
+### 2. Additional Log Filters
+
+* Users can currently filter the workout log page by date range, but additional filters could be provided.
+* In particular, the ability to filter by routine could be helpful.
+* Filtering by specific exercises or by notes content could also be considered.
+
+### 3. More advanced graphs on Track Progress page
+
+* Additional features could be added to the Track Progress graphs.
+* Graphs currently chart all available data for the given routine, so the ability to request a specific date range could be useful.
+* Other options include adding different types of graph.
+
+### 4. Social media sharing
+
+* Users can currently share their progress by turning on sharing for a track progress page and then sharing a link.
+* It could be helpful to add share buttons from social networks to streamline the process of sharing.
+
+### 5. Code optimization and refactoring
+
+* This was my first major project using Python and Flask, so there are a few areas where I feel the code could be made neater and more efficient.
+* In particular, more helper functions could be employed to avoid repeating common tasks across the different functions.
+
+***
+
 ## Technologies
 
 ### Languages Used
@@ -223,7 +256,7 @@ To mitigate the risk of accidental data loss, confirmation modals are used for a
 2. [GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.
 3. [Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.
 4. [Materialize](https://materializecss.com/) - Materialize CSS framework used extensively to create layout and styling of site.
-5. [jQuery](https://jquery.com/) - 
+5. [jQuery](https://jquery.com/) - Used to initialize Materialize componenents and validate select elements.
 6. [Python 3.8](https://www.python.org/) - Used to code the application.
 7. [MongoDB](https://www.mongodb.com/) - Used for the application's database.
 7. [Flask](https://palletsprojects.com/p/flask/), [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) and [Werkzeug](https://palletsprojects.com/p/werkzeug/) - Used to build the main application structure, page templates (Jinja) and account security (Werkzeug).
