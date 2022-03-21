@@ -9,7 +9,7 @@
                     <!-- Routine select element -->
                     <div class="input-field col s12 m9">
                         <select id="routine_name" name="routine_name" class="validate" required>
-                            <option value="" disabled selected>Select Routine</option>
+                            <option value="" disabled>Select Routine</option>
                             {% for routine in routines %}
                                 {% if routine._id == log.routine_id %}
                                     <option value="{{ routine._id }}" selected>{{ routine.routine_name }}</option>

@@ -409,7 +409,6 @@ def edit_workout(log_id):
         flash("Invalid Log ID.", "error")
         return redirect(url_for("workout_log"))
 
-
     if request.method == "POST":
         # check current user is the user who created the entry
         if log["username"] == session["user"]:
