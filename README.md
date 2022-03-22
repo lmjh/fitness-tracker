@@ -84,7 +84,7 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 The site is responsively designed to adapt to the user's viewing device.
 
-| Page             |                     Screenshot                    |
+| Page             |                     Wireframe                     |
 |------------------|:-------------------------------------------------:|
 | Home             | ![](documentation/wireframes/home.png)            |
 | Register         | ![](documentation/wireframes/register.png)        |
@@ -230,6 +230,50 @@ Custom error pages are included to gracefully handle errors.
 * A 500 - Internal Server Error will display for any unhandled exceptions that might occur.
 
 ![500 Internal Server Error page](documentation/readme-images/error-pages-500.jpg)
+
+***
+
+## Database Design
+
+Fitrio uses the MongoDB non-relational database. Data is divided into three collections, with the following schema:
+
+**users**
+```
+_id: <ObjectId>
+username: <string>
+email: <string>
+password: <string>
+shared_routines: <array>
+```
+
+**routines**
+```
+_id: <ObjectId>
+routine_name: <string>
+exercise_one: <string>
+exercise_one_reps: <int32>
+exercise_two: <string>
+exercise_two_reps: <int32>
+exercise_three: <string>
+exercise_three_reps: <int32>
+username: <string>
+```
+
+**workout_logs**
+```
+_id: <ObjectId>
+routine_id: <ObjectId>
+date: <date>
+notes: <string>
+sets: <int32>
+username: <string>
+```
+
+Although MongoDB is a non-relational database, I have emulated some of the properties of a relational database by nesting the ObjectIds of routines in the workout_logs documents and in the shared_routines array of the users document to connect those documents. 
+
+Adding 'username' as a string to the routines and workout_logs documents also serves to link the workout_logs and routines with their owners in the users collection. I chose to use username strings rather than the ObjectId of the users because it makes the database documents more human-readable and because, unlike the routine names, usernames are unique and cannot be changed. 
+
+If a future update allowed changing of usernames or for some reason required allowing non-unique usernames, the username strings in the routines and workout_logs documents could be replaced with the ObjectIds of the users documents, to ensure that they are unique.
 
 ***
 
