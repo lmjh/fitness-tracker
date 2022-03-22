@@ -346,6 +346,159 @@ Please see [TESTING.md](TESTING.md) for details of tests performed and bugs fixe
 
 ## Deployment
 
+### Forking the GitHub Repository
+
+1. Log in to GitHub and locate the [GitHub Repository](https://github.com/lmjh/fitness-tracker)
+2. At the top right of the page, click the "Fork" Button.
+3. You should now have a copy of the original repository in your GitHub account.
+
+### Making a Local Clone
+
+1. Log in to GitHub and locate the [repository](https://github.com/lmjh/fitness-tracker)
+2. Click the 'Code' dropdown at the top right of the file navigation window.
+3. Copy the link under 'Clone' and 'HTTPS' to clone the repository using HTTPS.
+4. Open Git Bash
+5. Change the current working directory to the location where you want the cloned directory to be made.
+6. Type `git clone`, and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/lmjh/fitness-tracker.git
+```
+7. Press Enter. Your local clone will be created.
+
+Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lmjh/fitness-tracker)
+
+### Database Setup
+
+The project uses MongoDB, so for either local or remote deployment you'll need a properly configured database.
+
+1. If you don't have a MongoDB account, sign up for a free account at [MongoDB](https://www.mongodb.com/).
+2. If you don't have any clusters, create a new cluster.
+3. Add a new database to your cluster with the name: **fitness_tracker**
+4. The fitness_tracker database should have three collections with the following setup:
+
+**users**
+```
+_id: <ObjectId>
+username: <string>
+email: <string>
+password: <string>
+shared_routines: <array>
+```
+
+**routines**
+```
+_id: <ObjectId>
+routine_name: <string>
+exercise_one: <string>
+exercise_one_reps: <int32>
+exercise_two: <string>
+exercise_two_reps: <int32>
+exercise_three: <string>
+exercise_three_reps: <int32>
+username: <string>
+```
+
+**workout_logs**
+```
+_id: <ObjectId>
+routine_id: <ObjectId>
+date: <date>
+notes: <string>
+sets: <int32>
+username: <string>
+```
+
+In order to connect to the database, you'll need to create a user and generate a MongoDB URI. 
+
+#### Creating a Database User
+
+1. Go to the Overview page of your cluster 
+2. Click Database Access under Security in the side menu
+3. Next click Add New Database User
+4. Select Password as the authentication method and then enter a username and password
+5. Under "Built-in role" select "Read and write to any database"
+6. Click "Add User"
+
+#### Generating a MongoDB URI
+
+1. Go to the Overview page of your cluster
+2. Click the "Connect" button
+3. Select "Connect your application"
+4. Make sure 'Python' is selected for the driver, then copy the URI provided in the box
+5. Replace the "password" and "myFirstDatabase" parts of the URI with your database user's password and the name of your database
+
+### Local Deployment
+
+Follow the steps below to deploy the project locally using VSCode.
+
+(N.B. These instructions are for deployment on a Windows system)
+
+1. Download and install [VSCode](https://code.visualstudio.com/)
+6. Open VSCode and click File > Open Folder, then select the folder containing your local cloned repository
+7. Download and install [Python](https://www.python.org/downloads/)
+8. Download and install the [VSCode Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+9. In VSCode, open the command pallette (Ctrl + Shift + P on Windows) and search for the Python: Select Interpretter. Click it, then select the version of Python you have installed.
+10. Open a terminal in VScode and enter the following commands to create and activate a virtual environment:
+```
+py -3 -m venv .venv
+.venv\scripts\activate
+```
+11. Open the command pallette and search for Python: Select Interpretter again. You should see your new virtual environment. Select it.
+12. In the terminal, enter the following command to install all required packages:
+```
+python -m pip install -r requirements.txt
+```
+13. Create a new file in your project directory called "env.py"
+14. Add the following to the env.py file, replacing YOUR_MONGO_URI with your MongoDB URI, YOUR_DATABASE_NAME with your database name, and YOUR_SECRET_KEY with a suitable [secret key](https://flask.palletsprojects.com/en/2.0.x/config/#SECRET_KEY):
+```
+import os
+
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "YOUR_SECRET_KEY")
+os.environ.setdefault("MONGO_URI", "YOUR_MONGO_URI")
+os.environ.setdefault("MONGO_DBNAME", "YOUR_DATABASE_NAME")
+os.environ.setdefault("ENV_DEBUG", "True")
+```
+15. In the terminal, type `python app.py` to run the app. A link to the locally running instance of the app should be printed in the terminal window.
+
+### Remote Deployment
+
+The app is currently deployed on Heroku [here](http://fitness-tracker-lmjh.herokuapp.com/).
+
+To deploy your own copy of the app, follow the steps below:
+
+1. Sign up for a [Heroku account](https://www.heroku.com/).
+2. Check that you have a "requirements.txt" in your app's root directory. This tells Heroku what packages are required by the app. If you've cloned the main branch, this should already be present. If it's missing or if you have added any additional packages, you can generate a requirements.txt file by running the following command from the terminal of your IDE:
+```
+pip3 freeze --local > requirements.txt
+```
+3. Check that you have a "Procfile" in your app's root directory. This tells Heroku what kind of application you are trying to run. Again, if you've cloned the main branch, this should already be present. If it's missing, you can create a procfile by running the following command from the terminal of your IDE:
+```
+echo web: python app.py > Procfile
+```
+4. Check that there are no trailing blank lines at the bottom of your procfile. Delete any empty lines
+5. From your Heroku dashboard, click "New", then "Create a new app"
+6. Give the app a unique App name, pick the region closest to you, then click "Create App"
+7. From the "Deploy" menu, select GitHub as the Deployment Method, then enter your GitHub repository details and click "Connect"
+8. Open the "Settings" menu, scroll down to "Config Vars" and click "Reveal Config Vars"
+9. Enter the following Config Vars, replacing YOUR_MONGO_URI with your MongoDB URI, YOUR_DATABASE_NAME with your database name, and YOUR_SECRET_KEY with a suitable [secret key](https://flask.palletsprojects.com/en/2.0.x/config/#SECRET_KEY):
+```
+IP: 0.0.0.0
+PORT: 5000
+SECRET_KEY: YOUR_SECRET_KEY
+MONGO_URI: YOUR_MONGO_URI
+MONGO_DBNAME: YOUR_DATABASE_NAME
+ENV_DEBUG:
+```
+10. Note that ENV_DEBUG should be left blank, unless you wish to deploy the application with debug mode enabled
+11. Return to the "Deploy" menu, scroll to "Automatic deploys" and click "Enable Automatic Deploys"
+12. Choose your branch and then click "Deploy Branch"
+13. Once the application has finished deploying, click "View" to visit the site.
+
 ***
 
 ## Other Credits and Acknowledgements
