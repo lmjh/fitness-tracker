@@ -82,7 +82,20 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 ### Wireframes
 
-The site is responsively designed to adapt to the user's viewing device. Wireframes for each page can be viewed [here](documentation/wireframes/).
+The site is responsively designed to adapt to the user's viewing device.
+
+| Page             |                     Screenshot                    |
+|------------------|:-------------------------------------------------:|
+| Home             | ![](documentation/wireframes/home.png)            |
+| Register         | ![](documentation/wireframes/register.png)        |
+| Login            | ![](documentation/wireframes/log-in.png)          |
+| Workout Log      | ![](documentation/wireframes/workout-log.png)     |
+| Add/Edit Workout | ![](documentation/wireframes/add-workout.png)     |
+| My Routines      | ![](documentation/wireframes/my-routines.png)     |
+| Add/Edit Routine | ![](documentation/wireframes/add-routine.png)     |
+| Track Progress   | ![](documentation/wireframes/track-progress.png)  |
+| Getting Started  | ![](documentation/wireframes/getting-started.png) |
+| FAQ              | ![](documentation/wireframes/faq.png)             |
 
 ***
 
@@ -257,10 +270,10 @@ The following features could be added in the future, given more development time
 
 ### Languages Used
 
-* HTML5
-* CSS3
-* Javascript
-* Python
+* [HTML5](https://en.wikipedia.org/wiki/HTML5)
+* [CSS3](https://en.wikipedia.org/wiki/CSS)
+* [JavaScript](https://en.m.wikipedia.org/wiki/JavaScript)
+* [Python](https://en.m.wikipedia.org/wiki/Python_(programming_language))
 
 ### Frameworks, Libraries & Programs Used
 
@@ -277,6 +290,7 @@ The following features could be added in the future, given more development time
 10. [Chart.js](https://www.chartjs.org/) - Used to render the routine progress charts.
 11. [Regexr](https://regexr.com/) - Used to assist with writing and testing regular expressions.
 12. [Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo and illustrations and to resize screenshots.
+13. [Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Used to generate markdown tables for README.md and TESTING.md
 
 ***
 
