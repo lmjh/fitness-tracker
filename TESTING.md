@@ -180,9 +180,26 @@ Validation of the app.py python file passed with no errors or warnings.
 
 ***
 
-## Application Testing
+## Responsiveness Testing
 
+Every page of the site was tested for responsiveness using the Firefox browser Responsive Design Mode and screen widths of 350px,602px and 994px.
 
+| Page            |                                 Mobile (350px)                                 |                                 Tablet (602px)                                 |                                 Desktop (994px)                                |
+|-----------------|:------------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|:------------------------------------------------------------------------------:|
+| 404             |       ![](documentation/testing-images/responsiveness-tests/350-404.png)       |       ![](documentation/testing-images/responsiveness-tests/602-404.png)       |       ![](documentation/testing-images/responsiveness-tests/994-404.png)       |
+| 500             |       ![](documentation/testing-images/responsiveness-tests/350-500.png)       |       ![](documentation/testing-images/responsiveness-tests/602-500.png)       |       ![](documentation/testing-images/responsiveness-tests/994-500.png)       |
+| Add Routine     |   ![](documentation/testing-images/responsiveness-tests/350-add-routine.png)   |   ![](documentation/testing-images/responsiveness-tests/602-add-routine.png)   |   ![](documentation/testing-images/responsiveness-tests/994-add-routine.png)   |
+| Add Workout     |   ![](documentation/testing-images/responsiveness-tests/350-add-workout.png)   |   ![](documentation/testing-images/responsiveness-tests/602-add-workout.png)   |   ![](documentation/testing-images/responsiveness-tests/994-add-workout.png)   |
+| Edit Routine    |   ![](documentation/testing-images/responsiveness-tests/350-edit-routine.png)  |   ![](documentation/testing-images/responsiveness-tests/602-edit-routine.png)  |   ![](documentation/testing-images/responsiveness-tests/994-edit-routine.png)  |
+| Edit Workout    |   ![](documentation/testing-images/responsiveness-tests/350-edit-workout.png)  |   ![](documentation/testing-images/responsiveness-tests/602-edit-workout.png)  |   ![](documentation/testing-images/responsiveness-tests/994-edit-workout.png)  |
+| FAQ             |       ![](documentation/testing-images/responsiveness-tests/350-faq.png)       |       ![](documentation/testing-images/responsiveness-tests/602-faq.png)       |       ![](documentation/testing-images/responsiveness-tests/994-faq.png)       |
+| Getting Started | ![](documentation/testing-images/responsiveness-tests/350-getting-started.png) | ![](documentation/testing-images/responsiveness-tests/602-getting-started.png) | ![](documentation/testing-images/responsiveness-tests/994-getting-started.png) |
+| Home            |       ![](documentation/testing-images/responsiveness-tests/350-home.png)      |       ![](documentation/testing-images/responsiveness-tests/602-home.png)      |       ![](documentation/testing-images/responsiveness-tests/994-home.png)      |
+| Login           |      ![](documentation/testing-images/responsiveness-tests/350-login.png)      |      ![](documentation/testing-images/responsiveness-tests/602-login.png)      |      ![](documentation/testing-images/responsiveness-tests/994-login.png)      |
+| My Routines     |   ![](documentation/testing-images/responsiveness-tests/350-my-routines.png)   |   ![](documentation/testing-images/responsiveness-tests/602-my-routines.png)   |   ![](documentation/testing-images/responsiveness-tests/994-my-routines.png)   |
+| Register        |     ![](documentation/testing-images/responsiveness-tests/350-register.png)    |     ![](documentation/testing-images/responsiveness-tests/602-register.png)    |     ![](documentation/testing-images/responsiveness-tests/994-register.png)    |
+| Track Progress  |  ![](documentation/testing-images/responsiveness-tests/350-track-progress.png) |  ![](documentation/testing-images/responsiveness-tests/602-track-progress.png) |  ![](documentation/testing-images/responsiveness-tests/994-track-progress.png) |
+| Workout Log     |   ![](documentation/testing-images/responsiveness-tests/350-workout-log.png)   |   ![](documentation/testing-images/responsiveness-tests/602-workout-log.png)   |   ![](documentation/testing-images/responsiveness-tests/994-workout-log.png)   |
 
 ***
 
