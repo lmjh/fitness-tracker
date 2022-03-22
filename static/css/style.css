@@ -87,6 +87,10 @@ h1 {
     flex-wrap: wrap;
 }
 
+.break-word {
+    word-wrap: break-word;
+}
+
 /* visually-hidden class code borrowed from Bootstrap framework */
 /* Visually hides page elements while keeping them available to accessibility tools */
 .visually-hidden {
