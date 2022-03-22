@@ -56,6 +56,8 @@ Validation of the script.js file passed with no errors or warnings.
 
 The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page and copying the code (with injected values from jinja) and pasting that into JSHint.
 
+![Chart javascriptvalidation](documentation/testing-images/chart-javascript-validation.jpg)
+
 The code passed validation with two warnings: "One undefined variable - Chart" and "One unused variable - myChart". 
 
 The undefined variable "Chart" is a chart object imported from chart.js and the unused variable "myChart" is used to initialise the chart on the page, so I don't consider the warnings to be an issue.
