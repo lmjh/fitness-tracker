@@ -217,79 +217,65 @@ Every page of the site was tested for compatibility with Google Chrome, Mozilla 
 
 I created a checklist of tests to ensure all pages were rendering and functioning correctly and ran through the list on all browsers.
 
-| Test                                     | Page                 |       Chrome       |       Firefox      |        Edge        | Notes                                                        |
-|------------------------------------------|----------------------|:------------------:|:------------------:|:------------------:|--------------------------------------------------------------|
-| Responsive layout rendering correctly    | home.html            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | home.html            | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | register.html        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | register.html        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All form elements working                | register.html        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to register account                 | register.html        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | login.html           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | login.html           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All form elements working                | login.html           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to login account                    | login.html           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | nav.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | nav.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to log out                          | nav.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Correct links showing when logged in/out | nav.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Accordions working                       | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Modals working                           | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Date filters working                     | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Pagination working                       | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to delete logs                      | workout_log.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | add_workout.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Edge responsive design mode bug found on this page           |
-| All form elements and pickers working    | add_workout.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to add workout to database          | add_workout.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | edit_workout.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Fields prepopulating correctly           | edit_workout.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All form elements and pickers working    | edit_workout.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Modals working                           | edit_workout.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to push changes to database         | edit_workout.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | my_routines.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | my_routines.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Add log preselection of routine working  | my_routines.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Modals working                           | my_routines.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to delete routines                  | my_routines.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | add_routine.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All form elements and pickers working    | add_routine.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to add routine to database          | add_routine.html     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | edit_routine.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Fields prepopulating correctly           | edit_routine.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All form elements and pickers working    | edit_routine.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Modals working                           | edit_routine.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to push changes to database         | edit_routine.html    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Share link was overflowing from its parent element on Chrome |
-| Chart functioning                        | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Modals working                           | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to update sharing setting           | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Able to view shared pages                | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Not able to view unshared pages          | track_progress.html  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | getting_started.html | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | getting_started.html | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | faq.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | faq.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Accordions working                       | faq.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | 404.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | 404.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-|                                          |                      |                    |                    |                    |                                                              |
-| Responsive layout rendering correctly    | 500.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| All links working                        | 500.html             | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Page            | Test                                     |       Chrome       |       Firefox      |        Edge        | Notes                                                        |
+|-----------------|------------------------------------------|:------------------:|:------------------:|:------------------:|--------------------------------------------------------------|
+| Home            | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Home            | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Register        | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Register        | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Register        | All form elements working                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Register        | Able to register account                 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Login           | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Login           | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Login           | All form elements working                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Login           | Able to login account                    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Nav Bar         | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Nav Bar         | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Nav Bar         | Able to log out                          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Nav Bar         | Correct links showing when logged in/out | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Accordions working                       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Date filters working                     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Pagination working                       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Workout Log     | Able to delete logs                      | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Add Workout     | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Edge responsive design mode bug found on this page           |
+| Add Workout     | All form elements and pickers working    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Add Workout     | Able to add workout to database          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Workout    | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Workout    | Fields prepopulating correctly           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Workout    | All form elements and pickers working    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Workout    | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Workout    | Able to push changes to database         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| My Routines     | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| My Routines     | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| My Routines     | Add log preselection of routine working  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| My Routines     | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| My Routines     | Able to delete routines                  | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Add Routine     | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Add Routine     | All form elements and pickers working    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Add Routine     | Able to add routine to database          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Routine    | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Routine    | Fields prepopulating correctly           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Routine    | All form elements and pickers working    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Routine    | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Edit Routine    | Able to push changes to database         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Track Progress  | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Share link was overflowing from its parent element on chrome |
+| Track Progress  | Chart functioning                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Track Progress  | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Track Progress  | Able to update sharing setting           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Track Progress  | Able to view shared pages                | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Track Progress  | Not able to view unshared pages          | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Getting Started | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| Getting Started | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| FAQ             | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| FAQ             | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| FAQ             | Accordions working                       | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| 404             | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| 404             | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| 500             | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
+| 500             | All links working                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
 
 Only two issues were encountered during compatibility testing.
 
