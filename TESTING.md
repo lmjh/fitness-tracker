@@ -13,11 +13,24 @@
 
 Because the raw html files contained jinja template code which would prevent proper validation, HTML validation was done by opening the page to be validated in a browser, then copying the source code and pasting into the W3C HTML Validator.
 
-I created a checklist to keep track of the pages validated:
+| Page                 |                                 Screenshot                                 | Notes               |
+|----------------------|:--------------------------------------------------------------------------:|---------------------|
+| home.html            | ![](documentation/testing-images/html-validation/home-html.jpg)            |                     |
+| register.html        | ![](documentation/testing-images/html-validation/register-html.jpg)        |                     |
+| login.html           | ![](documentation/testing-images/html-validation/login-html.jpg)           |                     |
+| workout_log.html     | ![](documentation/testing-images/html-validation/workout-log-html.jpg)     | Aria label warnings |
+| add_workout.html     | ![](documentation/testing-images/html-validation/add-workout-html.jpg)     |                     |
+| edit_workout.html    | ![](documentation/testing-images/html-validation/edit-workout-html.jpg)    |                     |
+| my_routines.html     | ![](documentation/testing-images/html-validation/my-routines-html.jpg)     |                     |
+| add_routine.html     | ![](documentation/testing-images/html-validation/add-routine-html.jpg)     |                     |
+| edit_routine.html    | ![](documentation/testing-images/html-validation/edit-routine-html.jpg)    |                     |
+| track_progress.html  | ![](documentation/testing-images/html-validation/track-progress-html.jpg)  |                     |
+| getting_started.html | ![](documentation/testing-images/html-validation/getting-started-html.jpg) |                     |
+| faq.html             | ![](documentation/testing-images/html-validation/faq-html.jpg)             | Aria label warnings |
+| 404.html             | ![](documentation/testing-images/html-validation/404-html.jpg)             |                     |
+| 500.html             | ![](documentation/testing-images/html-validation/500-html.jpg)             |                     |
 
-![HTML validation checklist](documentation/testing-images/html-validation-checklist.jpg)
-
-All page validation passed with no errors. Screenshots of all validation reports can be viewed [here](documentation/testing-images/html-validation).
+All page validation passed with no errors.
 
 A warning was returned for all collapsibles on the FAQ and Workout Log pages, which reads:
 
@@ -402,7 +415,7 @@ I improved the layout of the generated HTML by using white space removal tags:
 {%- block content -%}
 {%- endblock -%}
 ```
-And indentation filters:
+And indentation filters (based on [this answer](https://stackoverflow.com/a/53775887) on stackoverflow):
 
 ```python
 # Indents all code between tags by 8 spaces
