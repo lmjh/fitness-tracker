@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,33 +34,43 @@
                         <i class="fa-solid fa-bars"></i></a>
                     <!-- Navigation menus -->
                     <ul class="right hide-on-med-and-down">
-                        {% include 'includes/nav.html' %}
+                        {%- filter indent(width=24) -%}
+                        {%- include 'includes/nav.html' -%}
+                        {% endfilter %}
                     </ul>
                 </div>
                 <ul class="sidenav z-depth-4 hide-on-large-only" id="mobile-menu">
-                    {% include 'includes/nav.html' %}
+                    {%- filter indent(width=20) -%}
+                    {%- include 'includes/nav.html' -%}
+                    {% endfilter %}
                 </ul>
             </nav>
         </header>
-
-        {% if config['DEBUG'] %}
+        {% if config['DEBUG'] -%}
             <div class="btn red" style="position:fixed">DEBUG ENABLED</div>
-        {% endif %}
+        {%- endif -%}
+        {%- if get_flashed_messages() -%}
+        {%- filter indent(width=8) -%}
+        {%- include 'includes/messages.html' -%}
+        {%- endfilter -%}
+        {%- endif %}
 
-        <section>
-            <h2 class="visually-hidden">System Messages</h2>
-            {% include 'includes/messages.html' %}
-        </section>
-
+        <!-- MAIN CONTENT -->
         <main class="container">
-            {% block content %}
-            {% endblock %}
+            {%- filter indent(width=12) -%}
+            {%- block content -%}
+            {%- endblock -%}
+            {%- endfilter %}
         </main>
 
-        {% include 'includes/footer.html' %}
-        
-        {% block modals %}
-        {% endblock %}
+        {% filter indent(width=8) %}
+        {%- include 'includes/footer.html' %}
+        {%- endfilter %}
+        {% filter indent(width=8) %}
+        {% block modals -%}
+        {%- endblock %}
+        {%- endfilter %}
+        <!-- SCRIPTS -->
         <!-- Include jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -69,8 +78,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <!-- Include custom scripts -->
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-        {% block scripts %}
-        {% endblock %}
+        {%- filter indent(width=8) -%}
+        {%- block scripts -%}
+        {%- endblock -%}
+        {%- endfilter %}
     </body>
-
 </html>

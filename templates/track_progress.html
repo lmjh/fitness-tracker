@@ -3,11 +3,11 @@
 <div class="row">
     <div class="col s12 l10 offset-l1 margin-top-5 center-align">
         <div class="card-panel card-panel-bottom z-depth-4">
+            <!-- Add username to page title if user is not page owner -->
             <h1 class="progress-title">
-                <!-- Add username to page title if user is not page owner -->
-                {% if not data.owner %}
+                {%- if not data.owner -%}
                     {{ data.username | capitalize }}'s
-                {% endif %}
+                {%- endif -%}
                     {{ data.routine.routine_name }} Routine Progress</h1>
                 <div class="card-panel-cutout margin-top-2">
                     <figure class="no-margin">
@@ -59,8 +59,8 @@
                 </div>
             </div>
 
+            {% if data.owner and not data.shared -%}
             <!-- Include share button and content if user is page owner and page is not shared -->
-            {% if data.owner and not data.shared %}
             <div class="row">
                 <div class="col s12 margin-top-2">
                     <p>Your progress with this routine is currently HIDDEN.</p>
@@ -76,8 +76,8 @@
             </div>
             {% endif %}
 
+            {% if data.owner and data.shared -%}
             <!-- Include hide page button and content if user is page owner and page is shared -->
-            {% if data.owner and data.shared %}
             <div class="row">
                 <div class="col s12 margin-top-2">
                     <p>Your progress with this routine is currently VISIBLE to anyone with the link.</p> 
@@ -102,50 +102,49 @@
     </div>
 </div>
 {% endblock %}
-
 {% block modals %}
-<!-- Share modal included if user is page owner and page is not shared -->
 {% if data.owner and not data.shared %}
-    <!-- Share confimation modal -->
-    <div id="share_modal" class="modal center-align">
-        <div class="modal-content">
-            <h4>Do you want to share your progress with this routine?</h4>
-            <p>
-                Once you've updated your sharing settings, anyone with the link will be able to view your progress page
-                for this routine.
-            </p>
-        </div>
-        <div class="modal-footer z-depth-4">
-            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-                <i class="fa-solid fa-ban right"></i>Cancel</a>
-            <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
-                class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
-                <i class="fa-solid fa-share-from-square right"></i>Share</a>
-        </div>
+<!-- Share modal included if user is page owner and page is not shared -->
+<!-- Share confimation modal -->
+<div id="share_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you want to share your progress with this routine?</h4>
+        <p>
+            Once you've updated your sharing settings, anyone with the link will be able to view your progress page
+            for this routine.
+        </p>
     </div>
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
+            class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
+            <i class="fa-solid fa-share-from-square right"></i>Share</a>
+    </div>
+</div>
 {% endif %}
 
-<!-- Hide modal included if user is page owner and page is shared -->
 {% if data.owner and data.shared %}
-    <!-- Share confimation modal -->
-    <div id="hide_modal" class="modal center-align">
-        <div class="modal-content">
-            <h4>Do you want to hide your progress with this routine?</h4>
-            <p>
-                Once you've updated your sharing settings, only you will be able to view your progress page for 
-                this routine.
-            </p>
-        </div>
-        <div class="modal-footer z-depth-4">
-            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-                <i class="fa-solid fa-ban right"></i>Cancel</a>
-            <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
-                class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
-                <i class="fa-solid fa-eye-slash right"></i>Hide</a>
-        </div>
+<!-- Hide modal included if user is page owner and page is shared -->
+<!-- Share confimation modal -->
+<div id="hide_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you want to hide your progress with this routine?</h4>
+        <p>
+            Once you've updated your sharing settings, only you will be able to view your progress page for 
+            this routine.
+        </p>
     </div>
-{% endif %}
-{% endblock %}
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <a href="{{ url_for('toggle_sharing', routine_id=data.routine._id, username=data.username) }}" 
+            class="modal-close waves-effect modal-button btn amber lighten-3 z-depth-4">
+            <i class="fa-solid fa-eye-slash right"></i>Hide</a>
+    </div>
+</div>
+{% endif -%}
+{%- endblock -%}
 
 {% block scripts %}
 <!-- Include chart.js for charts -->

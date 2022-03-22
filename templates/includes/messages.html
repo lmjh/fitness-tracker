@@ -1,25 +1,29 @@
-{% with flash_messages = get_flashed_messages(with_categories=true) %}
-    {% for category, message in flash_messages %}
-        {% if category == "edit" %}
+{%- with flash_messages = get_flashed_messages(with_categories=true) %}
+<!-- FLASH MESSAGES -->
+<section>
+    <h2 class="visually-hidden">System Messages</h2>
+    {%- for category, message in flash_messages -%}
+        {%- if category == "edit" -%}
             <!-- Edit category messages -->
             <div class="row flash-messages z-depth-2 amber lighten-3 dark-text">
                 <div class="center-align">{{ message }}</div>
             </div>
-        {% elif category == "create" %}
+        {%- elif category == "create" %}
             <!-- Create category messages -->
             <div class="row flash-messages z-depth-2 light-green lighten-3 dark-text">
                 <div class="center-align">{{ message }}</div>
             </div>
-        {% elif category == "error" or category == "delete" %}
+        {%- elif category == "error" or category == "delete" %}
             <!-- Error / Delete category messages -->
             <div class="row flash-messages z-depth-2 red lighten-3 dark-text">
                 <div class="center-align">{{ message }}</div>
             </div>
-        {% else %}
+        {%- else %}
             <!-- Message category and any other messages -->
             <div class="row flash-messages z-depth-2 light-blue lighten-3 dark-text">
                 <div class="center-align">{{ message }}</div>
             </div>
-        {% endif %}
-    {% endfor %}
-{% endwith %}
+        {%- endif -%}
+    {%- endfor %}
+</section>
+{%- endwith -%}

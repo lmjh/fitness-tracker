@@ -24,112 +24,112 @@
 
 <div class="row center-align">
     <!-- Do not add default routines if admin is logged in -->
-    {% if session.user != "admin" %}
-        <!-- Iterate through default (admin added) routines and add a card for each -->
-            {% for routine in default_routines %}
-            <div class="col s12 l6">
-                <div class="card-panel card-panel-bottom z-depth-4">
-                    <div class="card-panel-top z-depth-2">
-                        <div class="row">
-                            <!-- Default routine title -->
-                            <h4>
-                                {{ routine.routine_name }}
-                            </h4>
-                        </div>
-                        <div class="row">
-                            <!-- Default routine exercises and reps -->
-                            <div class="col s4">
-                                <div class="feature-number">{{ routine.exercise_one_reps }}</div>
-                                <div class="exercise-name">{{ routine.exercise_one }}</div>
-                            </div>
-                            <div class="col s4">
-                                <div class="feature-number">{{ routine.exercise_two_reps }}</div>
-                                <div class="exercise-name">{{ routine.exercise_two }}</div>
-                            </div>
-                            <div class="col s4">
-                                <div class="feature-number">{{ routine.exercise_three_reps }}</div>
-                                <div class="exercise-name">{{ routine.exercise_three }}</div>
-                            </div>
-                        </div>
+    {%- if session.user != "admin" %}
+    <!-- Iterate through default (admin added) routines and add a card for each -->
+    {% for routine in default_routines -%}
+    <div class="col s12 l6">
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <div class="card-panel-top z-depth-2">
+                <div class="row">
+                    <!-- Default routine title -->
+                    <h4>
+                        {{ routine.routine_name }}
+                    </h4>
+                </div>
+                <div class="row">
+                    <!-- Default routine exercises and reps -->
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_one }}</div>
                     </div>
-                    <div class="row margin-top-2">
-                        <!-- Track progress button -->
-                        <a href="{{ url_for('track_progress', username=session['user'], routine_id=routine._id, ) }}"
-                            class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
-                            z-depth-4">
-                        <i class="fa-solid fa-chart-line right"></i>Track</a>
-
-                        <!-- Add workout log button -->
-                        <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
-                            class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
-                            z-depth-4">
-                        <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_two }}</div>
                     </div>
-                    <div class="row center-align no-margin">
-                        <div class="col s12">
-                            <p class="faded-text">
-                                Preset routine.
-                            </p>
-                        </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_three }}</div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    {% endif %}
-    <!-- Iterate through custom routines (added by current user) and add a card for each -->
-    {% for routine in custom_routines %}
-        <div class="col s12 l6">
-            <div class="card-panel card-panel-bottom z-depth-4">
-                <div class="card-panel-top z-depth-2">
-                    <div class="row">
-                        <!-- Custom routine title -->
-                        <h4>
-                            {{ routine.routine_name }}
-                        </h4>
-                    </div>
-                    <div class="row">
-                        <!-- Custom routine exercises and reps -->
-                        <div class="col s4">
-                            <div class="feature-number">{{ routine.exercise_one_reps }}</div>
-                            <div class="exercise-name">{{ routine.exercise_one }}</div>
-                        </div>
-                        <div class="col s4">
-                            <div class="feature-number">{{ routine.exercise_two_reps }}</div>
-                            <div class="exercise-name">{{ routine.exercise_two }}</div>
-                        </div>
-                        <div class="col s4">
-                            <div class="feature-number">{{ routine.exercise_three_reps }}</div>
-                            <div class="exercise-name">{{ routine.exercise_three }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row margin-top-2">
-                    <!-- Track progress button -->
-                    <a href="{{ url_for('track_progress', username=routine.username, routine_id=routine._id, ) }}"
-                        class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
-                         z-depth-4">
-                    <i class="fa-solid fa-chart-line right"></i>Track</a>
+            <div class="row margin-top-2">
+                <!-- Track progress button -->
+                <a href="{{ url_for('track_progress', username=session['user'], routine_id=routine._id, ) }}"
+                    class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
+                    z-depth-4">
+                <i class="fa-solid fa-chart-line right"></i>Track</a>
 
-                    <!-- Add workout log button -->
-                    <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
-                        class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
-                        z-depth-4">
-                    <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
-
-                    <!-- Delete button triggers confirmation modal -->
-                    <a href="#{{ routine._id }}_modal"
-                        class="waves-effect btn-large col s12 button-left red lighten-3 card-panel-button modal-trigger 
-                        z-depth-4">
-                    <i class="fa-solid fa-trash right"></i>Delete</a>
-
-                    <!-- Edit routine button -->
-                    <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
-                        class="waves-effect btn-large col s12 button-right offset-l2 amber lighten-3 card-panel-button 
-                        z-depth-4">
-                    <i class="fa-solid fa-pen right"></i>Edit Routine</a>
+                <!-- Add workout log button -->
+                <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
+                    class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
+                    z-depth-4">
+                <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
+            </div>
+            <div class="row center-align no-margin">
+                <div class="col s12">
+                    <p class="faded-text">
+                        Preset routine.
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!-- Iterate through custom routines (added by current user) and add a card for each -->
+    {% for routine in custom_routines %}
+    <div class="col s12 l6">
+        <div class="card-panel card-panel-bottom z-depth-4">
+            <div class="card-panel-top z-depth-2">
+                <div class="row">
+                    <!-- Custom routine title -->
+                    <h4>
+                        {{ routine.routine_name }}
+                    </h4>
+                </div>
+                <div class="row">
+                    <!-- Custom routine exercises and reps -->
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_one_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_one }}</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_two_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_two }}</div>
+                    </div>
+                    <div class="col s4">
+                        <div class="feature-number">{{ routine.exercise_three_reps }}</div>
+                        <div class="exercise-name">{{ routine.exercise_three }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-2">
+                <!-- Track progress button -->
+                <a href="{{ url_for('track_progress', username=routine.username, routine_id=routine._id, ) }}"
+                    class="waves-effect btn-large col s12 button-left blue lighten-3 card-panel-button modal-trigger
+                        z-depth-4">
+                <i class="fa-solid fa-chart-line right"></i>Track</a>
+
+                <!-- Add workout log button -->
+                <a href="{{ url_for('add_workout', routine_name=routine.routine_name) }}"
+                    class="waves-effect btn-large col s12 button-right light-green lighten-3 card-panel-button 
+                    z-depth-4">
+                <i class="fa-solid fa-circle-plus right"></i>Add Log</a>
+
+                <!-- Delete button triggers confirmation modal -->
+                <a href="#{{ routine._id }}_modal"
+                    class="waves-effect btn-large col s12 button-left red lighten-3 card-panel-button modal-trigger 
+                    z-depth-4">
+                <i class="fa-solid fa-trash right"></i>Delete</a>
+
+                <!-- Edit routine button -->
+                <a href="{{ url_for('edit_routine', routine_id=routine._id) }}"
+                    class="waves-effect btn-large col s12 button-right offset-l2 amber lighten-3 card-panel-button 
+                    z-depth-4">
+                <i class="fa-solid fa-pen right"></i>Edit Routine</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
     <div class="col s12 l6">
         <div class="card-panel card-panel-bottom z-depth-4">
@@ -147,18 +147,18 @@
 {% block modals %}
 <!-- Delete confimation modals -->
 {% for routine in custom_routines %}
-    <div id="{{ routine._id }}_modal" class="modal center-align">
-        <div class="modal-content">
-            <h4>Do you really want to delete this routine?</h4>
-            <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
-        </div>
-        <div class="modal-footer z-depth-4">
-            <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
-                <i class="fa-solid fa-ban right"></i>Cancel</a>
-            <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close 
-                waves-effect modal-button btn red lighten-3 z-depth-4">
-                <i class="fa-solid fa-trash right"></i>Delete</a>
-        </div>
+<div id="{{ routine._id }}_modal" class="modal center-align">
+    <div class="modal-content">
+        <h4>Do you really want to delete this routine?</h4>
+        <p>If you choose to continue, all workouts logged with this routine will also be deleted.</p>
     </div>
+    <div class="modal-footer z-depth-4">
+        <a href="#!" class="modal-close waves-effect modal-button grey lighten-1 z-depth-4 btn">
+            <i class="fa-solid fa-ban right"></i>Cancel</a>
+        <a href="{{ url_for('delete_routine', routine_id=routine._id) }}" class="modal-close 
+            waves-effect modal-button btn red lighten-3 z-depth-4">
+            <i class="fa-solid fa-trash right"></i>Delete</a>
+    </div>
+</div>
 {% endfor %}
 {% endblock %}
