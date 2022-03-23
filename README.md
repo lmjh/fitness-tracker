@@ -289,7 +289,7 @@ The following features could be added in the future, given more development time
 ### 1. Account Management Tools
 
 * Helpful account management tools could be provided, such as the ability to update usernames, email addresses and passwords.
-* A password recovery function could also be provided. The [flask-security](https://pythonhosted.org/Flask-Security/features.html) extention can provide this functionality.
+* A password recovery function could also be provided. The [flask-security](https://pythonhosted.org/Flask-Security/features.html) extension can provide this functionality.
 
 ### 2. Additional Log Filters
 
@@ -330,7 +330,7 @@ The following features could be added in the future, given more development time
 2. [GitPod](https://gitpod.io/) - Used to write all code and test before deploying to GitHub.
 3. [Balsamiq](https://balsamiq.com/) - Used to produce design wireframes.
 4. [Materialize](https://materializecss.com/) - Materialize CSS framework used extensively to create layout and styling of site.
-5. [jQuery](https://jquery.com/) - Used to initialize Materialize componenents and validate select elements.
+5. [jQuery](https://jquery.com/) - Used to initialise Materialize components and validate select elements.
 6. [Python 3.8](https://www.python.org/) - Used to code the application.
 7. [MongoDB](https://www.mongodb.com/) - Used for the application's database.
 7. [Flask](https://palletsprojects.com/p/flask/), [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) and [Werkzeug](https://palletsprojects.com/p/werkzeug/) - Used to build the main application structure, page templates (Jinja) and account security (Werkzeug).
@@ -453,13 +453,13 @@ Follow the steps below to deploy the project locally using VSCode.
 6. Open VSCode and click File > Open Folder, then select the folder containing your local cloned repository
 7. Download and install [Python](https://www.python.org/downloads/)
 8. Download and install the [VSCode Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-9. In VSCode, open the command pallette (Ctrl + Shift + P on Windows) and search for the Python: Select Interpretter. Click it, then select the version of Python you have installed.
+9. In VSCode, open the command palette (Ctrl + Shift + P on Windows) and search for the Python: Select Interpreter. Click it, then select the version of Python you have installed.
 10. Open a terminal in VSCode and enter the following commands to create and activate a virtual environment:
 ```
 py -3 -m venv .venv
 .venv\scripts\activate
 ```
-11. Open the command pallette and search for Python: Select Interpretter again. You should see your new virtual environment. Select it.
+11. Open the command palette and search for Python: Select Interpreter again. You should see your new virtual environment. Select it.
 12. In the terminal, enter the following command to install all required packages:
 ```
 python -m pip install -r requirements.txt
