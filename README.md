@@ -13,7 +13,7 @@ This application aims to solve this problem by encouraging people to try more fo
 * As users master the exercises and improve their fitness, their recorded number of sets for each routine should gradually increase. Fitrio generates progress graphs from the recorded data to allow users to visualise their progress.
 * Progress pages with graphs and Personal Best scores can be shared with others.
 
-![Mockup of Fitrio on desktop, tablet and mobile](documentation/readme-images/fitrio-mockup.png)
+![Mockup of Fitrio on desktop, tablet and mobile](documentation/readme-images/mockups/fitrio-mockup.png)
 
 ***
 
@@ -44,13 +44,13 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 * The sense of depth is reinforced by consistent use of two levels of drop shadows on site elements. Elements with the shadow further from the element appear further from the surface they sit on, while elements with a closer drop shadow appear closer.
 
-![Three shades of grey and drop shadows on the My Routines page](documentation/readme-images/design-1.jpg)
+![Three shades of grey and drop shadows on the My Routines page](documentation/readme-images/design/design-1.jpg)
 
 * I’ve tried to use shadows consistently, so card panels / surfaces in the mid grey colour sit far from their base layer, while the card panels/surfaces in the light grey sit closer to the mid grey surfaces beneath them. Buttons are always high above their parent elements for emphasis.
 
 * In places, such as the graphs on the Track Progress pages, I’ve created a ‘cut-out’ effect using an inner drop shadow and colouring the inner element with the bottom grey shade.
 
-!['Cut-out' visual effect on the progress graph](documentation/readme-images/design-2.jpg)
+!['Cut-out' visual effect on the progress graph](documentation/readme-images/design/design-2.jpg)
 
 * In line with the Material Design dark theme guidance, I’ve used mostly light, desaturated colours.
 
@@ -64,15 +64,15 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 * Light red is used on all buttons and flash messages associated with Delete / Remove operations, like deleting logs or routines. Light red is also used for error messages.
 
-![Buttons on the My Routine page, coloured according to function](documentation/readme-images/design-3.jpg)
+![Buttons on the My Routine page, coloured according to function](documentation/readme-images/design/design-3.jpg)
 
 * A light grey is used for neutral buttons, like ‘Cancel’ buttons. This creates a clear visual contrast between confirmation and cancellation in the confirmation modals for editing or deleting records.
 
-![Grey cancel button provides visual contrast with red confirmation button](documentation/readme-images/design-4.jpg)
+![Grey cancel button provides visual contrast with red confirmation button](documentation/readme-images/design/design-4.jpg)
 
 * Finally, a brighter, more saturated blue is used occasionally for emphasis. This is a brand colour and is used in the logo, on the progress graphs and to make links stand out.
 
-![Saturated blue used in logo](documentation/readme-images/design-5.jpg)
+![Saturated blue used in logo](documentation/readme-images/design/design-5.jpg)
 
 #### Typography
 
@@ -89,18 +89,18 @@ The site uses the Materialize framework and features a dark mode design. I used 
 
 The site is responsively designed to adapt to the user's viewing device.
 
-| Page             |                     Wireframe                     |
-|------------------|:-------------------------------------------------:|
-| Home             | ![](documentation/wireframes/home.png)            |
-| Register         | ![](documentation/wireframes/register.png)        |
-| Login            | ![](documentation/wireframes/log-in.png)          |
-| Workout Log      | ![](documentation/wireframes/workout-log.png)     |
-| Add/Edit Workout | ![](documentation/wireframes/add-workout.png)     |
-| My Routines      | ![](documentation/wireframes/my-routines.png)     |
-| Add/Edit Routine | ![](documentation/wireframes/add-routine.png)     |
-| Track Progress   | ![](documentation/wireframes/track-progress.png)  |
-| Getting Started  | ![](documentation/wireframes/getting-started.png) |
-| FAQ              | ![](documentation/wireframes/faq.png)             |
+| Page             |                            Wireframe                            |
+|------------------|:---------------------------------------------------------------:|
+| Home             | ![](documentation/readme-images/wireframes/home.png)            |
+| Register         | ![](documentation/readme-images/wireframes/register.png)        |
+| Login            | ![](documentation/readme-images/wireframes/log-in.png)          |
+| Workout Log      | ![](documentation/readme-images/wireframes/workout-log.png)     |
+| Add/Edit Workout | ![](documentation/readme-images/wireframes/add-workout.png)     |
+| My Routines      | ![](documentation/readme-images/wireframes/my-routines.png)     |
+| Add/Edit Routine | ![](documentation/readme-images/wireframes/add-routine.png)     |
+| Track Progress   | ![](documentation/readme-images/wireframes/track-progress.png)  |
+| Getting Started  | ![](documentation/readme-images/wireframes/getting-started.png) |
+| FAQ              | ![](documentation/readme-images/wireframes/faq.png)             |
 
 ***
 
@@ -112,11 +112,11 @@ Fitrio features a user account system whereby users can create a persistent acco
 
 * Users create accounts by filling in a simple registration form.
 
-![Registration form](documentation/readme-images/user-accounts-register.jpg)
+![Registration form](documentation/readme-images/features/user-accounts-register.jpg)
 
 * Users sign in to their accounts by filling in a login form and sign out using a link in the navigation bar.
 
-![Login form](documentation/readme-images/user-accounts-login.jpg)
+![Login form](documentation/readme-images/features/user-accounts-login.jpg)
 
 * The application uses the Flask session object to handle user login functionality and passwords are hashed using Werkzeug helper functions.
 
@@ -126,27 +126,27 @@ The core feature of Fitrio is a workout log allowing users to record their worko
 
 * Workouts logs are added by completing a form, which is linked to from buttons on the Workout Log and My Routines pages.
 
-![Add workout logs by filling a form](documentation/readme-images/workout-log-add-form.jpg)
+![Add workout logs by filling a form](documentation/readme-images/features/workout-log-add-form.jpg)
 
 * All workout logs are listed on the Workout Log page.
 
-![List of workout logs](documentation/readme-images/workout-log-list.jpg)
+![List of workout logs](documentation/readme-images/features/workout-log-list.jpg)
 
 * The workout logs are paginated and displayed in batches of ten to prevent pages becoming too large as more records are added.
 
-![Log pagination with buttons to view older/newer logs](documentation/readme-images/workout-log-pagination.jpg)
+![Log pagination with buttons to view older/newer logs](documentation/readme-images/features/workout-log-pagination.jpg)
 
 * Workout logs can be filtered by date
 
-![Log from and to date filter](documentation/readme-images/workout-log-filter.jpg)
+![Log from and to date filter](documentation/readme-images/features/workout-log-filter.jpg)
 
 * Individual workout records can be expanded by clicking or pressing enter on the keyboard when focused. The app calculates and displays the total number of exercise reps that were done for each log entry. The record can be edited or deleted by clicking the buttons here.
 
-![An expanded workout log entry showing workout details and edit and delete buttons](documentation/readme-images/workout-log-expanded.jpg)
+![An expanded workout log entry showing workout details and edit and delete buttons](documentation/readme-images/features/workout-log-expanded.jpg)
 
 * When editing a log entry, the form is prepopulated with the current values of that log.
 
-![Prepopulated edit log form](documentation/readme-images/workout-log-edit-form.jpg)
+![Prepopulated edit log form](documentation/readme-images/features/workout-log-edit-form.jpg)
 
 ### Routine Management
 
@@ -154,23 +154,23 @@ A routine in Fitrio is a set of three exercises with an associated number of rep
 
 * All users have access to three preset / default routines, which are displayed on the My Routines page and can be selected when adding a workout log.
 
-![User view of preset routines](documentation/readme-images/routine-management-user-defaults.jpg)
+![User view of preset routines](documentation/readme-images/features/routine-management-user-defaults.jpg)
 
-* By design, users cannot edit or delete the default routines, as they are intended to be the basic foundational routines of the application that all users always have access to. However, the ‘admin’ user account can add, edit or delete default routines. This allows the site admin to make changes to the preset routines or add additional preset routines that will be automatically applied to all other users.
+* By design, users cannot edit or delete the default routines, as they are intended to be the basic foundational routines of the application that all users always have access to. However, the ‘admin’ user account can add, edit or delete default routines. This allows the site admin to make changes to the preset routines or add additional preset routines that will be automatically distributed to all other users.
 
-![Admin view of preset routines](documentation/readme-images/routine-management-admin-defaults.jpg)
+![Admin view of preset routines](documentation/readme-images/features/routine-management-admin-defaults.jpg)
 
 * Users can add their own custom routines by clicking the link in the My Routines page and then filling out a form.
 
-![Add a routine by completing a form](documentation/readme-images/routine-management-add-routine.jpg)
+![Add a routine by completing a form](documentation/readme-images/features/routine-management-add-routine.jpg)
 
 * Full CRUD functionality is implemented for users’ own custom routines. Custom routines can be deleted or edited by clicking the appropriate buttons on the My Routines page.
 
-![Delete or edit custom routines](documentation/readme-images/routine-management-custom-edit-delete.jpg)
+![Delete or edit custom routines](documentation/readme-images/features/routine-management-custom-edit-delete.jpg)
 
 *  When editing a routine, the form is prepopulated with the current values of that routine.
 
-![Edit routine forms are prepopulated](documentation/readme-images/routine-management-edit-prepopulated.jpg)
+![Edit routine forms are prepopulated](documentation/readme-images/features/routine-management-edit-prepopulated.jpg)
 
 ### Track and Share Progress
 
@@ -178,19 +178,19 @@ Users can track their progress with Fitrio routines (both preset and custom rout
 
 * Progress for each routine is visualised with a line chart. This chart plots the number of sets completed against the date/time for each workout logged by the given user with the given routine.
 
-![A chart visualises progress data](documentation/readme-images/track-progress-chart.jpg)
+![A chart visualises progress data](documentation/readme-images/features/track-progress-chart.jpg)
 
 * A ‘personal best’ section displays the details of the workout with the highest number of sets that the user has recorded with this routine. Where multiple logs have the same highest number of sets, the log with the earliest date is used.
 
-![Personal best statistics are displayed](documentation/readme-images/track-progress-best.jpg)
+![Personal best statistics are displayed](documentation/readme-images/features/track-progress-best.jpg)
 
 * By default, Track Progress pages cannot be viewed by any user except the page owner. However, users can click a “Share Page” button on the Track Progress page if they want to  share their progress. The page will then be viewable by any other logged in user who visits the page URL.
 
-![Users can choose to share their progress](documentation/readme-images/track-progress-share.jpg)
+![Users can choose to share their progress](documentation/readme-images/features/track-progress-share.jpg)
 
 * For convenience, pages which are currently shared show a link that users can copy. The “Share Page” button is also replaced with a “Hide Page” button, which can be clicked to hide the page at any time. The “Hide Page” button is only visible to the page owner.
 
-![Users can choose to hide their progress](documentation/readme-images/track-progress-link-and-hide.jpg)
+![Users can choose to hide their progress](documentation/readme-images/features/track-progress-link-and-hide.jpg)
 
 ### Tutorials and FAQ
 
@@ -198,19 +198,19 @@ New users are redirected to a ‘Getting Started’ page after registration to h
 
 * The Getting Started page provides a step by step run down of how to use Fitrio workout routines.
 
-![Step by step instructions for workouts](documentation/readme-images/tutorials-how-it-works.jpg)
+![Step by step instructions for workouts](documentation/readme-images/features/tutorials-how-it-works.jpg)
 
 * The Getting Started page also provides instructions on how to record workouts in the workout log and track progress.
 
-![Instructions for logging workouts](documentation/readme-images/tutorials-how-to-log.jpg)
+![Instructions for logging workouts](documentation/readme-images/features/tutorials-how-to-log.jpg)
 
 * The FAQ page provides answers to common questions in a collapsible accordion. Users can find detailed instructions for the exercises in the preset routines here.
 
-![FAQ accordion](documentation/readme-images/tutorials-faq.jpg)
+![FAQ accordion](documentation/readme-images/features/tutorials-faq.jpg)
 
 * Succinct instructions on how to use the features of the page are included at the top of the Workout Log and My Routines pages.
 
-![Instruction box](documentation/readme-images/tutorials-instructions-box.jpg)
+![Instruction box](documentation/readme-images/features/tutorials-instructions-box.jpg)
 
 ### Confirmation Modals
 
@@ -218,11 +218,11 @@ To mitigate the risk of accidental data loss, confirmation modals are used for a
 
 * To ensure that the interface options are clear to users, the confirmation buttons are clearly labelled with the action to be taken and always match the colouring and icon of the action trigger button that was pressed. The cancel button is always in a neutral grey colour.
 
-![Delete log confirmation modal](documentation/readme-images/modals-delete-log.jpg)
+![Delete log confirmation modal](documentation/readme-images/features/modals-delete-log.jpg)
 
 * A confirmation modal is also included for the action of updating the sharing settings on the Track Progress pages.
 
-![Share progress confirmation modal](documentation/readme-images/modals-share.jpg)
+![Share progress confirmation modal](documentation/readme-images/features/modals-share.jpg)
 
 ### Error Pages
 
@@ -230,11 +230,11 @@ Custom error pages are included to gracefully handle errors.
 
 * A 404 - Not Found page will display when a user attempts to visit an unvalid URL.
 
-![404 Page Not Found error page](documentation/readme-images/error-pages-404.jpg)
+![404 Page Not Found error page](documentation/readme-images/features/error-pages-404.jpg)
 
 * A 500 - Internal Server Error will display for any unhandled exceptions that might occur.
 
-![500 Internal Server Error page](documentation/readme-images/error-pages-500.jpg)
+![500 Internal Server Error page](documentation/readme-images/features/error-pages-500.jpg)
 
 ***
 
