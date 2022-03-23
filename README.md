@@ -1,5 +1,7 @@
 # Fitrio Fitness Tracker Application
 
+[Visit the live site](http://fitness-tracker-lmjh.herokuapp.com/).
+
 The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines.
 
 This application aims to solve this problem by encouraging people to try more focused circuit training consisting of just three exercises per routine.
@@ -8,7 +10,10 @@ This application aims to solve this problem by encouraging people to try more fo
 * Users can add their own routines.
 * The only equipment required for the provided routines is a pull-up bar, which is cheap and readily available.
 * Workouts are time-limited and users record the number of exercises they completed in the time limit.
-* Users can clearly see their progress as their recorded number of sets for each routine will gradually increase as they master the exercises and improve their fitness.
+* As users master the exercises and improve their fitness, their recorded number of sets for each routine should gradually increase. Fitrio generates progress graphs from the recorded data to allow users to visualise their progress.
+* Progress pages with graphs and Personal Best scores can be shared with others.
+
+![Mockup of Fitrio on desktop, tablet and mobile](documentation/readme-images/fitrio-mockup.png)
 
 ***
 
@@ -335,6 +340,10 @@ The following features could be added in the future, given more development time
 11. [Regexr](https://regexr.com/) - Used to assist with writing and testing regular expressions.
 12. [Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo and illustrations and to resize screenshots.
 13. [Tables Generator](https://www.tablesgenerator.com/markdown_tables) - Used to generate markdown tables for README.md and TESTING.md
+14. [W3C.org](https://www.w3.org/) - W3C [HTML Validator](https://validator.w3.org/nu/) and [CSS Validator](https://jigsaw.w3.org/css-validator/validator) used to check HTML and CSS code for errors.
+15. [JSHint](https://jshint.com/) - Used to check JavaScript for errors.
+16. [PEP8 Online](http://pep8online.com/) - Used to check Python code for errors.
+17. [GraphBerry](https://www.graphberry.com/item/flat-devices-mockup) - Used to source the device templates for the site mockup at the top of this readme.
 
 ***
 
@@ -353,6 +362,10 @@ Please see [TESTING.md](TESTING.md) for details of tests performed and bugs fixe
 3. You should now have a copy of the original repository in your GitHub account.
 
 ### Making a Local Clone
+
+You can download the project source code as a zip file by clicking the 'Code' dropdown at the top right of the file navigation window and selecting "Download as ZIP". You can then unzip that file to wherever you want your local copy to be.
+
+If you have Git installed on your computer, you can clone the project by following these steps:
 
 1. Log in to GitHub and locate the [repository](https://github.com/lmjh/fitness-tracker)
 2. Click the 'Code' dropdown at the top right of the file navigation window.
@@ -441,7 +454,7 @@ Follow the steps below to deploy the project locally using VSCode.
 7. Download and install [Python](https://www.python.org/downloads/)
 8. Download and install the [VSCode Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 9. In VSCode, open the command pallette (Ctrl + Shift + P on Windows) and search for the Python: Select Interpretter. Click it, then select the version of Python you have installed.
-10. Open a terminal in VScode and enter the following commands to create and activate a virtual environment:
+10. Open a terminal in VSCode and enter the following commands to create and activate a virtual environment:
 ```
 py -3 -m venv .venv
 .venv\scripts\activate
@@ -502,3 +515,9 @@ ENV_DEBUG:
 ***
 
 ## Other Credits and Acknowledgements
+
+* My Code Institute mentor, [Tim Nelson](https://tim.2bn.dev/), for his very helpful advice and feedback throughout the project, as well as the Javascript code to validate the Materialize select elements.
+* [Code Institute](https://codeinstitute.net/) for their helpful lessons and reference materials.
+* [Code Institute Sample README](https://github.com/Code-Institute-Solutions/SampleREADME/blob/master/README.md) for the structure of this project's documentation and parts of the GitHub forking and cloning processes.
+* [This blog post](https://www.patricksoftwareblog.com/creating-charts-with-chart-js-in-a-flask-application/) from Patrick's Software Blog provided some very helpful information on generating chart.js graphs with data from a Flask application.
+* [This YouTube video](https://www.youtube.com/watch?v=H1y66SPBlRI) from the channel Chart JS provided some very helpful information on setting up a chart.js graph using datetime data for one of the axes.
