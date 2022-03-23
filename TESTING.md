@@ -604,3 +604,11 @@ Unfortunately, this creates an accessibility issue because the label that's appl
 The input field is still functional, though, and can be fully navigated by keyboard. In my case, the default option that's active before a user selects an option reads "Select Routine", so this should provide an adequate description of the function of the imput.
 
 Given more development time, I would write some javascript to improve the accessibility of the Materialize select element, or replace it with a more accessible alternative. 
+
+### 2. Untested on Safari
+
+The site has not been tested on the Safari browser as I didn't have access to any Apple devices. I wouldn't anticipate any major compatibility issues, but I would need to do proper compatibility testing to be sure there were no bugs present. I would like to return to the project and do this testing at some point in the future when I have access to an Apple device to test with.
+
+### 3. Internet Explorer Not Supported
+
+The site doesn't support Internet Explorer and is unlikely to display or function correctly on this browser. I don't consider adding support for Internet Explorer to be a priority, as the browser is currently not widely used, is no longer updated, and is due to be retired in June 2022.
