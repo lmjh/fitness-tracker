@@ -46,27 +46,37 @@ In my case, the collapsible header is an interactive element which opens and clo
 
 CSS validation passed with no errors or warnings.
 
-![CSS validation screenshot](documentation/testing-images/css-validation.jpg)
+![CSS validation screenshot](documentation/testing-images/css-validation/css-validation.jpg)
 
 ### Javascript Validation
 
-Validation of the script.js file passed with no errors or warnings.
+The script.js file, which initialises most Materialize javascript components and contains the code to validate Materialize select elements, was validated by copying its contents into JSHint.
 
-![script.js validation](documentation/testing-images/javascript-validation.jpg)
+The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page and copying the code (with injected values from jinja), then pasting that into JSHint.
 
-The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page and copying the code (with injected values from jinja) and pasting that into JSHint.
+The javascript that initialises the datepickers on the Workout Log and Edit Workout pages also contains jinja templating code, but since the templates only inject values directly into strings, validation is not affected. I therefore validated this code by copying it directly into JSHint.
 
-![Chart javascriptvalidation](documentation/testing-images/chart-javascript-validation.jpg)
+Finally, the javascript that initialises the datepicker on the Add Workout page contains no jinja code, so I validated this code by copying it directly into JSHint.
 
-The code passed validation with two warnings: "One undefined variable - Chart" and "One unused variable - myChart". 
+| Script Location     |                                        Screenshot                                        |
+|---------------------|:----------------------------------------------------------------------------------------:|
+| script.js           |     ![](documentation/testing-images/javascript-validation/script-js-validation.jpg)     |
+| track_progress.html | ![](documentation/testing-images/javascript-validation/track-progress-js-validation.jpg) |
+| edit_workout.html   |  ![](documentation/testing-images/javascript-validation/edit-workout-js-validation.jpg)  |
+| workout_log.html    |   ![](documentation/testing-images/javascript-validation/workout-log-js-validation.jpg)  |
+| add_workout.html    |   ![](documentation/testing-images/javascript-validation/add-workout-js-validation.jpg)  |
 
-The undefined variable "Chart" is a chart object imported from chart.js and the unused variable "myChart" is used to initialise the chart on the page, so I don't consider the warnings to be an issue.
+The script.js code and the code on the add_workout page passed with no errors or warnings.
+
+The track_progress code passed with two warnings: "One undefined variable - Chart" and "One unused variable - myChart". The undefined variable "Chart" is a chart object imported from chart.js and the unused variable "myChart" is used to initialise the chart on the page, so I don't consider the warnings to be an issue.
+
+Finally, the edit_workout and workout_log code passed with warnings about the variable "M" being undefined. "M.Datepicker" refers to the Materialize datepickers and is defined in materialize.js.
 
 ### Python Validation
 
 Validation of the app.py python file passed with no errors or warnings.
 
-![app.py validation](documentation/testing-images/python-validation.jpg)
+![app.py validation](documentation/testing-images/python-validation/python-validation.jpg)
 
 ***
 
