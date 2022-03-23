@@ -152,9 +152,16 @@
 <!-- Include adapter to allow chart.js to handle datetime data -->
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <script>
-    // chart data
+    // This script draws a graph of sets completed against the datetime of the workout.
+    // The technique for importing data from Flask is based on this blog post: 
+    // https://www.patricksoftwareblog.com/creating-charts-with-chart-js-in-a-flask-application/
+    // The structuring of the code and method for setting a Time Cartesian Axis is based on information in this video:
+    // https://www.youtube.com/watch?v=H1y66SPBlRI
+
+    // Declare a constant to store chart label and value data
     const data = {
         labels : [
+            // Iterate through the data.dates list and add each date as a label
             {% for date in data.dates %}
                 "{{ date }}",
             {% endfor %}
@@ -166,13 +173,14 @@
             borderColor: "#5ac9ff",
             pointBorderColor: "#5ac9ff",
             data : [
+                // Iterate through the data.sets list and add each set value as a data point
                 {% for set in data.sets %}
                 {{ set }},
                 {% endfor %}],
             }]
         };
 
-    // chart configuration
+    // Declare a constant to store chart configuration data
     const config = {
         type: 'line',
         data,
@@ -206,7 +214,7 @@
         }
     };
 
-    // initialize the chart
+    // Initialize the chart
     const myChart = new Chart(
         document.getElementById("myChart"),
         config,
