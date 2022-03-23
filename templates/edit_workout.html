@@ -10,12 +10,12 @@
                     <div class="input-field col s12 m9">
                         <select id="routine_name" name="routine_name" class="validate" required>
                             <option value="" disabled>Select Routine</option>
-                            {% for routine in routines %}
-                                {% if routine._id == log.routine_id %}
+                            {% for routine in routines -%}
+                                {% if routine._id == log.routine_id -%}
                                     <option value="{{ routine._id }}" selected>{{ routine.routine_name }}</option>
-                                {% else %}
+                                {%- else -%}
                                     <option value="{{ routine._id }}">{{ routine.routine_name }}</option>
-                                {% endif %}
+                                {%- endif %}
                             {% endfor %}
                         </select>
                         <label for="routine_name">Routine</label>
@@ -31,8 +31,7 @@
                 <div class="row">
                     <div class="col s12 m6">
                         <input id="workout_date" name="workout_date" type="text" class="datepicker validate" 
-                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" 
-                            value="{{ log.date.strftime('%d/%m/%y') }}" required>
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
                         <label for="workout_date">Date</label>
                     </div>
                     <div class="col s12 m6">
@@ -83,4 +82,26 @@
             <i class="fa-solid fa-pen right"></i>Edit</button>
     </div>
 </div>
+{%- endblock -%}
+{%- block scripts %}
+<script>
+    $(document).ready(function(){
+        // convert log.date datetime into a string with the format "yyyy, mm, dd"
+        let date = "{{ log.date.strftime('20%y') }}, {{ log.date.strftime('%m') }}, {{ log.date.strftime('%d') }}";
+
+        // build an object to configure the date_from picker
+        let options = {
+        format: "dd/mm/yy",
+        // set default date
+        defaultDate: new Date(date),
+        setDefaultDate: true
+        };
+
+        // find the datepicker
+        let elems = $('.datepicker');
+
+        // initialise the datepicker with the option  object
+        M.Datepicker.init(elems[0], options);
+    });
+</script>
 {% endblock %}

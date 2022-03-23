@@ -61,4 +61,16 @@
         </div>
     </div>
 </div>
-{% endblock %}
+{%- endblock -%}
+{%- block scripts %}
+<script>
+    // initialise the datepicker
+    // n.b. this is not done in the main ready function in script.js as this would break the datepicker bug fix on the
+    // workout_log and edit_workout pages
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: "dd/mm/yy"
+        });
+    })
+</script>
+{%- endblock %}

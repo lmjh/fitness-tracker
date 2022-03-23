@@ -6,9 +6,6 @@ $(document).ready(function () {
   });
   $('.collapsible').collapsible();
   $('select').formSelect();
-  $('.datepicker').datepicker({
-    format: "dd/mm/yy"
-  });
   $('.timepicker').timepicker({
     twelveHour: false
   });

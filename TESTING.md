@@ -538,6 +538,49 @@ Home page generated source code before and after improving layout:
 
 ![Home page code before and after improving layout](documentation/testing-images/bugs-16-untidy-code.jpg)
 
+### 17. Date picker popup using American date system when value prepopulated by jinja
+
+Although the Materialize datepicker was configured to use the "dd/mm/yy" format, it would ignore this when the datepicker input field was prepopulated with a date and a user opened the datepicker popup. For example, the Edit Workout pages prepopulates the date of the workout being edited. In the screenshot below, the date of the edited workout is the first of June  or "01/06/22":
+
+![Datepicker with prepopulated date](documentation/testing-images/bugs-17-datepicker-1.jpg)
+
+If the user submits the form, the correct date will be submitted. However, if the user opens the datepicker to change the date, the datepicker will by default display dates in January, because it interprets the "01/06" as the sixth of January and so presents the user with other January dates:
+
+![Incorrect month shown on datepicker](documentation/testing-images/bugs-17-datepicker-2.jpg)
+
+This could be quite frustrating if a user only wanted to change the date by a day or two but had to scroll through multiple months to get there. The same issue was also present with the "from" and "to" date filters on the workout log page.
+
+To fix this bug, I found it was necessary to set the desired date as the default date for each datepicker on initialisation. I found the [Materialize documentation](https://materializecss.com/pickers.html) and [this stack overflow thread](https://stackoverflow.com/questions/30324552/how-to-set-the-date-in-materialize-datepicker) helpful in understanding how to do this. I used jinja to inject the required date into a variable to use in the datepicker configuration:
+
+```javascript
+$(document).ready(function(){
+    // convert log.date datetime into a string with the format "yyyy, mm, dd"
+    let date = "{{ log.date.strftime('20%y') }}, {{ log.date.strftime('%m') }}, {{ log.date.strftime('%d') }}";
+
+    // build an object to configure the date_from picker
+    let options = {
+    format: "dd/mm/yy",
+    // set default date
+    defaultDate: new Date(date),
+    setDefaultDate: true
+    };
+
+    // find the datepicker
+    let elems = $('.datepicker');
+
+    // initialise the datepicker with the option  object
+    M.Datepicker.init(elems[0], options);
+});
+```
+
+With this code in place, the datepicker now shows the correct month and date when opened:
+
+![Datepicker fixed](documentation/testing-images/bugs-17-datepicker-3.jpg)
+
+I used the same technique to fix the datepickers on the Workout Logs page, though there it was necessary to initialise the two datepickers with two separate configurations and to add a jinja if / else block to handle the case where no dates are provided. 
+
+It was also necessary to remove the datepicker initialisation code from the script.js file (where the other Materialize components are initialised) to prevent the datepickers from being initialised twice.
+
 ***
 
 ## Outstanding Issues

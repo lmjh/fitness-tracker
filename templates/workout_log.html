@@ -45,16 +45,14 @@
                         <!-- From Date filter -->
                         <!-- Assign value to date_from from query parameter, if available -->
                         <input id="date_from" name="date_from" type="text" class="datepicker validate"
-                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" 
-                            value="{{ request.args.get('date_from') if request.args.get('date_from') }}" required>
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
                         <label for="date_from">From</label>
                     </div>
                     <div class="col s12 m6">
                         <!-- To Date filter -->
                         <!-- Assign value to date_to from query parameter, if available -->
-                        <input id="date_to" name="date_to" type="text" class="datepicker validate"
-                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" 
-                            value="{{ request.args.get('date_to') if request.args.get('date_to') }}" required>
+                        <input id="date_to" name="date_to" type="text" class="datepicker validate" 
+                            placeholder="dd/mm/yy" pattern="^[0-3][0-9]/[0-3][0-9]/[0-9][0-9]$" required>
                         <label for="date_to">To</label>
                     </div>
                 </div>
@@ -219,5 +217,48 @@
             <i class="fa-solid fa-trash right"></i>Delete</a>
     </div>
 </div>
-{% endfor %}
-{% endblock %}
+{% endfor -%}
+{%- endblock -%}
+{%- block scripts -%}
+{%- if date_from %}
+<script>
+    $(document).ready(function(){
+        // convert date_from and date_to datetimes into a string with the format "yyyy, mm, dd"
+        let dateFrom = "{{ date_from.strftime('20%y') }}, {{ date_from.strftime('%m') }}, {{ date_from.strftime('%d') }}";
+        let dateTo = "{{ date_to.strftime('20%y') }}, {{ date_to.strftime('%m') }}, {{ date_to.strftime('%d') }}";
+
+        // build an object to configure the date_from picker
+        let optionsFrom = {
+        format: "dd/mm/yy",
+        // set default date to dateFrom
+        defaultDate: new Date(dateFrom),
+        setDefaultDate: true
+        };
+
+        // build an object to configure the date_to picker
+        let optionsTo = {
+        format: "dd/mm/yy",
+        // set default date to dateTo
+        defaultDate: new Date(dateTo),
+        setDefaultDate: true
+        };
+
+        // find the datepickers
+        let elems = $('.datepicker');
+
+        // initialise the datepickers with the optionsFrom and optionsTo objects
+        M.Datepicker.init(elems[0], optionsFrom);
+        M.Datepicker.init(elems[1], optionsTo);
+    });
+</script>
+{%- else -%}
+<script>
+    // initialise the datepickers in the filter panel
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: "dd/mm/yy"
+        });
+    })
+</script>
+{%- endif -%}
+{%- endblock %}

@@ -281,11 +281,12 @@ def workout_log():
             }
             ]))
 
-        # pass the results of the query, the current skip value and the
-        # document count to the workout_log template
+        # pass the results of the query, the current skip value, the document
+        # count and the date_from and date_to to the workout_log template
         flash("Results updated.", "message")
         return render_template('workout_log.html', page_title="Workout Log",
-                               logs=logs, skip=skip, count=count)
+                               logs=logs, skip=skip, count=count,
+                               date_from=date_from, date_to=date_to)
 
     # check if a skip query parameter is present and if so assign it to a
     # variable. Otherwise, set the skip variable to 0.
