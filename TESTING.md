@@ -88,40 +88,40 @@ Validation of the app.py python file passed with no errors or warnings.
 * The welcome screen on the home page provides a brief overview of the purpose and features of the site to allow new users to quickly assess the value it offers.
 * A link to the 'Getting Started' page is included in a prominent position on the welcome screen, which users can follow to find more in-depth information on the application.
 
-![Welcome screen with overview and links](documentation/testing-images/user-stories-1-1.jpg)
+![Welcome screen with overview and links](documentation/testing-images/user-stories/user-stories-1-1.jpg)
 
 #### As a new user, I want to be able to quickly understand how to use the application to meet my needs.
 
 * The 'Getting Started' page contains instructions on how to use the main application features.
 
-![Instructions on the Getting Started page](documentation/testing-images/user-stories-2-1.jpg)
+![Instructions on the Getting Started page](documentation/testing-images/user-stories/user-stories-2-1.jpg)
 
 * New users are redirected to this page upon registration of their account. The page is also linked from the Welcome Screen.
 
 * The 'Getting Started' page links to the FAQ, where users can find more information if needed.
 
-![Link to FAQ](documentation/testing-images/user-stories-2-2.jpg)
+![Link to FAQ](documentation/testing-images/user-stories/user-stories-2-2.jpg)
 
 * Both 'Getting Started' and 'FAQ' pages are linked from the nav bar for both logged in and logged out users.
 
-![Logged in nav bar](documentation/testing-images/user-stories-2-3.jpg)
+![Logged in nav bar](documentation/testing-images/user-stories/user-stories-2-3.jpg)
 
-![Logged out nav bar](documentation/testing-images/user-stories-2-4.jpg)
+![Logged out nav bar](documentation/testing-images/user-stories/user-stories-2-4.jpg)
 
 #### As a new user, I want clear instructions on how to perform the featured exercises and record my progress.
 
 * Detailed instructions on how to perform the exercises in the preset routines are included in the top accordion section of the FAQ page, which is open on page load.
 
-![Exercise instructions on the FAQ page](documentation/testing-images/user-stories-3-1.jpg)
+![Exercise instructions on the FAQ page](documentation/testing-images/user-stories/user-stories-3-1.jpg)
 
 * As well as written descriptions, the FAQ entry has a direct link to a YouTube search for videos showing proper form for each exercise. This is included as many people will find it easier to learn exercises by watching others perform them.
 
-![Links to video searches](documentation/testing-images/user-stories-3-2.jpg))
+![Links to video searches](documentation/testing-images/user-stories/user-stories-3-2.jpg))
 
 * Instructions for recording progress are included on the Getting Started page.
 * The Workout Log and My Routines pages each have a box at the top of the page containing concise instructions for the features on that page.
 
-![Information box on the Workout Log page](documentation/testing-images/user-stories-3-3.jpg)
+![Information box on the Workout Log page](documentation/testing-images/user-stories/user-stories-3-3.jpg)
 
 #### As a new user, I want to know where to look for more information and help if I don’t understand something.
 
@@ -135,7 +135,7 @@ Validation of the app.py python file passed with no errors or warnings.
 
 * It's likely that returning users will usually be logging on to record a new workout, so users are redirected to the Workout Log page upon logging in. This page has a prominent "Add Workout Log" button at the top for adding workouts.
 
-![Add Workout button at top of Workout Log page](documentation/testing-images/user-stories-5-1.jpg)
+![Add Workout button at top of Workout Log page](documentation/testing-images/user-stories/user-stories-5-1.jpg)
 
 * The nav bar provides quick access to all other features and pages of the site.
 
@@ -144,29 +144,29 @@ Validation of the app.py python file passed with no errors or warnings.
 * The Workout Log page provides access to all workouts recorded by users.
 * Users can expand workout records to view key details and access the delete and edit options.
 
-![Expanded workout log](documentation/testing-images/user-stories-6-1.jpg)
+![Expanded workout log](documentation/testing-images/user-stories/user-stories-6-1.jpg)
 
 * Edit workout log forms prepopulate with their current data for convenience
 
-![Prepopulated edit form](documentation/testing-images/user-stories-6-2.jpg)
+![Prepopulated edit form](documentation/testing-images/user-stories/user-stories-6-2.jpg)
 
 * Workouts on the Workout log are displayed in batches of 10 and paginated so the page doesn't become too large to navigate easily
 
-![Log pagination](documentation/testing-images/user-stories-6-3.jpg)
+![Log pagination](documentation/testing-images/user-stories/user-stories-6-3.jpg)
 
 * Users can filter the workout logs by date to help them find the records they're looking for
 
-![Workout log filters](documentation/testing-images/user-stories-6-4.jpg)
+![Workout log filters](documentation/testing-images/user-stories/user-stories-6-4.jpg)
 
 #### As a returning user, I want to be able to create and manage my own custom routines
 
 * The My Routines page allows user to add their own routines
 
-![Add routine button](documentation/testing-images/user-stories-7-1.jpg)
+![Add routine button](documentation/testing-images/user-stories/user-stories-7-1.jpg)
 
 * Routines can be edited or deleted using the buttons on the My Routines page
 
-![Routine management buttons](documentation/testing-images/user-stories-7-2.jpg)
+![Routine management buttons](documentation/testing-images/user-stories/user-stories-7-2.jpg)
 
 * Edit routine forms prepopulate with their current data for convenience
 
@@ -174,7 +174,7 @@ Validation of the app.py python file passed with no errors or warnings.
 
 * Users can assess their progress on the track progress pages, which provide a helpful overview of stored data.
 
-![Graph visualising progress](documentation/testing-images/user-stories-8-1.jpg)
+![Graph visualising progress](documentation/testing-images/user-stories/user-stories-8-1.jpg)
 
 * The graphs provide a clear visualisation of how a user's scores are changing over time, which allows users to see if their fitness is improving by using the app.
 
@@ -182,11 +182,11 @@ Validation of the app.py python file passed with no errors or warnings.
 
 * All user data is private by default, but users can opt to share their progress with a routine by clicking the "Share Page" button on the track progress pages.
 
-![Share page button](documentation/testing-images/user-stories-9-1.jpg)
+![Share page button](documentation/testing-images/user-stories/user-stories-9-1.jpg)
 
 * Once sharing is enabled for a page, users can send the page link to anyone to share their personal best score and progress graph.
 
-![Share page link and hide page button](documentation/testing-images/user-stories-9-2.jpg)
+![Share page link and hide page button](documentation/testing-images/user-stories/user-stories-9-2.jpg)
 
 * Users can disable sharing by clicking the "Hide Page" button.
 
@@ -314,7 +314,7 @@ This was resolved by simply adding the @login_required decorator to the logout f
 
 ### 2. When prepopulating the Edit Workout page with user data, the date and time were being added as full datetime strings
 
-![Editworkout form showing full datetime](documentation/testing-images/bugs-2-datetime.jpg)
+![Editworkout form showing full datetime](documentation/testing-images/bugs/bugs-2-datetime.jpg)
 
 This was fixed by using the strftime() method within the jinja template to convert to the appropriate format for date and time:
 ```python
@@ -325,7 +325,7 @@ This was fixed by using the strftime() method within the jinja template to conve
 
 The code checked if a user had already used a routine name on form submission to prevent duplication, but didn't originally check if they were duplicating an admin routine. This could result in a confusing experience;
 
-![Two routines with the same name](documentation/testing-images/bugs-3-duplicate-routine-names.jpg)
+![Two routines with the same name](documentation/testing-images/bugs/bugs-3-duplicate-routine-names.jpg)
 
 This was resolved by changing the database query that searched for duplicate names to use an $or expression:
 
@@ -349,7 +349,7 @@ find_one(
 
 Because of this, wherever the application tried to display total numbers of exercises by multiplying sets and reps, a long string of numbers was being printed.
 
-![Total exercises being shows as a long string of 5s](documentation/testing-images/bugs-4-reps-as-strings.jpg)
+![Total exercises being shows as a long string of 5s](documentation/testing-images/bugs/bugs-4-reps-as-strings.jpg)
 
 This was resolved by converting the form input to an int on submission:
 ```python
@@ -358,13 +358,13 @@ This was resolved by converting the form input to an int on submission:
 
 ### 5. It was possible to enter 0 or negative numbers into the number of sets field when adding workout logs
 
-![Negative number of sets in a workout log](documentation/testing-images/bugs-5-negative-sets.jpg)
+![Negative number of sets in a workout log](documentation/testing-images/bugs/bugs-5-negative-sets.jpg)
 
 This was resolved by simply adding min="1" to the HTML input elements.
 
 ### 6. An error was thrown when users visited the Track Progress page for a routine with no logs
 
-![No records bug](documentation/testing-images/bugs-6-no-records.jpg)
+![No records bug](documentation/testing-images/bugs/bugs-6-no-records.jpg)
 
 This was resolved by adding a condition to the track_progress function that checks for logs. If no logs are found, users are redirected back to the my_routines page:
 ```python
@@ -403,7 +403,7 @@ best = max(logs, key=lambda x: x['sets'])
 
 Although basic form validation was in place, it was possible for users to enter invalid data into the date and time pickers (e.g. an invalid date like the 30th of February), which would cause the application to throw an error.
 
-![Invalid date entered](documentation/testing-images/bugs-8-invalid-date.jpg)
+![Invalid date entered](documentation/testing-images/bugs/bugs-8-invalid-date.jpg)
 
 This was resolved by using a try-except block wherever the application converted user input into a datetime object, to handle the error gracefully:
 ```python
@@ -474,9 +474,9 @@ This was resolved by adding an element id to the workout logs results section an
 
 The edit_workout, delete_workout, edit_routine, delete_routine, track_progress, and toggle_sharing pages all use route parameters to specify which records should be operated on. An error would be thrown if a user entered invalid data into these functions.
 
-![Invalid object id entered in track_progress URL](documentation/testing-images/bugs-13-invalid-objectid.jpg)
+![Invalid object id entered in track_progress URL](documentation/testing-images/bugs/bugs-13-invalid-objectid.jpg)
 
-![Invalid username entered in track_progress URL](documentation/testing-images/bugs-13-invalid-username.jpg)
+![Invalid username entered in track_progress URL](documentation/testing-images/bugs/bugs-13-invalid-username.jpg)
 
 This was fixed by adding code to each function to check if the data is valid. Submitted usernames are validated by querying the database and submitted log and routine ids are validated by using the ObjectId.is_valid() function. Users are redirected if invalid data is entered. e.g. from the track_progress function:
 ```python
@@ -492,7 +492,7 @@ if not user or not ObjectId.is_valid(routine_id):
 
 ### 14. Removing 'to_date' parameter from Workout Log URL caused an error
 
-![Error caused by removing to_date from URL](documentation/testing-images/bugs-14-to_date-removed.jpg)
+![Error caused by removing to_date from URL](documentation/testing-images/bugs/bugs-14-to_date-removed.jpg)
 
 This happened because the code was only checking for a 'from_date' before executing code on the 'to_date', assuming a to_date would always be present. I resolved this by refactoring the code slightly and adding an 'and' condition to the if block to check that the to_date was present:
 ```python
@@ -546,17 +546,17 @@ There are still some areas with unnecessary empty lines which could be improved 
 
 Home page generated source code before and after improving layout:
 
-![Home page code before and after improving layout](documentation/testing-images/bugs-16-untidy-code.jpg)
+![Home page code before and after improving layout](documentation/testing-images/bugs/bugs-16-untidy-code.jpg)
 
 ### 17. Date picker popup using American date system when value prepopulated by jinja
 
 Although the Materialize datepicker was configured to use the "dd/mm/yy" format, it would ignore this when the datepicker input field was prepopulated with a date and a user opened the datepicker popup. For example, the Edit Workout pages prepopulates the date of the workout being edited. In the screenshot below, the date of the edited workout is the first of June  or "01/06/22":
 
-![Datepicker with prepopulated date](documentation/testing-images/bugs-17-datepicker-1.jpg)
+![Datepicker with prepopulated date](documentation/testing-images/bugs/bugs-17-datepicker-1.jpg)
 
 If the user submits the form, the correct date will be submitted. However, if the user opens the datepicker to change the date, the datepicker will by default display dates in January, because it interprets the "01/06" as the sixth of January and so presents the user with other January dates:
 
-![Incorrect month shown on datepicker](documentation/testing-images/bugs-17-datepicker-2.jpg)
+![Incorrect month shown on datepicker](documentation/testing-images/bugs/bugs-17-datepicker-2.jpg)
 
 This could be quite frustrating if a user only wanted to change the date by a day or two but had to scroll through multiple months to get there. The same issue was also present with the "from" and "to" date filters on the workout log page.
 
@@ -585,7 +585,7 @@ $(document).ready(function(){
 
 With this code in place, the datepicker now shows the correct month and date when opened:
 
-![Datepicker fixed](documentation/testing-images/bugs-17-datepicker-3.jpg)
+![Datepicker fixed](documentation/testing-images/bugs/bugs-17-datepicker-3.jpg)
 
 I used the same technique to fix the datepickers on the Workout Logs page, though there it was necessary to initialise the two datepickers with two separate configurations and to add a jinja if / else block to handle the case where no dates are provided. 
 
