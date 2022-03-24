@@ -44,9 +44,19 @@ In my case, the collapsible header is an interactive element which opens and clo
 
 ### CSS Validation
 
-CSS validation passed with no errors or warnings.
+CSS validation passed with no errors.
 
 ![CSS validation screenshot](documentation/testing-images/css-validation/css-validation.jpg)
+
+8 warnings were returned:
+
+![CSS warnings](documentation/testing-images/css-validation/css-warnings.jpg)
+
+The first of these warnings, that "the property clip is deprecated" refers to the 'visually-hidden' class that I borrowed from the Bootstrap framework. This class hides elements from the visual flow of the document, but keeps them accessible to assistive technologies like screenreaders.
+
+There are a few threads discussing this issue on the Bootstrap GitHub page (such as [this one](https://github.com/twbs/bootstrap/issues/27177)) and it seems that although `clip` is officially deprecated, it is more widely supported by browsers that its replacement, `clip-path`. The site caniuse.com lists [full support for clip](https://caniuse.com/mdn-css_properties_clip) from most browsers, but only [partial support for clip-path](https://caniuse.com/mdn-css_properties_clip). I chose to stick with the Bootstrap implementation of the visually-hidden class on this basis.
+
+The other seven warnings only refer to vendor prefixes, which are provided as fallbacks for some css properties.
 
 ### Javascript Validation
 

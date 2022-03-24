@@ -91,7 +91,8 @@ h1 {
     word-wrap: break-word;
 }
 
-/* visually-hidden class code borrowed from Bootstrap framework */
+/* visually-hidden class code borrowed from Bootstrap framework:  */
+/* https://getbootstrap.com/docs/5.0/helpers/visually-hidden/ */
 /* Visually hides page elements while keeping them available to accessibility tools */
 .visually-hidden {
     position: absolute !important;
