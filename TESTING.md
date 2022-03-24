@@ -11,7 +11,7 @@
 
 ### HTML Validation
 
-Because the raw html files contained jinja template code which would prevent proper validation, HTML validation was done by opening the page to be validated in a browser, then copying the source code and pasting into the W3C HTML Validator.
+Because the raw html files contained jinja template code which would prevent proper validation, HTML validation was done by opening the page to be validated in a browser, then opening the page source code from the browser window and copying that into the W3C HTML Validator.
 
 | Page                 |                                 Screenshot                                 | Notes               |
 |----------------------|:--------------------------------------------------------------------------:|---------------------|
@@ -54,7 +54,7 @@ CSS validation passed with no errors.
 
 The first of these warnings, that "the property clip is deprecated" refers to the 'visually-hidden' class that I borrowed from the Bootstrap framework. This class hides elements from the visual flow of the document, but keeps them accessible to assistive technologies like screenreaders.
 
-There are a few threads discussing this issue on the Bootstrap GitHub page (such as [this one](https://github.com/twbs/bootstrap/issues/27177)) and it seems that although `clip` is officially deprecated, it is more widely supported by browsers that its replacement, `clip-path`. The site caniuse.com lists [full support for clip](https://caniuse.com/mdn-css_properties_clip) from most browsers, but only [partial support for clip-path](https://caniuse.com/mdn-css_properties_clip). I chose to stick with the Bootstrap implementation of the visually-hidden class on this basis.
+There are a few threads discussing this issue on the Bootstrap GitHub page (such as [this one](https://github.com/twbs/bootstrap/issues/27177)) and it seems that although `clip` is officially deprecated, it is more widely supported by browsers that its replacement, `clip-path`. The site caniuse.com lists [full support for clip](https://caniuse.com/mdn-css_properties_clip) from most browsers, but only [partial support for clip-path](https://caniuse.com/css-clip-path). I chose to stick with the Bootstrap implementation of the visually-hidden class on this basis.
 
 The other seven warnings only refer to vendor prefixes, which are provided as fallbacks for some css properties.
 
@@ -62,7 +62,7 @@ The other seven warnings only refer to vendor prefixes, which are provided as fa
 
 The script.js file, which initialises most Materialize javascript components and contains the code to validate Materialize select elements, was validated by copying its contents into JSHint.
 
-The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page and copying the code (with injected values from jinja), then pasting that into JSHint.
+The javascript that renders the chart.js charts on the Track Progress pages contains jinja templating code which would prevent proper validation with JSHint. I therefore validated this code by opening a Track Progress page in a browser and copying the javascript code from the source file (with injected values from jinja), then pasting that into JSHint.
 
 The javascript that initialises the datepickers on the Workout Log and Edit Workout pages also contains jinja templating code, but since the templates only inject values directly into strings, validation is not affected. I therefore validated this code by copying it directly into JSHint.
 
@@ -135,7 +135,7 @@ Validation of the app.py python file passed with no errors or warnings.
 
 #### As a new user, I want to know where to look for more information and help if I don’t understand something.
 
-* The instruction boxes on the workout Log and My Routines pages both have links to the Getting Started guide and the FAQ.
+* The instruction boxes on the Workout Log and My Routines pages both have links to the Getting Started guide and the FAQ.
 
 * Links to the Getting Started guide and the FAQ are also provided in the nav bar.
 
@@ -281,7 +281,7 @@ I created a checklist of tests to ensure all pages were rendering and functionin
 | Edit Routine    | All form elements and pickers working    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
 | Edit Routine    | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
 | Edit Routine    | Able to push changes to database         | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
-| Track Progress  | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Share link was overflowing from its parent element on chrome |
+| Track Progress  | Responsive layout rendering correctly    | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | Share link was overflowing from its parent element on Chrome |
 | Track Progress  | Chart functioning                        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
 | Track Progress  | Modals working                           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
 | Track Progress  | Able to update sharing setting           | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |                                                              |
@@ -541,7 +541,7 @@ While validating the site code, I noticed that the layout of the HTML generated 
 
 I improved the layout of the generated HTML by using white space removal tags:
 ```python
-# Strips all white space before and after the content block
+# Strips all white space before and after the content block tags
 {%- block content -%}
 {%- endblock -%}
 ```
