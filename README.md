@@ -289,7 +289,7 @@ The following features could be added in the future, given more development time
 ### 1. Account Management Tools
 
 * Helpful account management tools could be provided, such as the ability to update usernames, email addresses and passwords.
-* A password recovery function could also be provided. The [flask-security](https://pythonhosted.org/Flask-Security/features.html) extension can provide this functionality.
+* A password recovery by email function could also be provided. The [flask-security](https://pythonhosted.org/Flask-Security/features.html) extension can provide this functionality, as well as some other more advanced account management tools.
 
 ### 2. Additional Log Filters
 
@@ -312,6 +312,11 @@ The following features could be added in the future, given more development time
 
 * This was my first major project using Python and Flask, so there are a few areas where I feel the code could be made neater and more efficient.
 * In particular, more helper functions could be employed to avoid repeating common tasks across the different functions.
+
+### 6. Routine Sharing
+
+* A way for users to share the custom routines that they've designed could be included.
+* This could be placed on a new "Community Routines" page, from which users could select routines from other users to add to their 'My Routines' collection.
 
 ***
 
