@@ -1,6 +1,6 @@
 # Fitrio Fitness Tracker Application
 
-[Visit the live site](http://fitness-tracker-lmjh.herokuapp.com/).
+[Visit the live site](fitrio.onrender.com/).
 
 The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines.
 
