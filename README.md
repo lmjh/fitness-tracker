@@ -1,6 +1,6 @@
 # Fitrio Fitness Tracker Application
 
-[Visit the live site](fitrio.onrender.com/).
+[Visit the live site](https://fitrio.lmjh.dev/).
 
 The purpose of this application is to help people get fit and track their progress with simplified bodyweight circuit training that can be done at home. The world of exercise and fitness can be intimidating to newcomers and has many barriers to entry, like expensive equipment or overwhelmingly complicated routines.
 
@@ -340,7 +340,7 @@ The following features could be added in the future, given more development time
 7. [MongoDB](https://www.mongodb.com/) - Used for the application's database.
 7. [Flask](https://palletsprojects.com/p/flask/), [Jinja](https://jinja.palletsprojects.com/en/3.0.x/) and [Werkzeug](https://palletsprojects.com/p/werkzeug/) - Used to build the main application structure, page templates (Jinja) and account security (Werkzeug).
 8. [PyMongo](https://github.com/mongodb/mongo-python-driver) - Used to connect Python with MongoDB
-9. [Heroku](https://heroku.com/) - Used to deploy the site.
+9. [Railway](https://railway.app/) - Used to deploy the site.
 10. [Chart.js](https://www.chartjs.org/) - Used to render the routine progress charts.
 11. [Regexr](https://regexr.com/) - Used to assist with writing and testing regular expressions.
 12. [Affinity Designer](https://affinity.serif.com/en-gb/designer/) - Used to design logo and illustrations and to resize screenshots.
@@ -482,40 +482,6 @@ os.environ.setdefault("MONGO_DBNAME", "YOUR_DATABASE_NAME")
 os.environ.setdefault("ENV_DEBUG", "True")
 ```
 15. In the terminal, type `python app.py` to run the app. A link to the locally running instance of the app should be printed in the terminal window.
-
-### Remote Deployment
-
-The app is currently deployed on Heroku [here](http://fitness-tracker-lmjh.herokuapp.com/).
-
-To deploy your own copy of the app, follow the steps below:
-
-1. Sign up for a [Heroku account](https://www.heroku.com/).
-2. Check that you have a "requirements.txt" in your app's root directory. This tells Heroku what packages are required by the app. If you've cloned the main branch, this should already be present. If it's missing or if you have added any additional packages, you can generate a requirements.txt file by running the following command from the terminal of your IDE:
-```
-pip3 freeze --local > requirements.txt
-```
-3. Check that you have a "Procfile" in your app's root directory. This tells Heroku what kind of application you are trying to run. Again, if you've cloned the main branch, this should already be present. If it's missing, you can create a procfile by running the following command from the terminal of your IDE:
-```
-echo web: python app.py > Procfile
-```
-4. Check that there are no trailing blank lines at the bottom of your procfile. Delete any empty lines
-5. From your Heroku dashboard, click "New", then "Create a new app"
-6. Give the app a unique App name, pick the region closest to you, then click "Create App"
-7. From the "Deploy" menu, select GitHub as the Deployment Method, then enter your GitHub repository details and click "Connect"
-8. Open the "Settings" menu, scroll down to "Config Vars" and click "Reveal Config Vars"
-9. Enter the following Config Vars, replacing YOUR_MONGO_URI with your MongoDB URI, YOUR_DATABASE_NAME with your database name, and YOUR_SECRET_KEY with a suitable [secret key](https://flask.palletsprojects.com/en/2.0.x/config/#SECRET_KEY):
-```
-IP: 0.0.0.0
-PORT: 5000
-SECRET_KEY: YOUR_SECRET_KEY
-MONGO_URI: YOUR_MONGO_URI
-MONGO_DBNAME: YOUR_DATABASE_NAME
-ENV_DEBUG:
-```
-10. Note that ENV_DEBUG should be left blank, unless you wish to deploy the application with debug mode enabled
-11. Return to the "Deploy" menu, scroll to "Automatic deploys" and click "Enable Automatic Deploys"
-12. Choose your branch and then click "Deploy Branch"
-13. Once the application has finished deploying, click "View" to visit the site.
 
 ***
 
